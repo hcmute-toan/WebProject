@@ -80,7 +80,13 @@ Dự án này là một ứng dụng web Báo Điện Tử, được xây dựng
 Nếu bạn có bất kỳ câu hỏi nào, vui lòng liên hệ với chúng tôi qua email:
 
 > 22110079@student.hcmute.edu.vn
+<<<<<<< HEAD
 > 22110083@student.hcmute.edu.vn
+=======
+
+> 22110083@student.hcmute.edu.vn
+
+>>>>>>> 98aab5cb57b2ebb78a44332944a3b26f09b231c2
 > 22110086@student.hcmute.edu.vn
 
 ## Tài Nguyên Tham Khảo
