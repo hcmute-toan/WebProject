@@ -1,16 +1,12 @@
 .header {
-  background: green;
   height: 90px;
-  padding-top: 15px;
+  background-color: #fff;
   padding-bottom: 15px;
-  &__top {
-    display: flex;
-    align-items: center;
-  }
 }
 .weather {
   display: flex;
   align-items: center;
+  gap: 5px;
   &__img {
     width: 27px;
     height: 22px;
@@ -19,3 +15,14 @@
     font-size: 1.6rem;
   }
 }
+.des-current-day {
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
