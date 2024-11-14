@@ -1,8 +1,6 @@
-h1 {
-  color: red;
-}
-.img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+@use './base';
+@use './abstracts';
+@use './theme';
+@use './layout';
+@use './components';
+@use './pages';

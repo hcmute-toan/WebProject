@@ -1,69 +1,12 @@
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rises | Đời sống, Nghiên cứu, Xã hội, Giải trí, Quan điểm</title>
-    <!-- Favicon -->
-    <link
-      rel="icon"
-      type="image/png"
-      href="../public/assets/favicon/favicon-96x96.png"
-      sizes="96x96"
-    />
-    <link
-      rel="icon"
-      type="image/svg+xml"
-      href="../public/assets/favicon/favicon.svg"
-    />
-    <link rel="shortcut icon" href="../public/assets/favicon/favicon.ico" />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="../public/assets/favicon/apple-touch-icon.png"
-    />
-    <link rel="manifest" href="../public/assets/favicon/site.webmanifest" />
+<div class="main">
+  <div class="container">
+    <div class="row row-cols-2">
+      <div class="col">
 
-    <!-- Font -->
-    <link
-      rel="stylesheet"
-      href="../public/assets/font/PlayfairDisplay/stylesheet.css"
-    />
-    <link
-      rel="stylesheet"
-      href="../public/assets/font/SourceSansPro/stylesheet.css"
-    />
-    <!-- Css -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-      integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="/assets/css/main.css" />
-    <!-- Script -->
-  </head>
-  <body>
-    {{#each categories}}
-      <div class="card mb-3 col col-md-6 offset-md-4" style="max-width: 540px;">
-        <div class="row no-gutters">
-          <div class="col-md-4 img">
-            <a href="/categories/{{this.slug}}">
-              <img src="{{this.img}}" alt="{{this.title}}" />
-            </a>
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <a href="/categories/{{this.slug}}"><h5
-                  class="card-title"
-                >{{this.title}}</h5></a>
-              <p class="card-text">{{this.des}}</p>
-              <p class="card-text"><small
-                  class="text-muted"
-                >{{this.update_time}}</small></p>
-            </div>
-          </div>
-        </div>
       </div>
-    {{/each}}
-  </body>
-</html>
+      <div class="col">
+        
+      </div>
+    </div>
+  </div>
+</div>
