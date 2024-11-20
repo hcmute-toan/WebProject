@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const siteController = require('../app/controllers/SiteController');
-
-router.get('/login', siteController.search);
-router.get('/', siteController.index);
+const authController = require('../app/controllers/AuthController');
+router.get('/', authController.index);
 
 module.exports = router;

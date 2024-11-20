@@ -238,3 +238,40 @@
 // document.querySelector("html").classList.toggle("dark", isDark);
 
 // navbar toanvan
+// Lấy các nút và danh sách các danh mục
+const prevButton = document.querySelector(".nav-previous");
+const nextButton = document.querySelector(".nav-next");
+const categoryList = document.querySelector(".nav-header__category-list");
+
+// Hàm cuộn danh sách sang trái theo chiều rộng của một mục
+const moveLeft = () => {
+  categoryList.scrollBy({
+    left: -categoryList.querySelector(".nav-header__category-item").offsetWidth,
+    behavior: "smooth",
+  });
+};
+
+// Hàm cuộn danh sách sang phải theo chiều rộng của một mục
+const moveRight = () => {
+  categoryList.scrollBy({
+    left: categoryList.querySelector(".nav-header__category-item").offsetWidth,
+    behavior: "smooth",
+  });
+};
+
+// Thêm các sự kiện lắng nghe cho các nút
+prevButton.addEventListener("click", moveLeft);
+nextButton.addEventListener("click", moveRight);
+
+// Login, signup
+const authcontainer = document.getElementById("Authcontainer");
+const registerBtn = document.getElementById("register");
+const loginBtn = document.getElementById("login");
+
+registerBtn.addEventListener("click", () => {
+  authcontainer.classList.add("active");
+});
+
+loginBtn.addEventListener("click", () => {
+  authcontainer.classList.remove("active");
+});

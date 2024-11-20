@@ -1,14 +1,22 @@
-h1 {
+.authHeader {
+  background-color: rgb(53, 53, 53);
+  height: auto;
+}
+.branch {
+  h1 {
     color: #f2f5fe;
     text-align: center;
-    font-size: 60px;
-    line-height: 60px;
-    height: 60px;
+    font-size: 68px;
+    line-height: 70px;
+    height: 68px;
     font-family: "Rajdhani", sans-serif;
-    background: -webkit-linear-gradient(transparent, transparent),
+    font-weight: 700;
+    background:
+      -webkit-linear-gradient(transparent, transparent),
       url(https://html5book.ru/wp-content/uploads/2016/08/bubbles.png) repeat;
     background-size: 200px auto;
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
     animation: background 10s infinite linear;
   }
+}

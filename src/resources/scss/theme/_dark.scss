@@ -1,4 +1,5 @@
-@use '../abstracts';
+@use "../abstracts";
 
 html.dark {
+  --navControlBG: hsl(128, 63%, 45%);
 }

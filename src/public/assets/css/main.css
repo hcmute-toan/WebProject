@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -1360,6 +1361,24 @@ strong {
     background-position: 0 -200px;
   }
 }
+@keyframes move {
+  0%, 49.99% {
+    opacity: 0;
+    z-index: 1;
+  }
+  50%, 100% {
+    opacity: 1;
+    z-index: 5;
+  }
+}
+html.dark {
+  --navControlBG: hsl(128, 63%, 45%);
+}
+
+html {
+  --navControlBG: rgb(53, 53, 53);
+}
+
 .header {
   height: 90px;
   background-color: #fff;
@@ -1392,15 +1411,66 @@ strong {
 
 .footer {
   margin-top: 450px;
+  border-top: 1px solid #ccc;
+}
+.footer__middle .container {
+  border-top: 0.2px solid #ccc;
+  border-bottom: 0.2px solid #ccc;
+}
+.footer__middle .container .col:nth-of-type(2) {
+  border-left: 0.2px solid #ccc;
+  border-right: 0.2px solid #ccc;
+}
+.footer__bottom {
+  text-align: center;
+  margin-top: 5px;
 }
 
-h1 {
+.box-information {
+  height: auto;
+  text-align: left;
+  padding: 5px 10px;
+  max-width: 100%;
+}
+.box-information .social {
+  height: auto;
+}
+.box-information__title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  line-height: 1.6rem;
+  margin: 10px 0;
+}
+.box-information__text {
+  line-height: 1.8rem;
+}
+.box-information__adv {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 60px;
+  height: 60px;
+}
+
+.adv-img {
+  display: block;
+  width: 60px;
+  height: 60px;
+}
+
+.authHeader {
+  background-color: rgb(53, 53, 53);
+  height: auto;
+}
+
+.branch h1 {
   color: #f2f5fe;
   text-align: center;
-  font-size: 60px;
-  line-height: 60px;
-  height: 60px;
+  font-size: 68px;
+  line-height: 70px;
+  height: 68px;
   font-family: "Rajdhani", sans-serif;
+  font-weight: 700;
   background: -webkit-linear-gradient(transparent, transparent), url(https://html5book.ru/wp-content/uploads/2016/08/bubbles.png) repeat;
   background-size: 200px auto;
   -webkit-text-fill-color: transparent;
@@ -1494,7 +1564,7 @@ h1 {
 }
 
 .nav-control {
-  background-color: rgb(53, 53, 53);
+  background-color: var(--navControlBG);
   padding: 10px;
   height: 42px;
   cursor: pointer;
@@ -1530,7 +1600,7 @@ h1 {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  position: relative;
+  position: relative; /* Đảm bảo phần tử này là cha có position relative */
 }
 .nav-header__category-list {
   display: flex;
@@ -1542,19 +1612,23 @@ h1 {
   width: 100%;
   color: #fff;
   background-color: rgb(53, 53, 53);
+  overflow-x: hidden;
+  white-space: nowrap;
 }
 .nav-header__category-item {
-  width: 100%;
+  flex: 0 0 20%;
   height: 100%;
   cursor: pointer;
-  position: relative;
+  position: relative; /* Đảm bảo item có position relative */
+  z-index: 1; /* Đảm bảo item có z-index */
   font-size: 1.8rem;
 }
 .nav-header__category-item:hover ul {
-  display: block;
+  display: block; /* Hiển thị dropdown khi hover */
 }
 .nav-header__category-item-name {
   font-weight: bold;
+  width: 100%;
   height: 100%;
   text-align: center;
   align-content: center;
@@ -1564,14 +1638,14 @@ h1 {
   border-bottom: 3px solid rgb(219, 142, 84);
 }
 .nav-header__category-item ul {
-  display: none;
-  position: absolute;
-  top: 42px;
+  display: none; /* Mặc định ẩn */
+  position: absolute; /* Đặt dropdown ở vị trí tuyệt đối */
+  top: 100%; /* Đảm bảo dropdown nằm dưới item */
   left: 0;
   right: 0;
   background-color: rgb(53, 53, 53);
   padding: 3px;
-  z-index: 1;
+  z-index: 10; /* Đảm bảo dropdown nằm trên các phần tử khác */
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 .nav-header__category-item ul li {
@@ -1664,6 +1738,187 @@ h1 {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
+}
+
+.Authcontainer {
+  background-color: #fff;
+  border-radius: 30px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+  position: relative;
+  overflow: hidden;
+  width: 768px;
+  max-width: 100%;
+  min-height: 480px;
+}
+
+.Authcontainer p {
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.3px;
+  margin: 20px 0;
+}
+
+.Authcontainer span {
+  font-size: 12px;
+}
+
+.Authcontainer a {
+  color: #333;
+  font-size: 13px;
+  text-decoration: none;
+  margin: 15px 0 10px;
+}
+
+.Authcontainer button {
+  background-color: #512da8;
+  color: #fff;
+  font-size: 12px;
+  padding: 10px 45px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.Authcontainer button.hidden {
+  background-color: transparent;
+  border-color: #fff;
+}
+
+.Authcontainer form {
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 40px;
+  height: 100%;
+}
+
+.Authcontainer input {
+  background-color: #eee;
+  border: none;
+  margin: 8px 0;
+  padding: 10px 15px;
+  font-size: 13px;
+  border-radius: 8px;
+  width: 100%;
+  outline: none;
+}
+
+.form-container {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  transition: all 0.6s ease-in-out;
+}
+
+.sign-in {
+  left: 0;
+  width: 50%;
+  z-index: 2;
+}
+
+.Authcontainer.active .sign-in {
+  transform: translateX(100%);
+}
+
+.sign-up {
+  left: 0;
+  width: 50%;
+  opacity: 0;
+  z-index: 1;
+}
+
+.Authcontainer.active .sign-up {
+  transform: translateX(100%);
+  opacity: 1;
+  z-index: 5;
+  animation: move 0.6s;
+}
+
+.social-icons {
+  margin: 20px 0;
+}
+
+.social-icons a {
+  border: 1px solid #ccc;
+  border-radius: 20%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 3px;
+  width: 40px;
+  height: 40px;
+}
+
+.toggle-container {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  transition: all 0.6s ease-in-out;
+  border-radius: 150px 0 0 100px;
+  z-index: 1000;
+}
+
+.Authcontainer.active .toggle-container {
+  transform: translateX(-100%);
+  border-radius: 0 150px 100px 0;
+}
+
+.toggle {
+  background-color: #512da8;
+  height: 100%;
+  background: linear-gradient(to right, #5c6bc0, #512da8);
+  color: #fff;
+  position: relative;
+  left: -100%;
+  height: 100%;
+  width: 200%;
+  transform: translateX(0);
+  transition: all 0.6s ease-in-out;
+}
+
+.Authcontainer.active .toggle {
+  transform: translateX(50%);
+}
+
+.toggle-panel {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 30px;
+  text-align: center;
+  top: 0;
+  transform: translateX(0);
+  transition: all 0.6s ease-in-out;
+}
+
+.toggle-left {
+  transform: translateX(-200%);
+}
+
+.Authcontainer.active .toggle-left {
+  transform: translateX(0);
+}
+
+.toggle-right {
+  right: 0;
+  transform: translateX(0);
+}
+
+.Authcontainer.active .toggle-right {
+  transform: translateX(200%);
 }
 
 /*# sourceMappingURL=main.css.map */

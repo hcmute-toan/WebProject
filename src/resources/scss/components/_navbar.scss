@@ -1,6 +1,6 @@
 .nav {
   &-control {
-    background-color: rgb(53, 53, 53);
+    background-color: var(--navControlBG);
     padding: 10px;
     height: 42px;
     cursor: pointer;
@@ -39,7 +39,7 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    position: relative;
+    position: relative; /* Đảm bảo phần tử này là cha có position relative */
 
     &-list {
       display: flex;
@@ -51,20 +51,27 @@
       width: 100%;
       color: #fff;
       background-color: rgb(53, 53, 53);
+      overflow-x: hidden;
+      white-space: nowrap;
     }
+
     &-item {
-      width: 100%;
+      flex: 0 0 20%;
       height: 100%;
       cursor: pointer;
-      position: relative;
+      position: relative; /* Đảm bảo item có position relative */
+      z-index: 1; /* Đảm bảo item có z-index */
       font-size: 1.8rem;
+
       &:hover {
-        ul {
-          display: block;
+        & ul {
+          display: block; /* Hiển thị dropdown khi hover */
         }
       }
+
       &-name {
         font-weight: bold;
+        width: 100%;
         height: 100%;
         text-align: center;
         align-content: center;
@@ -73,18 +80,21 @@
           border-bottom: 3px solid rgb(219, 142, 84);
         }
       }
+
       ul {
-        display: none;
-        position: absolute;
-        top: 42px;
+        display: none; /* Mặc định ẩn */
+        position: absolute; /* Đặt dropdown ở vị trí tuyệt đối */
+        top: 100%; /* Đảm bảo dropdown nằm dưới item */
         left: 0;
         right: 0;
         background-color: rgb(53, 53, 53);
         padding: 3px;
-        z-index: 1;
+        z-index: 10; /* Đảm bảo dropdown nằm trên các phần tử khác */
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+
         li {
           padding: 5px 0;
+
           .nav-header__link {
             color: white;
             text-decoration: none;
@@ -96,7 +106,6 @@
       }
     }
   }
-
   &__contact-us {
     width: 42px;
     height: 42px;
@@ -108,6 +117,7 @@
     padding: 0 2px;
     background-color: rgb(53, 53, 53);
     border-radius: 0 10px 10px 0;
+
     &-img {
       width: 30px;
       height: 30px;
