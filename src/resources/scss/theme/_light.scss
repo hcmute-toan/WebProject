@@ -1,5 +1,10 @@
-@use '../abstracts';
+@use "../abstracts";
 
 html {
-    --navControlBG : rgb(53, 53, 53);
+  --BGCOLOR: #fff;
+  --TEXTCOLOR : #000;
+  --navControlBG: rgb(53, 53, 53);
+  --authBG: rgb(53, 53, 53); // chinh lai
+  --authButton: rgb(53, 53, 53); // chinh lai
+  --authBGLINEAR: #33353d;
 }

@@ -1,3 +1,5 @@
+@use "../abstracts" as abstracts;
+
 .nav {
   &-control {
     background-color: var(--navControlBG);
@@ -16,6 +18,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  @include abstracts.screen(lg) {
+    display: none;
+  }
 
   &__home {
     width: 42px;
@@ -48,6 +53,7 @@
       padding: 0 10px;
       transition: transform 0.3s ease;
       height: 42px;
+      // height: 300px;
       width: 100%;
       color: #fff;
       background-color: rgb(53, 53, 53);
@@ -58,16 +64,17 @@
     &-item {
       flex: 0 0 20%;
       height: 100%;
+      // height: 30px;
       cursor: pointer;
-      position: relative; /* Đảm bảo item có position relative */
       z-index: 1; /* Đảm bảo item có z-index */
       font-size: 1.8rem;
+      // position: relative;
 
-      &:hover {
-        & ul {
-          display: block; /* Hiển thị dropdown khi hover */
-        }
-      }
+      // &:hover {
+      //   & ul {
+      //     display: block; /* Hiển thị dropdown khi hover */
+      //   }
+      // }
 
       &-name {
         font-weight: bold;
@@ -83,7 +90,9 @@
 
       ul {
         display: none; /* Mặc định ẩn */
+        // display: block; /* Mặc định ẩn */
         position: absolute; /* Đặt dropdown ở vị trí tuyệt đối */
+        width: 19%;
         top: 100%; /* Đảm bảo dropdown nằm dưới item */
         left: 0;
         right: 0;

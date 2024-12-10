@@ -2,7 +2,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rises | Đời sống, Nghiên cứu, Xã hội, Giải trí, Quan điểm</title>
+    <title> Rises | User Actions </title>
     <!-- Favicon -->
     <link
       rel="icon"
@@ -28,12 +28,13 @@
   </head>
   <body>
     <header>
-        {{> authHeader}}
+        {{> header_auth}}
     </header>
     {{{body}}}
     <footer>
-        {{> authFooter}}
+        {{> footer}}
     </footer>
+    <script src="/assets/js/authActive.js"></script>
     <script src="/assets/js/main.js"></script>
   </body>
 </html>

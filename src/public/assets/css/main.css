@@ -1373,10 +1373,18 @@ strong {
 }
 html.dark {
   --navControlBG: hsl(128, 63%, 45%);
+  --authBG: rgb(53, 53, 53);
+  --authButton: rgb(53,53,53);
+  --authBGLINEAR: #33353d;
 }
 
 html {
+  --BGCOLOR: #fff;
+  --TEXTCOLOR: #000;
   --navControlBG: rgb(53, 53, 53);
+  --authBG: rgb(53, 53, 53);
+  --authButton: rgb(53, 53, 53);
+  --authBGLINEAR: #33353d;
 }
 
 .header {
@@ -1410,7 +1418,6 @@ html {
 }
 
 .footer {
-  margin-top: 450px;
   border-top: 1px solid #ccc;
 }
 .footer__middle .container {
@@ -1461,6 +1468,7 @@ html {
 .authHeader {
   background-color: rgb(53, 53, 53);
   height: auto;
+  width: 100%;
 }
 
 .branch h1 {
@@ -1580,6 +1588,11 @@ html {
   align-items: center;
   justify-content: space-between;
 }
+@media (max-width: 991.98px) {
+  .nav-header {
+    display: none;
+  }
+}
 .nav-header__home {
   width: 42px;
   height: 42px;
@@ -1619,12 +1632,8 @@ html {
   flex: 0 0 20%;
   height: 100%;
   cursor: pointer;
-  position: relative; /* Đảm bảo item có position relative */
   z-index: 1; /* Đảm bảo item có z-index */
   font-size: 1.8rem;
-}
-.nav-header__category-item:hover ul {
-  display: block; /* Hiển thị dropdown khi hover */
 }
 .nav-header__category-item-name {
   font-weight: bold;
@@ -1640,6 +1649,7 @@ html {
 .nav-header__category-item ul {
   display: none; /* Mặc định ẩn */
   position: absolute; /* Đặt dropdown ở vị trí tuyệt đối */
+  width: 19%;
   top: 100%; /* Đảm bảo dropdown nằm dưới item */
   left: 0;
   right: 0;
@@ -1704,6 +1714,12 @@ html {
   background-color: rgb(219, 142, 84);
 }
 
+.carousel-inner img {
+  height: 400px; /* Chiều cao mong muốn */
+  object-fit: cover; /* Đảm bảo ảnh được cắt mà không méo */
+  width: 100%;
+}
+
 .home {
   margin-bottom: 50px;
 }
@@ -1740,8 +1756,17 @@ html {
   margin-bottom: 20px;
 }
 
+.mainAuth {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .Authcontainer {
-  background-color: #fff;
+  background-color: var(--BGCOLOR);
   border-radius: 30px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
   position: relative;
@@ -1770,7 +1795,7 @@ html {
 }
 
 .Authcontainer button {
-  background-color: #512da8;
+  background-color: var(--authBG);
   color: #fff;
   font-size: 12px;
   padding: 10px 45px;
@@ -1873,9 +1898,9 @@ html {
 }
 
 .toggle {
-  background-color: #512da8;
+  background-color: var(--authButton);
   height: 100%;
-  background: linear-gradient(to right, #5c6bc0, #512da8);
+  background: linear-gradient(to right, var(--authBGLINEAR), var(--authBG));
   color: #fff;
   position: relative;
   left: -100%;
@@ -1919,6 +1944,42 @@ html {
 
 .Authcontainer.active .toggle-right {
   transform: translateX(200%);
+}
+
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f8d7da;
+  color: #721c24;
+  text-align: center;
+  padding: 20px;
+}
+.error-container .error-code {
+  font-size: 6rem;
+  font-weight: bold;
+}
+.error-container .error-message {
+  font-size: 2rem;
+  margin: 10px 0;
+}
+.error-container .error-description {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+.error-container .error-link {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #0056b3;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+.error-container .error-link:hover {
+  background-color: rgb(0, 61.4972067039, 128);
 }
 
 /*# sourceMappingURL=main.css.map */

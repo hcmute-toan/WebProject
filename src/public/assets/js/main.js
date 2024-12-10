@@ -251,7 +251,7 @@ const moveLeft = () => {
   });
 };
 
-// Hàm cuộn danh sách sang phải theo chiều rộng của một mục
+// Hàm cuộn danh sách sang  phải theo chiều rộng của một mục
 const moveRight = () => {
   categoryList.scrollBy({
     left: categoryList.querySelector(".nav-header__category-item").offsetWidth,
@@ -263,15 +263,182 @@ const moveRight = () => {
 prevButton.addEventListener("click", moveLeft);
 nextButton.addEventListener("click", moveRight);
 
-// Login, signup
-const authcontainer = document.getElementById("Authcontainer");
-const registerBtn = document.getElementById("register");
-const loginBtn = document.getElementById("login");
+const headings = document.querySelectorAll(".nav-header__category-item-name");
+let currentList = null; // Biến để theo dõi danh sách hiện tại
 
-registerBtn.addEventListener("click", () => {
-  authcontainer.classList.add("active");
+headings.forEach(function (heading) {
+  const parent = heading.parentElement;
+  const list = parent.querySelector(".nav-item");
+
+  heading.addEventListener("click", function (e) {
+    e.stopPropagation(); // Ngăn chặn sự kiện click lan ra ngoài
+
+    // Lấy vị trí của phần tử heading
+    const rect = heading.getBoundingClientRect();
+    const top = rect.top + window.scrollY; // Vị trí top trong tran
+    const left = rect.left + window.scrollX; // Vị trí left trong trang
+    list.style.top = top - 20;
+    list.style.left = left - 154;
+    // In ra vị trí
+
+    // Nếu danh sách hiện tại không phải là danh sách đang được click, ẩn danh sách hiện tại
+    if (currentList && currentList !== list) {
+      currentList.style.display = "none"; // Ẩn danh sách hiện tại
+    }
+
+    // Hiển thị danh sách mới
+    if (list.style.display === "block") {
+      list.style.display = "none"; // Nếu danh sách đã hiển thị, ẩn đi
+      currentList = null; // Đặt currentList về null
+    } else {
+      list.style.display = "block"; // Nếu chưa hiển thị, hiển thị
+      currentList = list; // Cập nhật currentList
+    }
+  });
 });
 
-loginBtn.addEventListener("click", () => {
-  authcontainer.classList.remove("active");
+// Thêm sự kiện click cho toàn bộ tài liệu để ẩn danh sách khi click ra ngoài
+document.addEventListener("click", function () {
+  if (currentList) {
+    currentList.style.display = "none"; // Ẩn danh sách hiện tại
+    currentList = null; // Đặt currentList về null
+  }
 });
+
+// const headings = document.querySelectorAll(".nav-header__category-item-name");
+// headings.forEach(function (heading) {
+//   heading.addEventListener("click", function (e) {
+//     const parent = heading.parentElement;
+//     const list = parent.querySelector("#nav-item");
+//     list.style.display = "block";
+//     // Ngừng sự kiện click mặc định (tránh bị bắt bởi sự kiện click bên ngoài)
+//     e.stopPropagation();
+
+//     // Lấy vị trí của phần tử heading trong cửa sổ trình duyệt
+//     const rect = heading.getBoundingClientRect();
+
+//     // Vị trí của heading
+//     const top = rect.top;
+//     const left = rect.left;
+
+//     // In ra kết quả
+//     console.log(
+//       "Vị trí của heading - Top: " + top + "px, Left: " + left + "px"
+//     );
+
+//     // Nếu muốn tính vị trí trong mốc toạ độ của toàn bộ trang
+//     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+//     const scrollLeft =
+//       window.pageXOffset || document.documentElement.scrollLeft;
+
+//     const absoluteTop = top + scrollTop;
+//     const absoluteLeft = left + scrollLeft;
+
+//     console.log(
+//       "Vị trí tuyệt đối của heading trong trang - Top: " +
+//         absoluteTop +
+//         "px, Left: " +
+//         absoluteLeft +
+//         "px"
+//     );
+//   });
+// });
+
+// const headings = document.querySelectorAll(".nav-header__category-item-name");
+
+// headings.forEach(function (heading) {
+//   heading.addEventListener("click", function (e) {
+//     // Ngừng sự kiện click mặc định (tránh bị bắt bởi sự kiện click bên ngoài)
+//     e.stopPropagation();
+
+//     const parent = heading.parentElement;
+//     const list = parent.querySelector("#nav-item");
+
+//     // Ẩn tất cả các list khác trước khi hiển thị list tương ứng
+//     document.querySelectorAll("#nav-item").forEach(function (otherList) {
+//       if (otherList !== list) {
+//         otherList.style.display = "none";
+//       }
+//     });
+
+//     // Toggle hiển thị của list
+//     if (list.style.display === "block") {
+//       list.style.display = "none"; // Nếu đã hiển thị, ẩn đi
+//     } else {
+//       list.style.display = "block"; // Nếu chưa hiển thị, hiển thị
+//     }
+
+//     // Lấy vị trí của phần tử heading trong cửa sổ trình duyệt
+//     const rect = heading.getBoundingClientRect();
+
+//     // Vị trí của heading
+//     const top = rect.top;
+//     const left = rect.left;
+
+//     // In ra kết quả
+//     console.log(
+//       "Vị trí của heading - Top: " + top + "px, Left: " + left + "px"
+//     );
+
+//     // Nếu muốn tính vị trí trong mốc toạ độ của toàn bộ trang
+//     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+//     const scrollLeft =
+//       window.pageXOffset || document.documentElement.scrollLeft;
+
+//     const absoluteTop = top + scrollTop;
+//     const absoluteLeft = left + scrollLeft;
+
+//     console.log(
+//       "Vị trí tuyệt đối của heading trong trang - Top: " +
+//         absoluteTop +
+//         "px, Left: " +
+//         absoluteLeft +
+//         "px"
+//     );
+//   });
+// });
+
+// // Lắng nghe sự kiện click bên ngoài để ẩn các list khi nhấp ra ngoài
+// document.addEventListener("click", function () {
+//   document.querySelectorAll("#nav-item").forEach(function (list) {
+//     list.style.display = "none";
+//   });
+// });
+
+//Lấy tất cả các phần tử có lớp .nav-header__category-item-name
+// const headings = document.querySelectorAll(".nav-header__category-item-name");
+
+// headings.forEach(function (heading) {
+//   heading.addEventListener("click", function (e) {
+//     // Ngừng sự kiện click mặc định (tránh bị bắt bởi sự kiện click bên ngoài)
+//     e.stopPropagation();
+
+//     // Lấy vị trí của phần tử heading trong cửa sổ trình duyệt
+//     const rect = heading.getBoundingClientRect();
+
+//     // Vị trí của heading
+//     const top = rect.top;
+//     const left = rect.left;
+
+//     // In ra kết quả
+//     console.log(
+//       "Vị trí của heading - Top: " + top + "px, Left: " + left + "px"
+//     );
+
+//     // Nếu muốn tính vị trí trong mốc toạ độ của toàn bộ trang
+//     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+//     const scrollLeft =
+//       window.pageXOffset || document.documentElement.scrollLeft;
+
+//     const absoluteTop = top + scrollTop;
+//     const absoluteLeft = left + scrollLeft;
+
+//     console.log(
+//       "Vị trí tuyệt đối của heading trong trang - Top: " +
+//         absoluteTop +
+//         "px, Left: " +
+//         absoluteLeft +
+//         "px"
+//     );
+//   });
+// });
