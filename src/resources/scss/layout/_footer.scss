@@ -1,45 +1,69 @@
 .footer {
   border-top: 1px solid #ccc;
+
   &__middle {
     .container {
       border-top: 0.2px solid #ccc;
       border-bottom: 0.2px solid #ccc;
+
       .col:nth-of-type(2) {
         border-left: 0.2px solid #ccc;
         border-right: 0.2px solid #ccc;
       }
     }
   }
+
   &__bottom {
     text-align: center;
     margin-top: 5px;
   }
 }
+
 .box-information {
   height: auto;
   text-align: left;
   padding: 5px 10px;
   max-width: 100%;
+
   .social {
     height: auto;
   }
+
   &__title {
     font-size: 1.8rem;
     font-weight: 600;
     line-height: 1.6rem;
     margin: 10px 0;
   }
+
   &__text {
     line-height: 1.8rem;
   }
+
   &__adv {
     display: flex;
-    align-items: center;
-    justify-content: space-around;
-    width: 60px;
-    height: 60px;
+    flex-direction: column; // Đặt chiều dọc cho các phần tử
+    align-items: center; // Căn giữa cho các phần tử
+    width: 100%; // Đảm bảo chiếm toàn bộ chiều rộng
+    margin-top: 10px; // Thêm khoảng cách giữa hình ảnh và nội dung
+    flex-wrap: wrap;
+
+    .adv-content {
+      p {
+        margin-right: auto;
+        width: 100%;
+        word-wrap: break-word;
+        white-space: normal;
+      }
+    }
+
+    @media (min-width: 768px) {
+      flex-direction: row; // Đặt chiều ngang cho màn hình lớn hơn
+      justify-content: space-between; // Căn chỉnh các phần tử
+    }
   }
 }
+
 .adv-img {
   display: block;
   width: 60px;

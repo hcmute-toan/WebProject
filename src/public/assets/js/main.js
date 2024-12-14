@@ -262,7 +262,43 @@ const moveRight = () => {
 // Thêm các sự kiện lắng nghe cho các nút
 prevButton.addEventListener("click", moveLeft);
 nextButton.addEventListener("click", moveRight);
+//typetext
+const textElement = document.getElementById("typewriter-text");
+const text = textElement.textContent; // Lấy nội dung văn bản
+textElement.textContent = ""; // Xóa nội dung ban đầu
 
+let index = 0;
+let typingComplete = false; // Biến để theo dõi trạng thái gõ chữ
+
+// Hàm gõ chữ
+function type() {
+  if (index < text.length) {
+    textElement.textContent += text.charAt(index); // Thêm ký tự vào văn bản
+    index++;
+
+    // Nếu chiều dài văn bản vượt quá chiều rộng phần tử cha
+    if (textElement.scrollWidth > textElement.clientWidth) {
+      // Loại bỏ ký tự đầu tiên để tạo không gian
+      textElement.textContent = textElement.textContent.slice(1);
+    }
+
+    setTimeout(type, 50); // Thay đổi tốc độ gõ ở đây
+  } else {
+    typingComplete = true; // Đánh dấu là đã gõ xong
+    setTimeout(() => {
+      index = 0; // Đặt lại chỉ số
+      textElement.textContent = ""; // Xóa văn bản
+      typingComplete = false; // Đặt lại trạng thái gõ chữ
+      type(); // Bắt đầu lại quá trình gõ
+    }, 1000); // Thời gian nghỉ trước khi bắt đầu lại
+  }
+}
+
+// Bắt đầu quá trình gõ
+type();
+
+
+//dropdown
 const headings = document.querySelectorAll(".nav-header__category-item-name");
 let currentList = null; // Biến để theo dõi danh sách hiện tại
 

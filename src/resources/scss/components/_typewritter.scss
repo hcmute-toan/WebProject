@@ -1,0 +1,14 @@
+/* DEMO-SPECIFIC STYLES */
+.typewriter h1 {
+    color: #000;
+    font-family: monospace;
+    overflow: hidden; /* Ẩn nội dung khi vượt quá chiều rộng */
+    border-right: .15em solid orange; /* Tạo con trỏ gõ */
+    white-space: nowrap; /* Đảm bảo văn bản không xuống dòng */
+    margin: 0 auto; /* Căn giữa */
+    letter-spacing: .15em; /* Khoảng cách giữa các chữ */
+    display: inline-block; /* Giúp hiệu ứng hoạt động tốt hơn */
+    width: 100%; /* Đảm bảo phần tử cha có chiều rộng đầy đủ */
+    position: relative; /* Để con trỏ có thể áp dụng đúng */
+    animation: blink-caret .5s step-end infinite; /* Hiệu ứng nháy con trỏ */
+}

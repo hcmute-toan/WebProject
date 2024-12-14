@@ -17,3 +17,21 @@
         z-index: 5;
     }
 }
+/* Hiệu ứng gõ chữ */
+@keyframes typing {
+  0% {
+      width: 0;
+      clip-path: inset(0 100% 0 0); /* Bắt đầu từ ẩn */
+  }
+  100% {
+      width: 100%;
+      clip-path: inset(0 0 0 0); /* Hiện toàn bộ chữ */
+  }
+}
+
+/* Hiệu ứng nháy con trỏ */
+@keyframes blink-caret {
+  50% {
+      border-color: transparent; /* Con trỏ biến mất giữa nháy */
+  }
+}
