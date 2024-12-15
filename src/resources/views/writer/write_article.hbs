@@ -1,0 +1,66 @@
+<div class="article-container">
+  <h1 class="form-header">Thêm Bài Viết</h1>
+
+  <form
+    action="/writer/create"
+    method="POST"
+    enctype="multipart/form-data"
+    class="article-form"
+  >
+    <!-- Tiêu đề -->
+    <div class="form-group">
+      <label for="title">Tiêu Đề</label>
+      <input
+        type="text"
+        id="title"
+        name="title"
+        class="form-control"
+        required
+        placeholder="Nhập tiêu đề bài viết"
+      />
+    </div>
+
+    <!-- Tóm tắt -->
+    <div class="form-group">
+      <label for="summary">Tóm Tắt</label>
+      <textarea
+        id="summary"
+        name="summary"
+        class="form-control"
+        rows="3"
+        required
+        placeholder="Nhập tóm tắt bài viết"
+      ></textarea>
+    </div>
+
+    <!-- Thể loại -->
+    <div class="form-group">
+      <label for="category_id">Thể Loại</label>
+      <select id="category_id" name="category_id" class="form-control">
+        <option value="">Chọn thể loại</option>
+        {{#each categories}}
+          <option value="{{this._id}}">{{this.name}}</option>
+        {{/each}}
+      </select>
+    </div>
+
+    <!-- Hình ảnh -->
+    <div class="form-group">
+      <label for="image">Hình Ảnh</label>
+      <input type="file" id="image" name="image" class="form-control-file" />
+    </div>
+
+    <!-- Nội dung -->
+    <div class="form-group">
+      <label for="content">Nội Dung</label>
+      <textarea id="content" class="form-control content" ></textarea>
+    </div>
+
+    <!-- Nút gửi -->
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Thêm Bài Viết</button>
+    </div>
+  </form>
+</div>
+
+

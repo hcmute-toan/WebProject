@@ -1,0 +1,64 @@
+<h1>Quản Lý Bài Viết</h1>
+
+<!-- Nút thêm bài viết -->
+<div class="add-btn-container">
+  <a href="/writer/write-article" class="btn btn-add">Thêm bài viết</a>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ảnh</th>
+      <th>Tiêu đề</th>
+      <th>Ngày tạo</th>
+      <th>Tóm tắt</th>
+      <th>Thể loại</th>
+      <th>Trạng thái</th>
+      <th>Hành động</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each articles}}
+      <tr>
+        <td>
+          {{#if image_url}}
+            <img
+              src="{{image_url}}"
+              alt="Hình ảnh bài viết"
+              class="article-img"
+            />
+          {{else}}
+            Không có ảnh
+          {{/if}}
+        </td>
+        <td>{{title}}</td>
+        <td>{{formatDate created_at}}</td>
+        <td>{{summary}}</td>
+        <td>
+          {{#if category_id}}
+            {{#if category_id.name}}{{category_id.name}}{{else}}Không có tên thể
+              loại{{/if}}
+          {{else}}
+            Không có thể loại
+          {{/if}}
+        </td>
+        <td>
+          {{#if (eq status "draft")}}
+            <span class="status draft">Chưa được duyệt</span>
+          {{else if (eq status "pending")}}
+            <span class="status pending">Chờ xuất bản</span>
+          {{else if (eq status "published")}}
+            <span class="status published">Đã xuất bản</span>
+          {{else if (eq status "rejected")}}
+            <span class="status rejected">Bị từ chối</span>
+          {{else}}
+            Không có trạng thái
+          {{/if}}</td>
+
+        <td>
+          <a href="/writer/edit-article" class="btn btn-edit">Sửa</a>
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

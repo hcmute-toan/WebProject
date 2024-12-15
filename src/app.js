@@ -6,6 +6,17 @@ const app = express();
 const port = 3000;
 const route = require("./routes");
 const db = require("./config/db");
+const moment = require("moment");
+
+// Đăng ký helper 'eq' để so sánh hai giá trị
+const handlebars = require("handlebars");
+handlebars.registerHelper("eq", function (a, b) {
+  return a === b;
+});
+handlebars.registerHelper("formatDate", function (date) {
+  return moment(date).format("DD/MM/YYYY"); // Định dạng theo kiểu 'DD/MM/YYYY'
+});
+
 // Connect to db
 db.connect();
 // Static file
@@ -19,6 +30,7 @@ app.engine(
     extname: ".hbs",
     layoutsDir: path.join(__dirname, "resources", "views", "layouts"),
     partialsDir: path.join(__dirname, "resources", "views", "partials"),
+    allowProtoPropertiesByDefault: true,
   })
 ); // Use 'engine' instead of 'exphbs'
 app.set("view engine", "hbs");
