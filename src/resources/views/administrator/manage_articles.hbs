@@ -1,0 +1,63 @@
+<div class="container mt-5">
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-3">
+        <ul class="admin__list">
+          <li class="admin__item">
+            <a href="/admin/dashboard"><span>
+                Dashboard</span></a>
+          </li>
+          <li class="admin__item active">
+            <a href="/admin/manage-articles"><span>
+                Manage Articles</span></a>
+          </li>
+          <li class="admin__item">
+            <a href="/admin/manage-users"><span>
+                Manage Users</span></a>
+          </li>
+          <li class="admin__item">
+            <a href="/admin/manage-categories"><span>
+                Manage Categories</span></a>
+          </li>
+          <li class="admin__item">
+            <a href="/admin/manage-tags"><span>
+                Manage Tags</span></a>
+          </li>
+          <li class="admin__item">
+            <a href="/admin/extend-subscription"><span>
+                Extend Subscription</span></a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-9">
+        <h1 class="admin__heading"> Manage Articles</h1>
+        <h1>Manage Articles</h1>
+        <input type="text" placeholder="Search articles..." id="search" />
+        <table class="admin__table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Author</th>
+              <th>Category</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="articleList">
+            <tr>
+              <td>1</td>
+              <td>How to Learn JavaScript</td>
+              <td>Admin</td>
+              <td>Programming</td>
+              <td>
+                <button>Edit</button>
+                <button>Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
