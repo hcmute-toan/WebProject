@@ -13,6 +13,13 @@ class AuthController {
   otpVerification(req, res) {
     res.render("auth/otp_verification", { layout: "auth" });
   }
+
+  reset_password(req, res) {
+    res.render("auth/reset_password", { layout: "auth" });
+  }
+  change_password(req, res) {
+    res.render("auth/change_password", { layout: "auth" });
+  }
 }
 
 module.exports = new AuthController();

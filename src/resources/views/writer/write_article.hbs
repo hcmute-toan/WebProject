@@ -1,0 +1,67 @@
+<div class="article-container">
+  <h1 class="form-header">Add Article</h1>
+
+  <form
+    action="/writer/create"
+    method="POST"
+    enctype="multipart/form-data"
+    class="article-form"
+  >
+    <!-- Tiêu đề -->
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input
+        type="text"
+        id="title"
+        name="title"
+        class="form-control"
+        required
+        placeholder="Enter article title"
+      />
+    </div>
+
+    <!-- Tóm tắt -->
+    <div class="form-group">
+      <label for="summary">Summary</label>
+      <textarea
+        id="summary"
+        name="summary"
+        class="form-control"
+        rows="3"
+        required
+        placeholder="Enter article summary"
+      ></textarea>
+    </div>
+
+    {{!-- <!-- Thể loại -->
+    <div class="form-group">
+      <label for="category_id">Category</label>
+      <select id="category_id" name="category_id" class="form-control">
+        <option value="">Select category</option>
+        {{#each categories}}
+          <option value="{{this._id}}">{{this.name}}</option>
+        {{/each}}
+      </select>
+    </div> --}}
+
+    <!-- Hình ảnh -->
+    <div class="form-group">
+      <label for="image">Image</label>
+      <input type="file" id="image" name="image" class="form-control-file" />
+    </div>
+
+    <!-- Nội dung -->
+    <div class="form-group">
+      <label for="content">Content</label>
+      <textarea
+        id="content"
+        class="form-control content"
+        name="content"
+      ></textarea>
+    </div>
+    <!-- Nút gửi -->
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Add Article</button>
+    </div>
+  </form>
+</div>

@@ -6,5 +6,5 @@ const writerController = require('../app/controllers/writer.controller');
 router.get('/dashboard', writerController.dashboard);
 router.get('/edit-article', writerController.editArticle);
 router.get('/write-article', writerController.writeArticle);
-
+router.get('/view-article', writerController.viewArticle);
 module.exports = router;

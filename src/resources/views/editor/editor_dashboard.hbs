@@ -1,0 +1,81 @@
+<div class="authHeader">
+  <div class="branch"><h1>Article Management</h1></div>
+</div>
+<div class="container">
+  <!-- Nút thêm bài viết -->
+  <div class="action_btn">
+    <div class="back-btn-container">
+      <a href="/" class="btn btn-back">Back</a>
+    </div>
+    <div class="add-btn-container">
+      <a href="/writer/write-article" class="btn btn-add">Add article</a>
+    </div>
+
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Image</th>
+          <th>Title</th>
+          <th>Date created</th>
+          <th>Summary</th>
+          <th>Category</th>
+          <th>Status</th>
+          <th>Act</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#if articles.length}}
+          {{#each articles}}
+            <tr>
+              <td>{{increment @index}}</td>
+              <td>
+                {{#if image_url}}
+                  <img
+                    src="{{image_url}}"
+                    alt="Article image"
+                    class="article-img"
+                  />
+                {{else}}
+                  No photo
+                {{/if}}
+              </td>
+              <td>{{title}}</td>
+              <td>{{formatDate created_at}}</td>
+              <td>{{summary}}</td>
+              <td>
+                {{#if category_id}}
+                  {{#if category_id.name}}{{category_id.name}}{{else}}No
+                    category name{{/if}}
+                {{else}}
+                  No category
+                {{/if}}
+              </td>
+              <td>
+                {{#if (eq status "draft")}}
+                  <span class="status draft">Not approved yet</span>
+                {{else if (eq status "published")}}
+                  <span class="status published">Published</span>
+                {{else if (eq status "rejected")}}
+                  <span class="status rejected">Rejected</span>
+                {{else}}
+                  No status
+                {{/if}}
+              </td>
+              <td>
+                <a href="/writer/edit-article" class="btn btn-edit">Fix</a>
+              </td>
+            </tr>
+          {{/each}}
+        {{else}}
+          <tr>
+            <td colspan="7"><h1>Empty</h1></td>
+          </tr>
+        {{/if}}
+      </tbody>
+    </table>
+  </div>
+</div>
