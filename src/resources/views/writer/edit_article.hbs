@@ -1,9 +1,65 @@
-<div class="container">
-    <div class="overview_article">
-        <textarea
-                id="content"
-                class="form-control content"
-                name="content"
-        ></textarea>
-    </div>
-</div>
+<form
+  action="/writer/update-article/{{article._id}}"
+  method="POST"
+  {{!-- enctype="multipart/form-data" --}}
+  class="article-form"
+>
+  <!-- Tiêu đề -->
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input
+      type="text"
+      id="title"
+      name="title" 
+      class="form-control"
+      required
+      placeholder="Enter article title"
+      value="{{article.title}}"
+    />
+  </div>
+
+  <!-- Tóm tắt -->
+  <div class="form-group">
+    <label for="summary">Summary</label>
+    <textarea
+      id="summary"
+      name="summary" 
+      class="form-control"
+      rows="3"
+      required
+      placeholder="Enter article summary"
+    >{{article.summary}}</textarea>
+  </div>
+
+
+  <div class="form-group">
+    <label for="image">Image</label>
+    <input type="file" id="image" name="image" class="form-control-file" />
+   
+    {{#if article.image_url}}
+      <div>
+        <p>Current Image:</p>
+        <img
+          src="{{article.image_url}}"
+          alt="Current image"
+          class="img-thumbnail"
+        />
+      </div>
+    {{/if}}
+  </div>
+
+  <!-- Nội dung -->
+  <div class="form-group">
+    <label for="content">Content</label>
+    <textarea
+      id="content"
+      class="form-control content"
+      name="content"  
+    >{{article.content}}</textarea>
+  </div>
+
+  <!-- Nút gửi -->
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary">Update Article</button>
+  </div>
+</form>
