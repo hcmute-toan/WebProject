@@ -58,6 +58,7 @@ class WriterController {
       article.summary = summary;
       article.content = content;
       article.category_id = category_id || article.category_id;
+      article.status ="draft";
 
       if (req.file) {
         article.image_url = req.file.path;

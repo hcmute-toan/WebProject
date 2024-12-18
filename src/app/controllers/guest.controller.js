@@ -1,7 +1,7 @@
 class GuestController {
     // Trang chủ dành cho guest
     index(req, res) {
-        res.render('guest/index', { layout: 'main', isSubscriber: false });
+                res.render('guest/index', { layout: 'main', isSubscriber: false });
     }
 
     // Chi tiết bài viết

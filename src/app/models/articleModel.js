@@ -13,6 +13,7 @@ const ArticleSchema = new Schema({
         enum: ['draft', 'pending', 'published', 'rejected'],
         default: 'draft',
     },
+    Release_at: {type:Date,default:null},
     created_at: { type: Date, default: Date.now },
     updated_at: { type: Date, default: Date.now },
 });

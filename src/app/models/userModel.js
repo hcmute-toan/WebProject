@@ -5,8 +5,8 @@ const Schema = mongoose.Schema;
 // User Schema
 const UserSchema = new Schema({
     username: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true }, // default null. local: gg, fb. local(dk thuong)
+    email: { type: String, required: true, unique: true }, 
     role: {
         type: String,
         enum: ['guest', 'subscriber', 'writer', 'editor', 'administrator'],
