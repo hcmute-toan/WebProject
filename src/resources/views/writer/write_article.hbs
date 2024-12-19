@@ -2,10 +2,10 @@
   <h1 class="form-header">Add Article</h1>
 
   <form
-    action="/writer/create"
+    action="/writer/create-article"
     method="POST"
-    enctype="multipart/form-data"
     class="article-form"
+    enctype="multipart/form-data"
   >
     <!-- Tiêu đề -->
     <div class="form-group">
@@ -47,9 +47,20 @@
     <!-- Hình ảnh -->
     <div class="form-group">
       <label for="image">Image</label>
-      <input type="file" id="image" name="image" class="form-control-file" />
+      <img
+        id="new-image-preview"
+        src=""
+        alt="New Image Preview"
+        style="width: 150px; height: 150px; object-fit: cover; display: none; margin-top: 10px;"
+      />
+      <input
+        type="file"
+        id="image"
+        name="image"
+        class="form-control-file"
+        accept="image/*"
+      />
     </div>
-
     <!-- Nội dung -->
     <div class="form-group">
       <label for="content">Content</label>

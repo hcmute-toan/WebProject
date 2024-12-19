@@ -1,9 +1,94 @@
-<div class="container">
-    <div class="overview_article">
-        <textarea
-                id="content"
-                class="form-control content"
-                name="content"
-        ></textarea>
+<div class="article-container">
+  <h1 class="form-header">Add Article</h1>
+
+  <form
+    action="/writer/{{article._id}}/update-article?_method=PUT"
+    method="POST"
+    class="article-form"
+    enctype="multipart/form-data"
+  >
+    <!-- Tiêu đề -->
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input
+        type="text"
+        id="title"
+        name="title"
+        class="form-control"
+        required
+        placeholder="Enter article title"
+        value="{{article.title}}"
+      />
     </div>
+
+    <!-- Tóm tắt -->
+    <div class="form-group">
+      <label for="summary">Summary</label>
+      <textarea
+        id="summary"
+        name="summary"
+        class="form-control"
+        rows="3"
+        required
+        placeholder="Enter article summary"
+      >{{article.summary}}</textarea>
+    </div>
+
+    <!-- Thể loại -->
+    <div class="form-group">
+      <label for="category_id">Category</label>
+      <select id="category_id" name="category_id" class="form-control">
+        <option
+          value="{{article.parent_id._id}}"
+        >{{article.category_id.name}}</option>
+        {{#each category}}
+          <option value="{{this._id}}">{{this.name}}</option>
+        {{/each}}
+      </select>
+    </div>
+
+    <!-- Hình ảnh -->
+    <div class="form-group">
+      <label for="image">Image</label>
+      {{#if article.image_url}}
+        <img
+          id="current-image"
+          src="{{article.image_url}}"
+          alt="Current Image"
+          style="width: 150px; height: 150px; object-fit: cover; margin-bottom: 10px;"
+        />
+      {{else}}
+        <p style="font-size: 2rem; color : red">No Photo</p>
+      {{/if}}
+      <label for="image">Upload New Image</label>
+      <img
+        id="new-image-preview"
+        src=""
+        alt="New Image Preview"
+        style="width: 150px; height: 150px; object-fit: cover; display: none; margin-top: 10px;"
+      />
+
+      <input
+        type="file"
+        id="image"
+        name="image"
+        class="form-control-file"
+        accept="image/*"
+      />
+    </div>
+
+    <!-- Nội dung -->
+    <div class="form-group">
+      <label for="content">Content</label>
+      <textarea
+        id="content"
+        class="form-control content"
+        name="content"
+      >{{article.content}}</textarea>
+    </div>
+    <!-- Nút gửi -->
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Add Article</button>
+    </div>
+  </form>
 </div>

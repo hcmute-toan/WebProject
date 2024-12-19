@@ -2,9 +2,18 @@
 
 html {
   --BGCOLOR: #fff;
-  --TEXTCOLOR : #000;
+  --TEXTCOLOR: #000;
   --navControlBG: rgb(53, 53, 53);
   --authBG: rgb(53, 53, 53); // chinh lai
   --authButton: rgb(53, 53, 53); // chinh lai
   --authBGLINEAR: #33353d;
+  // act dropdown
+  --act-dropdown-bg: #fff;
+  --act-dropdown-shadow: rgba(200, 200, 200, 0.4);
+  --act-dropdown-title-color: #1a162e;
+  --act-dropdown-bottom-border: #d2d1d6;
+  --act-dropdown-arrow-filter: brightness(0) saturate(100%) invert(100%)
+    sepia(1%) saturate(521%) hue-rotate(156deg) brightness(111%) contrast(84%);
+  //separate
+  --separate-color: #292e39;
 }

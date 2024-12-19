@@ -2,15 +2,16 @@
   <div class="branch"><h1>Article Management</h1></div>
 </div>
 <div class="container">
-  <!-- Nút thêm bài viết -->
   <div class="action_btn">
     <div class="back-btn-container">
       <a href="/" class="btn btn-back">Back</a>
     </div>
-    <div class="add-btn-container">
-      <a href="/writer/write-article" class="btn btn-add">Add article</a>
-    </div>
-
+  </div>
+  <div class="filter-buttons">
+    <a href="/editor/dashboard?filter=all" class="btn">All</a>
+    <a href="/editor/dashboard?filter=draft" class="btn">Pending Approval</a>
+    <a href="/editor/dashboard?filter=rejected" class="btn">Rejected</a>
+    <a href="/editor/dashboard?filter=published" class="btn">Published</a>
   </div>
 
   <div class="table-responsive">
@@ -30,7 +31,7 @@
       <tbody>
         {{#if articles.length}}
           {{#each articles}}
-            <tr>
+            <tr class="clickable-row" data-id="{{_id}}">
               <td>{{increment @index}}</td>
               <td>
                 {{#if image_url}}
@@ -55,27 +56,150 @@
                 {{/if}}
               </td>
               <td>
-                {{#if (eq status "draft")}}
-                  <span class="status draft">Not approved yet</span>
+                {{#if (eq status "rejected")}}
+                  <span class="status rejected">Rejected</span>
                 {{else if (eq status "published")}}
                   <span class="status published">Published</span>
-                {{else if (eq status "rejected")}}
-                  <span class="status rejected">Rejected</span>
                 {{else}}
-                  No status
+                  <span class="status draft">Not approved yet</span>
                 {{/if}}
               </td>
               <td>
-                <a href="/writer/edit-article" class="btn btn-edit">Fix</a>
+                {{#if (eq status "rejected")}}
+                  <span class="status rejected">Rejected</span>
+                {{else if (eq status "published")}}
+                  <span class="status published">Published</span>
+                {{else}}
+                  <form
+                    action="/editor/approve-article/{{_id}}"
+                    method="POST"
+                    style="display:inline;"
+                  >
+                    <button
+                      type="button"
+                      class="btn btn-approve"
+                      data-toggle="modal"
+                      data-target="#approveModal"
+                      data-id="{{_id}}"
+                    >Approve</button>
+
+                  </form>
+                  <form
+                    action="/editor/reject-article/{{_id}}"
+                    method="POST"
+                    style="display:inline;"
+                  >
+                    <button type="submit" class="btn btn-reject">Reject</button>
+                  </form>
+                {{/if}}
               </td>
             </tr>
           {{/each}}
         {{else}}
           <tr>
-            <td colspan="7"><h1>Empty</h1></td>
+            <td colspan="8"><h1>Empty</h1></td>
           </tr>
         {{/if}}
       </tbody>
     </table>
   </div>
 </div>
+
+<div
+  class="modal fade"
+  id="approveModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="approveModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="approveModalLabel">Approve Article</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="approveForm" method="POST" action="">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="category">Category</label>
+            <select class="form-control" id="category" name="category">
+              <option value="">Select category</option>
+              {{#each category}}
+                <option value="{{this._id}}">{{this.name}}</option>
+              {{/each}}
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="tags">Tags</label>
+            <input
+              type="text"
+              class="form-control"
+              id="tags"
+              name="tags"
+              placeholder="Enter tags, separated by commas"
+            />
+          </div>
+          <div class="form-group">
+            <label for="publishDate">Publish Date</label>
+            <input
+              type="datetime-local"
+              class="form-control"
+              id="publishDate"
+              name="publishDate"
+            />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-dismiss="modal"
+          >Close</button>
+          <button type="submit" class="btn btn-primary">Approve</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  // Lấy tất cả các dòng có class "clickable-row"
+  const rows = document.querySelectorAll('.clickable-row');
+  
+  rows.forEach(row => {
+    row.addEventListener('click', function(e) {
+      // Kiểm tra xem người dùng có click vào cột hành động (cột cuối) không
+      const target = e.target;
+      if (!target.closest('td:last-child')) {  // Nếu không phải cột cuối
+        const articleId = row.getAttribute('data-id');
+        window.location.href = `/editor/review-article/${articleId}`;  // Chuyển hướng đến trang chi tiết
+      }
+    });
+  });
+});
+
+</script>
+
+<script>
+  // Lắng nghe sự kiện khi nút Approve được nhấn
+document.querySelectorAll('.btn-approve').forEach(button => {
+  button.addEventListener('click', function() {
+    // Lấy giá trị data-id của bài viết từ nút Approve
+    const articleId = this.getAttribute('data-id');
+    
+    // Cập nhật action của form trong modal
+    const form = document.getElementById('approveForm');
+    form.action = `/editor/approve-article/${articleId}`;
+  });
+});
+
+</script>
