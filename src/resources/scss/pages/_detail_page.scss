@@ -1,0 +1,55 @@
+.article-container {
+  font-family: "Arial", sans-serif;
+  line-height: 1.6;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+}
+//////////////
+.article-header {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+  color: #333;
+}
+
+.article-metadata {
+  font-size: 14px;
+  color: #777;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.article-summary {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.article-summary p {
+  font-size: 15px;
+  color: #555;
+  margin: 10px 0;
+}
+
+.article-image img {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.article-content {
+  font-size: 16px;
+  color: #444;
+}
+
+.article-content h2 {
+  font-size: 20px;
+  margin-top: 20px;
+  color: #222;
+}
+
+.article-content p {
+  margin: 10px 0;
+}

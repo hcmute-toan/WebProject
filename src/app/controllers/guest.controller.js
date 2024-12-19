@@ -10,7 +10,7 @@ class GuestController {
     async index(req, res) {
         const articles = await Article.find({}).populate("category_id", "name");
         res.render('guest/index', { layout: 'main', isSubscriber: false , articles : multipleMongooseToObject(articles)} );
-    }
+    }   
     async logined(req, res) {
         const articles = await Article.find({}).populate("category_id", "name");
         res.render('guest/index', { layout: 'logined', isSubscriber: false , articles : multipleMongooseToObject(articles)} );

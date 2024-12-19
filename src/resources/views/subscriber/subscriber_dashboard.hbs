@@ -1,0 +1,143 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="row">
+        <div
+          id="carouselExampleCaptions"
+          class="carousel slide col-12"
+          data-bs-ride="carousel"
+        >
+          <div class="carousel-indicators">
+            <button
+              type="button"
+              data-bs-target="#carouselExampleCaptions"
+              data-bs-slide-to="0"
+              class="active"
+              aria-current="true"
+              aria-label="Slide 1"
+            ></button>
+            <button
+              type="button"
+              data-bs-target="#carouselExampleCaptions"
+              data-bs-slide-to="1"
+              aria-label="Slide 2"
+            ></button>
+            <button
+              type="button"
+              data-bs-target="#carouselExampleCaptions"
+              data-bs-slide-to="2"
+              aria-label="Slide 3"
+            ></button>
+          </div>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img
+                src="http://ts4.mm.bing.net/th?id=OIP.AH8VbpRShsgZERR92VKtIgHaEo&pid=15.1"
+                class="d-block w-100"
+                alt="..."
+              />
+              <div class="carousel-caption d-none d-md-block">
+                <h5>First slide label</h5>
+                <p>Some representative placeholder content for the first slide.</p>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <img
+                src="https://th.bing.com/th/id/OIP.d_KwcAAPVFT1uKavv76jCgHaEK?w=310&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7"
+                class="d-block w-100"
+                alt="..."
+              />
+              <div class="carousel-caption d-none d-md-block">
+                <h5>Second slide label</h5>
+                <p>Some representative placeholder content for the second slide.</p>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <img
+                src="https://th.bing.com/th/id/OIP.S_nstziB1inP2vqA4_J7OgHaEK?rs=1&pid=ImgDetMain"
+                class="d-block w-100"
+                alt="..."
+              />
+              <div class="carousel-caption d-none d-md-block">
+                <h5>Third slide label</h5>
+                <p>Some representative placeholder content for the third slide.</p>
+              </div>
+            </div>
+          </div>
+          <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#carouselExampleCaptions"
+            data-bs-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#carouselExampleCaptions"
+            data-bs-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+        <div class="branch_padding p-4">
+          <div class="authHeader col-12 p-0 mt-3">
+            <div class="branch"><h1>RISES</h1></div>
+          </div>
+          <div class="typewriter mt-5">
+            <h1 id="typewriter-text">RISES - Real-life, Innovation, Society,
+              Entertainment, Sentiment.</h1>
+          </div>
+          <div class="authHeader col-12 p-0 mt-5">
+            <div class="branch"><h1>e-newspaper</h1></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="row mt-5 articles-premium">
+      <div class="article_title col-12 d-flex justify-content-center">
+        <div class="article_title--name">Premium articles</div>
+      </div>
+      <div class="row scroll_article">
+        {{#each articles}}
+          <div class="col-12">
+            <div class="card mb-4">
+              <div class="row no-gutters">
+                <div class="col-4 d-flex align-items-center">
+                  <a href="/articleDetail/{{this.id}}">
+                      <img
+                        src="{{this.image_url}}"
+                        class="card-img"
+                        alt="Article Image"
+                      />
+                  </a>
+                </div>
+                <div class="col-8 d-flex align-items-center">
+                  <div class="card-body">
+                    <h5 class="card-title">{{this.title}}</h5>
+                    <p class="card-text"><strong>Categories:</strong>
+                      {{this.category_id.name}}</p>
+                    <p class="card-text"><strong>Date of Publication:</strong>
+                      {{this.created_at}}</p>
+                    <div class="d-flex align-items-center">
+                      <img
+                        src="https://th.bing.com/th/id/OIP._PVWI6boMC3idxhxGOeZrwHaDj?w=331&h=167&c=7&r=0&o=5&dpr=1.3&pid=1.7"
+                        class="rounded-circle mr-2"
+                        alt="Profile Picture"
+                      />
+                      <p class="mb-0">Another Author Name</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</div>

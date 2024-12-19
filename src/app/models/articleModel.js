@@ -14,7 +14,12 @@ const ArticleSchema = new Schema({
     enum: ["draft", "published", "rejected"],
     default: "draft",
   },
-  author_id: { type: Schema.Types.ObjectId, ref: "User", required: true },
+  type : {
+    type: String,
+    enum: ["none", "pre"],
+    default : "none",
+  },
+  author_id: { type: Schema.Types.ObjectId, ref: "User" },//, required: true
   count_view: { type: Number, default: 0 },
   created_at: { type: Date, default: Date.now },
   updated_at: { type: Date, default: Date.now },
