@@ -1,7 +1,7 @@
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const User = require("../../app/models/userModel");
-
+require('dotenv').config();
 // Cấu hình passport để sử dụng Google OAuth
 passport.use(
   new GoogleStrategy(

@@ -1,5 +1,5 @@
 const nodemailer = require("nodemailer");
-
+require('dotenv').config();
 // Hàm tạo mã OTP ngẫu nhiên
 function generateOTP() {
   return Math.floor(100000 + Math.random() * 900000); // Tạo mã OTP 6 chữ số
@@ -11,8 +11,8 @@ async function sendOTP(email) {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: "vancongtoan09102004@gmail.com", // Email gửi
-      pass: "kbtukgswsypoidec", // Mật khẩu ứng dụng của Gmail
+      user: process.env.USER, // Email gửi
+      pass: process.env.PASS, // Mật khẩu ứng dụng của Gmail
     },
   });
 

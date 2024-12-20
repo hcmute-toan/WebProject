@@ -42,7 +42,7 @@
                         />
                     </div>
                 </div>
-                <div class="col-xl-3 col-lg-12 col-sm-12 d-flex justify-content-center mt-3">
+                <div class="col-xl-3 col-lg-12 col-sm-12 d-flex justify-content-center align-items-center mt-2">
                         <div class="social">
                             <a href="">
                                 <img src="/assets/icons/twitter.svg" alt="twitter" title="Twitter" class="social__icon social__twitter">
@@ -61,55 +61,60 @@
                             </a>
                         </div>
                 </div>
-                <div class="col-xl-2 col-lg-12 col-sm-12 d-flex justify-content-center mt-3">
-                        <div  class="top-act__user">
-       <a href="/profile"> <img src="{{profile.image}}" alt="" class="avatar" /></a>
-        <div class="act-dropdown top-act__dropdown">
-          <div class="act-dropdown__arrow icon top-act__dropdown-arrow">
-            <img src="/assets/icons/arrow-up.png" alt="" class="act-dropdown__arrow-img">
-          </div>
-          <div class="act-dropdown__inner top-act__dropdown-inner">
-           <div class="user-menu">
-           <a href="/profile">
-             <div class="user-menu__top">
-                <img src="{{profile.image}}" alt="" class="avatar">
-               <div>
-                <p class="user-menu__name">{{profile.username}}</p>
-               </div>
-              </div>
-           </a>
-            <ul class="user-menu__list">
-              <li>
-                <a href="/profile" class="user-menu__link">
-                  <img src="/assets/icon/profile-user.svg" alt="" class="icon user-menu__icon">
-                  Profile
-                </a>
-              </li>
-              <li>
-                <a href="/review/createReview" class="user-menu__link">
-                  <img src="/assets/icon/favourite.svg" alt="" class="icon user-menu__icon">
-                  
-                  Tac Vu</a>
-              </li>
-              <li class="user-menu__separate">
-              </li>
-              <li >
-                <a href="/tickets/purchasedTickets" class="user-menu__link">
-                  <img src="/assets/icon/ticket.svg" alt="" class="icon user-menu__icon">
-                  
-                  Premium</a>
-              </li>
-              <li class="user-menu__separate">
-                <a href="/auth/logout" class="user-menu__link">
-                  <img src="/assets/icon/logout.svg" alt="" class="icon user-menu__icon">
-                  
-                  Logout</a>
-              </li>
-            </ul>
-           </div>
-          </div>
-         </div>
-      </div>
+                <div class="col-xl-2 col-lg-12 col-sm-12 d-flex justify-content-center mt-2 align-items-center">
+                    <div class="vip-registration">
+                        <a href="/vip_registration" class="action_vip-registration">
+                            <p>Vip registration</p>
+                        </a>
+                    </div>
+                    <div  class="top-act__user">
+    <a href="/profile"> <img src="{{profile.image}}" alt="" class="avatar" /></a>
+    <div class="act-dropdown top-act__dropdown">
+        <div class="act-dropdown__arrow icon top-act__dropdown-arrow">
+        <img src="/assets/icons/arrow-up.png" alt="" class="act-dropdown__arrow-img">
+        </div>
+        <div class="act-dropdown__inner top-act__dropdown-inner">
+        <div class="user-menu">
+        <a href="/profile">
+            <div class="user-menu__top">
+            <img src="{{profile.image}}" alt="" class="avatar">
+            <div>
+            <p class="user-menu__name">{{profile.username}}</p>
+            </div>
+            </div>
+        </a>
+        <ul class="user-menu__list">
+            <li>
+            <a href="/profile" class="user-menu__link">
+                <img src="/assets/icon/profile-user.svg" alt="" class="icon user-menu__icon">
+                Profile
+            </a>
+            </li>
+            <li>
+            <a href="/review/createReview" class="user-menu__link">
+                <img src="/assets/icon/favourite.svg" alt="" class="icon user-menu__icon">
+                
+                Tac Vu</a>
+            </li>
+            <li class="user-menu__separate">
+            </li>
+            <li >
+            <a href="/tickets/purchasedTickets" class="user-menu__link">
+                <img src="/assets/icon/ticket.svg" alt="" class="icon user-menu__icon">
+                
+                Premium</a>
+            </li>
+            <li class="user-menu__separate">
+            <a href="/auth/logout" class="user-menu__link">
+                <img src="/assets/icon/logout.svg" alt="" class="icon user-menu__icon">
+                
+                Logout</a>
+            </li>
+        </ul>
+        </div>
+        </div>
+        </div>
+                    </div>
                 </div>
             </div>
         </div>

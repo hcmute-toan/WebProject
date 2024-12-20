@@ -1,0 +1,121 @@
+<div class="container py-5">
+  <h2 class="text-center mb-4">Subscribe to the "VIP Reader" Package</h2>
+  <p class="text-center text-muted">
+    Subscribe for the long term to save over 50%<br />
+    For inquiries, please contact the hotline:
+    <a href="tel:0853485318">0853.485.318</a>
+    or Zalo:
+    <a href="tel:0853485318">0853485318</a>
+  </p>
+  <br />
+  <br />
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <!-- Subscription Options -->
+      <h5 class="mb-4">Choose a subscription plan</h5>
+      <form id="subscription-form" method="POST" action="/vip_register">
+        <div class="row">
+          <!-- 30 Days Plan -->
+          <div class="col-md-4 mb-3">
+            <div class="card h-100 border-primary plan-card" data-plan="30_days">
+              <input type="radio" name="plan" value="30" class="plan-input" hidden />
+              <div class="card-body text-center">
+                <span class="badge bg-primary mb-2">50.00% Off</span>
+                <h5 class="card-title">30 Days</h5>
+                <p class="card-text text-muted text-decoration-line-through">100,000đ</p>
+                <h4 class="text-primary">50,000đ</h4>
+                <p class="text-muted">Cost is only <strong>1,667đ/day</strong></p>
+              </div>
+            </div>
+          </div>
+          <!-- 3 Months Plan -->
+          <div class="col-md-4 mb-3">
+            <div class="card h-100 border-primary plan-card" data-plan="3_months">
+              <input type="radio" name="plan" value="90" class="plan-input" hidden />
+              <div class="card-body text-center">
+                <span class="badge bg-primary mb-2">50.00% Off</span>
+                <h5 class="card-title">3 Months</h5>
+                <p class="card-text text-muted text-decoration-line-through">200,000đ</p>
+                <h4 class="text-primary">100,000đ</h4>
+                <p class="text-muted">Cost is only <strong>1,111đ/day</strong></p>
+              </div>
+            </div>
+          </div>
+          <!-- 6 Months Plan -->
+          <div class="col-md-4 mb-3">
+            <div class="card h-100 border-primary plan-card" data-plan="6_months">
+              <input type="radio" name="plan" value="120" class="plan-input" hidden />
+              <div class="card-body text-center">
+                <span class="badge bg-primary mb-2">33.33% Off</span>
+                <h5 class="card-title">6 Months</h5>
+                <p class="card-text text-muted text-decoration-line-through">300,000đ</p>
+                <h4 class="text-primary">200,000đ</h4>
+                <p class="text-muted">Cost is only <strong>1,111đ/day</strong></p>
+              </div>
+            </div>
+          </div>
+          <!-- 12 Months Plan -->
+          <div class="col-md-4 mb-3">
+            <div class="card h-100 border-primary plan-card" data-plan="12_months">
+              <input type="radio" name="plan" value="360" class="plan-input" hidden />
+              <div class="card-body text-center">
+                <span class="badge bg-primary mb-2">50.00% Off</span>
+                <h5 class="card-title">12 Months</h5>
+                <p class="card-text text-muted text-decoration-line-through">600,000đ</p>
+                <h4 class="text-primary">300,000đ</h4>
+                <p class="text-muted">Cost is only <strong>822đ/day</strong></p>
+              </div>
+            </div>
+          </div>
+          <!-- 24 Months Plan -->
+          <div class="col-md-4 mb-3">
+            <div class="card h-100 border-primary plan-card" data-plan="24_months">
+              <input type="radio" name="plan" value="720" class="plan-input" hidden />
+              <div class="card-body text-center">
+                <span class="badge bg-primary mb-2">50.00% Off</span>
+                <h5 class="card-title">24 Months</h5>
+                <p class="card-text text-muted text-decoration-line-through">1,000,000đ</p>
+                <h4 class="text-primary">500,000đ</h4>
+                <p class="text-muted">Cost is only <strong>685đ/day</strong></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary w-100 mt-3" id="submit-plan">Choose this plan</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    let selectedPlan = null; // Store the selected plan value
+
+    // Get all plan cards
+    const cards = document.querySelectorAll(".plan-card");
+
+    // Add click event to each card
+    cards.forEach((card) => {
+      card.addEventListener("click", () => {
+        // Remove highlight from other cards
+        cards.forEach((c) => c.classList.remove("selected"));
+
+        // Add highlight to the selected card
+        card.classList.add("selected");
+
+        // Set the corresponding radio button to checked
+        const radioButton = card.querySelector(".plan-input");
+        radioButton.checked = true;
+        selectedPlan = radioButton.value;
+      });
+    });
+  });
+</script>
+
+<style>
+  .plan-card.selected {
+    border: 10px solid #007bff; /* Change border color */
+    box-shadow: 0 0 20px rgba(0, 123, 255, 0.5); /* Add glowing effect */
+    transition: 0.3s ease-in-out;
+  }
+</style>

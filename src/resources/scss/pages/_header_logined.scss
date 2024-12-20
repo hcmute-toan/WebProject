@@ -20,12 +20,12 @@
     &:hover .act-dropdown {
       display: block;
     }
-    margin-left: 120px;
+    margin-left: 40px;
     @include abstracts.screen(lg) {
       margin-left: 50px;
     }
     @include abstracts.screen(md) {
-      margin-left: 0px;
+      margin-left: 40px;
     }
   }
   &__dropdown {
@@ -47,9 +47,9 @@
 }
 .act-dropdown {
   padding-top: 28px;
-  display: none;
+  display: none; 
   position: absolute;
-  top: 48px;
+  top: 34px;
   right: -58px;
   &__arrow {
     filter: var(--act-dropdown-arrow-filter) !important;

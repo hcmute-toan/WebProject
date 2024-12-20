@@ -5,10 +5,21 @@
         <h1 class="article-header">{{article.title}}</h1>
 
         <div class="article-metadata">
-          <span class="article-author">Author: Nguyễn Văn A</span>
+          <span class="article-author">{{article.author_id.username}}</span>
           |
           <span class="article-date">Published on:
             {{article.created_at}}</span>
+        </div>
+        <div class="article-metadata">
+          <span class="article-author">Category: <a href="/search/category/{{article.category_id._id}}">{{article.category_id.name}}</a></span>
+          |
+            <span class="article-date">Tag:
+              {{#each articleTags}}
+                <a href="/search/tag/{{this.tag_id._id}}">
+                  {{this.tag_id.name}}
+                </a>
+              {{/each}}
+              </span>
         </div>
 
         <div class="article-summary">

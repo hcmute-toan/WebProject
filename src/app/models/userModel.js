@@ -75,9 +75,9 @@ const UserSchema = new Schema({
   },
   subscription_end: { type: Date, default: null },
   image: { type: String, default: "/assets/icons/user.svg" },
-  created_at: { type: Date, default: Date.now },
-  updated_at: { type: Date, default: Date.now },
-});
+  // created_at: { type: Date, default: Date.now },
+  // updated_at: { type: Date, default: Date.now },
+},{ timestamps: true });
 
 // Unique constraint for email within a specific authMethod
 UserSchema.index({ email: 1, authMethod: 1 }, { unique: true });

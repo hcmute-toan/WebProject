@@ -78,38 +78,48 @@ class EditorController {
   async approveArticle(req, res) {
     try {
       const articleId = req.params.id;
-      const { category, tags, publishDate} = req.body;
+      const { category, tags, publishDate } = req.body;
 
       // 1. Cập nhật bài viết: thay đổi trạng thái và ngày phát hành
       const article = await Article.findById(articleId);
       if (!article) {
         return res.status(404).send("Article not found");
       }
+
       article.status = "published";
       article.Release_at = new Date(publishDate);
       article.category_id = category; // Giả sử bạn đã có category trong database
       await article.save();
 
       // 2. Xử lý tags:
-      // Tách tags thành mảng và loại bỏ khoảng trắng thừa
-      const tagNames = tags;
+      // Tách tags thành mảng bằng cách loại bỏ khoảng trắng thừa và chia theo dấu phẩy
+      const tagNames = tags
+        .split(",") // Tách chuỗi thành mảng bằng dấu phẩy
+        .map(tag => removeDiacritics(tag.trim().toLowerCase())) // Loại bỏ khoảng trắng thừa
+        .filter((tag) => tag.length > 0); // Loại bỏ các tag trống (nếu có)
 
-      // Tạo hoặc tìm các tag trong database
+      // Lặp qua từng tag để tạo hoặc tìm tag trong database
+      const tagIds = [];
+      for (const tagName of tagNames) {
+        let tag = await Tag.findOne({ name: tagName });
+        if (!tag) {
+          // Nếu tag chưa tồn tại, tạo mới
+          tag = await Tag.create({
+            name: tagName,
+            created_at: Date.now(),
+            updated_at: Date.now(),
+          });
+        }
+        tagIds.push(tag.id); // Lưu lại ID của tag
+      }
 
-      let tag = await Tag.findOne({ tagNames });
-      if (!tag) {
-        // Nếu tag chưa tồn tại, tạo mới
-        tag = await Tag.create({
-          name: tagNames,
-          created_at: Date.now(),
-          updated_at: Date.now(),
+      // 3. Liên kết từng tag với bài viết (ArticleTag)
+      for (const tagId of tagIds) {
+        await CategoryTag.create({
+          article_id: articleId,
+          tag_id: tagId,
         });
       }
-      // 3. Liên kết tag với bài viết (ArticleTag)
-      await CategoryTag.create({
-        article_id: articleId,
-        tag_id: tag.id,
-      });
 
       // 4. Quay lại trang quản lý bài viết
       res.redirect("/editor/dashboard");
@@ -118,7 +128,6 @@ class EditorController {
       res.status(500).send("Internal Server Error");
     }
   }
-  
 
   async reviewArticle(req, res) {
     const article = await Article.findById(req.params.id);
@@ -126,5 +135,13 @@ class EditorController {
     res.render("editor/review_article", { article: mongooseToObject(article) });
   }
 }
+function removeDiacritics(str) {
+  return str
+    .normalize("NFD") // Chuẩn hóa chuỗi Unicode thành dạng decomposed
+    .replace(/[\u0300-\u036f]/g, "") // Loại bỏ dấu
+    .replace(/đ/g, "d") // Thay thế chữ "đ" thường
+    .replace(/Đ/g, "D"); // Thay thế chữ "Đ" hoa
+}
+
 
 module.exports = new EditorController();

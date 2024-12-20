@@ -21,10 +21,10 @@ const ArticleSchema = new Schema({
   },
   author_id: { type: Schema.Types.ObjectId, ref: "User" },
   count_view: { type: Number, default: 0 },
-  created_at: { type: Date, default: Date.now },
-  updated_at: { type: Date, default: Date.now },
+  // created_at: { type: Date, default: Date.now },
+  // updated_at: { type: Date, default: Date.now },
   Release_at: {type:Date,default:null},
-});
+},{ timestamps: true });
 ArticleSchema.index(
   { title: "text", summary: "text", content: "text" },
 );

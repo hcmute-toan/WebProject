@@ -1592,6 +1592,20 @@ html {
   }
 }
 
+.vip-registration {
+  text-align: center;
+}
+
+.action_vip-registration {
+  display: block;
+  width: 130px;
+  height: 40px;
+  background-color: #0ba9ff;
+  color: #fff;
+  border-radius: 12px;
+  line-height: 40px;
+}
+
 .logo__img {
   width: 60px;
   height: 60px;
@@ -2136,8 +2150,8 @@ html {
 }
 
 .card-img {
-  width: 50%;
-  height: calc(width / 2);
+  width: 150px;
+  height: 150px;
   padding: 10px;
 }
 
@@ -2402,7 +2416,6 @@ tr:nth-child(even) {
 }
 
 .article-container {
-  max-width: 80%;
   margin: 0 auto;
   padding: 20px;
   background-color: #f9f9f9;
@@ -2849,7 +2862,7 @@ charts {
 .top-act__user {
   position: relative;
   z-index: 3;
-  margin-left: 120px;
+  margin-left: 40px;
 }
 .top-act__user:hover .act-dropdown {
   display: block;
@@ -2861,7 +2874,7 @@ charts {
 }
 @media (max-width: 767.98px) {
   .top-act__user {
-    margin-left: 0px;
+    margin-left: 40px;
   }
 }
 .top-act__dropdown {
@@ -2886,7 +2899,7 @@ charts {
   padding-top: 28px;
   display: none;
   position: absolute;
-  top: 48px;
+  top: 34px;
   right: -58px;
 }
 .act-dropdown__arrow {
@@ -3023,7 +3036,7 @@ charts {
 .article-container {
   font-family: "Arial", sans-serif;
   line-height: 1.6;
-  margin: 20px auto;
+  margin: 0;
   padding: 20px;
   border: 1px solid #ddd;
   background-color: #fff;

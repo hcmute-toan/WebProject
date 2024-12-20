@@ -5,6 +5,6 @@ const Schema = mongoose.Schema;
 const ArticleTagSchema = new Schema({
     article_id: { type: Schema.Types.ObjectId, ref: 'Article', required: true },
     tag_id: { type: Schema.Types.ObjectId, ref: 'Tag', required: true },
-});
+},{ timestamps: true });
 
 module.exports = mongoose.model('ArticleTag', ArticleTagSchema);
