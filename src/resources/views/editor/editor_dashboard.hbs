@@ -1,10 +1,10 @@
 <div class="authHeader">
-  <div class="branch"><h1>Article Management</h1></div>
+  <div class="branch"><h1>Article Moderation</h1></div>
 </div>
 <div class="container">
   <div class="action_btn">
     <div class="back-btn-container">
-      <a href="/" class="btn btn-back">Back</a>
+      <a href="/logined" class="btn btn-back">Back</a>
     </div>
   </div>
   <div class="filter-buttons">
@@ -19,6 +19,7 @@
       <thead>
         <tr>
           <th>#</th>
+          <th>Author</th>
           <th>Image</th>
           <th>Title</th>
           <th>Date created</th>
@@ -33,6 +34,7 @@
           {{#each articles}}
             <tr class="clickable-row" data-id="{{_id}}">
               <td>{{increment @index}}</td>
+              <td>{{author_id.username}}</td>
               <td>
                 {{#if image_url}}
                   <img
@@ -170,36 +172,3 @@
   </div>
 </div>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-  // Lấy tất cả các dòng có class "clickable-row"
-  const rows = document.querySelectorAll('.clickable-row');
-  
-  rows.forEach(row => {
-    row.addEventListener('click', function(e) {
-      // Kiểm tra xem người dùng có click vào cột hành động (cột cuối) không
-      const target = e.target;
-      if (!target.closest('td:last-child')) {  // Nếu không phải cột cuối
-        const articleId = row.getAttribute('data-id');
-        window.location.href = `/editor/review-article/${articleId}`;  // Chuyển hướng đến trang chi tiết
-      }
-    });
-  });
-});
-
-</script>
-
-<script>
-  // Lắng nghe sự kiện khi nút Approve được nhấn
-document.querySelectorAll('.btn-approve').forEach(button => {
-  button.addEventListener('click', function() {
-    // Lấy giá trị data-id của bài viết từ nút Approve
-    const articleId = this.getAttribute('data-id');
-    
-    // Cập nhật action của form trong modal
-    const form = document.getElementById('approveForm');
-    form.action = `/editor/approve-article/${articleId}`;
-  });
-});
-
-</script>

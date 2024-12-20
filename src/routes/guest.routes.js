@@ -9,5 +9,4 @@ router.get('/articleDetail/:id', guestController.detailArticle);
 router.get('/category', guestController.category);
 router.get('/tag', guestController.tag);
 router.get('/search', guestController.search);
-
 module.exports = router;    

@@ -10,6 +10,8 @@ const moment = require("moment");
 var methodOverride = require("method-override");
 const multer = require("multer");
 const session = require("express-session");
+const passport = require('passport');
+
 
 // Đăng ký helper 'eq' để so sánh hai giá trị
 const handlebars = require("handlebars");
@@ -55,6 +57,9 @@ app.use(
     cookie: { secure: false }, // Nếu bạn dùng HTTPS, hãy đổi secure: true
   })
 );
+// Cấu hình passport
+app.use(passport.initialize());
+app.use(passport.session());
 // Set the views directory
 app.set("views", path.join(__dirname, "resources", "views")); // Use commas instead of backslashes
 //Route init

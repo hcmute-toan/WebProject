@@ -3,13 +3,21 @@ const mongoose = require("mongoose");
 const Category = require("../models/CategoryModel");
 const Tag = require("../models/tagModel");
 const CategoryTag = require("../models/articleTagModel");
+const User = require("../models/userModel");
 const { multipleMongooseToObject } = require("../../util/mongose");
+const { mongooseToObject } = require("../../util/mongose");
 
 class EditorController {
   async dashboard(req, res) {
     try {
+      if (!req.session.userId) {
+        return res.redirect("/auth/register");
+      }
+      const profile = await User.findById(req.session.userId);
+      if (profile.role !== "editor") {
+        return res.render("errors/not_authorized", { layout: "error" });
+      }
       const { filter } = req.query; // Retrieve the filter query parameter
-
       // Determine the filter condition based on the query
       let filterCondition = {};
       if (filter === "draft") {
@@ -23,6 +31,7 @@ class EditorController {
       // Fetch articles from the database based on the filter
       const articles = await Article.find(filterCondition)
         .populate("category_id")
+        .populate("author_id")
         .lean();
 
       const categoryParent = await Category.find({});
@@ -69,14 +78,13 @@ class EditorController {
   async approveArticle(req, res) {
     try {
       const articleId = req.params.id;
-      const { category, tags, publishDate } = req.body;
+      const { category, tags, publishDate} = req.body;
 
       // 1. Cập nhật bài viết: thay đổi trạng thái và ngày phát hành
       const article = await Article.findById(articleId);
       if (!article) {
         return res.status(404).send("Article not found");
       }
-
       article.status = "published";
       article.Release_at = new Date(publishDate);
       article.category_id = category; // Giả sử bạn đã có category trong database
@@ -110,23 +118,12 @@ class EditorController {
       res.status(500).send("Internal Server Error");
     }
   }
+  
 
   async reviewArticle(req, res) {
-    try {
-      const article = await Article.findById(req.params.id);
-      if (!article) {
-        return res.status(404).send("Article not found");
-      }
-
-      // Render chỉ nội dung bài viết
-      res.render("editor/review_article", {
-        layout: "dashboard",
-        content: article.content,
-      });
-    } catch (error) {
-      console.error(error);
-      res.status(500).send("Server error");
-    }
+    const article = await Article.findById(req.params.id);
+    console.log(article);
+    res.render("editor/review_article", { article: mongooseToObject(article) });
   }
 }
 

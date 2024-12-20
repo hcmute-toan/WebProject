@@ -19,10 +19,14 @@ const ArticleSchema = new Schema({
     enum: ["none", "pre"],
     default : "none",
   },
-  author_id: { type: Schema.Types.ObjectId, ref: "User" },//, required: true
+  author_id: { type: Schema.Types.ObjectId, ref: "User" },
   count_view: { type: Number, default: 0 },
   created_at: { type: Date, default: Date.now },
   updated_at: { type: Date, default: Date.now },
+  Release_at: {type:Date,default:null},
 });
+ArticleSchema.index(
+  { title: "text", summary: "text", content: "text" },
+);
 
 module.exports = mongoose.model("Article", ArticleSchema);

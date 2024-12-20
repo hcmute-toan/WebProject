@@ -1,12 +1,20 @@
 const mongoose = require("mongoose");
 const Category = require("../models/CategoryModel");
 const Article = require("../models/articleModel");
+const User = require("../models/userModel");
 const { multipleMongooseToObject } = require("../../util/mongose");
 const { mongooseToObject } = require("../../util/mongose");
 const { category } = require("./guest.controller");
 class AdministratorController {
   // Trang dashboard của admin
-  dashboard(req, res) {
+  async dashboard(req, res) {
+    if (!req.session.userId) {
+      return res.redirect("/auth/register");
+    }
+    const profile = await User.findById(req.session.userId);
+    if (profile.role !== "administrator") {
+      return res.render("errors/not_authorized",{ layout: "error" });
+    }
     res.render("administrator/admin_dashboard", { layout: "admin" });
   }
 

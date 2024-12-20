@@ -1,0 +1,250 @@
+<main class="profile">
+  <div class="container">
+    <div class="checkout-container">
+
+    </div>
+    <!-- checkout content -->
+    <div class="profile-content">
+      <form
+        class="form"
+        method="POST"
+        action="/profile/edit-profile?_method=PUT"
+        enctype="multipart/form-data"
+      >
+
+        <div class="row gy-xl-3">
+          <div class="col-3 col-xl-4 col-lg-5 col-md-12">
+            <aside class="profile__sidebar">
+              <div class="profile-user">
+                <img
+                  id="new-image-preview"
+                  src="{{profile.image}}"
+                  alt="New Image Preview"
+                  class="profile-user__avatar"
+                />
+                {{!  }}
+                <div class="form-group">
+                  <label for="image">
+                    <img
+                      src="/assets/icons/edit-profile.svg"
+                      class="profile__edit"
+                      alt=""
+                    />
+                  </label>
+                  <input
+                    type="file"
+                    id="image"
+                    name="image"
+                    class="form-control-file"
+                    accept="image/*"
+                    hidden
+                  />
+                </div>
+                {{!  }}
+                <h1 class="profile-user__name">{{profile.username}}</h1>
+                <p class="profile-user__desc">Registered:
+                  {{profile.created_at}}</p>
+              </div>
+              <!-- profile menu 1 -->
+              <div class="profile-menu">
+                <h3 class="profile-menu__title">Manage Account</h3>
+                <a href="/profile/admin" class="profile-menu__item">
+                  <a href="/profile/admin" class="profile-menu__link">
+                    <span class="profile-menu__icon">
+                      <img
+                        src="/assets/icon/admin.svg"
+                        alt=""
+                        class="icon profile-menu__icon"
+                      />
+                      <span class="profile-menu__span">
+                        Admin(Only use by admin)
+                      </span>
+                    </span>
+                  </a>
+                </a>
+                <ul class="profile-menu__list">
+                  <li class="profile-menu__item">
+                    <a href="/profile/edit" class="profile-menu__link">
+                      <span class="profile-menu__icon">
+                        <img
+                          src="/assets/icon/profile.svg"
+                          alt=""
+                          class="icon"
+                        />
+                      </span>
+                      Update Personal info
+                    </a>
+                  </li>
+                  <li class="profile-menu__item">
+                    <a href="#! " class="profile-menu__link">
+                      <span class="profile-menu__icon">
+                        <img src="/assets/icon/mess.svg" alt="" class="icon" />
+                      </span>
+                      Communications & privacy
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <!-- profile menu 2 -->
+
+              <!-- profile menu 4 -->
+              <div class="profile-menu">
+                <h3 class="profile-menu__title">Customer Service</h3>
+                <ul class="profile-menu__list">
+                  <li class="profile-menu__item">
+                    <a href="#! " class="profile-menu__link">
+                      <span class="profile-menu__icon">
+                        <img src="/assets/icon/help.svg" alt="" class="icon" />
+                      </span>
+                      Help
+                    </a>
+                  </li>
+                  <li class="profile-menu__item">
+                    <a href="#! " class="profile-menu__link">
+                      <span class="profile-menu__icon">
+                        <img src="/assets/icon/term.svg" alt="" class="icon" />
+                      </span>
+                      Terms of Use
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </aside>
+          </div>
+          <div class="col-9 col-xl-8 col-lg-12">
+            <div class="cart-info">
+              <div class="row gy-3">
+                <div class="col-12">
+                  <h2 class="cart-info__heading">
+                    <a href="/profile">
+                      <img
+                        src="/assets/icon/arrow-left.svg"
+                        alt=""
+                        class="icon cart-info__back-arrow"
+                      />
+                    </a>
+                    Update Personal info
+                  </h2>
+
+                  <div class="form__row">
+                    <div class="form__group">
+                      <label
+                        for="Full name"
+                        class="form__label form__label--small"
+                      >Full name</label>
+                      <div class="form__text-input">
+                        <input
+                          type="text"
+                          name="name"
+                          id="name"
+                          placeholder="Name"
+                          class="form__input"
+                          value="{{profile.username}}"
+                          required
+                        />
+                        <img
+                          src="/assets/icon/font-error.svg"
+                          alt=""
+                          class="form__input-icon--error"
+                        />
+                      </div>
+                    </div>
+                    <div class="form__group">
+                      <label
+                        for="Email address"
+                        class="form__label form__label--small"
+                      >Email address</label>
+                      <div class="form__text-input">
+                        <input
+                          type="email"
+                          name="email"
+                          id="email"
+                          placeholder="Email address"
+                          class="form__input"
+                          required
+                          value="{{profile.email}}"
+                        />
+
+                        <img
+                          src="/assets/icon/font-error.svg"
+                          alt=""
+                          class="form__input-icon--error"
+                        />
+                      </div>
+                      <div class="form__error" style="display: none;">Email
+                        address is required</div>
+                    </div>
+                  </div>
+                  <!-- form row 2 -->
+                  {{#if (eq profile.authMethod "local")}}
+                    <div class="form__row">
+                      <div class="form__group">
+                        <label
+                          for="password"
+                          class="form__label form__label--small"
+                        >Password</label>
+                        <div class="form__text-input">
+                          <input
+                            type="password"
+                            name="password"
+                            id="password"
+                            placeholder="Password"
+                            class="form__input"
+                            value=""
+                            required
+                          />
+                          <img
+                            src="/assets/icon/font-error.svg"
+                            alt=""
+                            class="form__input-icon--error"
+                          />
+                        </div>
+                      </div>
+                      <div class="form__group">
+                        <label
+                          for="newPassword"
+                          class="form__label form__label--small"
+                        >New Password</label>
+                        <div class="form__text-input">
+                          <input
+                            type="password"
+                            name="newPassword"
+                            id="newPassword"
+                            placeholder="New Password"
+                            class="form__input"
+                            value=""
+                            required
+                          />
+                          <img
+                            src="/assets/icon/font-error.svg"
+                            alt=""
+                            class="form__input-icon--error"
+                          />
+                        </div>
+                      </div>
+
+                    </div>
+                    <a
+                      href="/auth/reset_password"
+                      style="margin-top:10px; display:block"
+                    >Forgot Your Password?</a>
+                  {{/if}}
+                  <div class="form__group">
+                    <div class="form-card__bottom">
+                      <a href="/profile" class="btn btn-add">Cancel</a>
+                      <button type="submit" class="btn btn-add btn--text">
+                        Save
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</main>
+<!-- modal / confirm remove shopping cart item -->

@@ -2,6 +2,7 @@ const auth = require("../models/userModel");
 const sendOTP = require("../../services/sendOtp");
 const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
+const passport = require("../../config/passport/passport");
 class AuthController {
   // Đăng nhập
   async login(req, res) {
@@ -14,7 +15,7 @@ class AuthController {
           .json({ message: "Please enter email and password" });
       }
 
-      const user = await User.findOne({ email });
+      const user = await User.findOne({ email: email, authMethod: "local" });
       if (!user) {
         return res
           .status(400)
@@ -27,7 +28,9 @@ class AuthController {
           .status(400)
           .json({ message: "Email or password is incorrect" });
       }
-
+      req.session.userId = user._id;
+      req.session.role = user.role;
+      ////////////////
       res.redirect("/logined");
     } catch (error) {
       console.error("Error during login:", error.message);
@@ -39,6 +42,15 @@ class AuthController {
   showRegister(req, res) {
     res.render("auth/authActive", { layout: "auth" });
   }
+  logout(req, res) {
+    req.session.destroy((err) => {
+      if (err) {
+        return res.status(500).send('Cannot log out');
+      }
+      // Chuyển hướng người dùng về trang login hoặc trang chủ sau khi đăng xuất
+      res.redirect('/auth/register');
+    });
+  }
   async registed(req, res) {
     try {
       const { username, email, password } = req.body;
@@ -49,7 +61,10 @@ class AuthController {
       }
 
       // Check for existing user
-      const existingUser = await User.findOne({ email });
+      const existingUser = await User.findOne({
+        email: email,
+        authMethod: "local",
+      });
       if (existingUser) {
         return res.status(400).json({ message: "Email already exists" });
       }
@@ -91,7 +106,7 @@ class AuthController {
         });
       }
 
-      const user = await auth.findOne({ email });
+      const user = await auth.findOne({ email: email, authMethod: "local" });
       if (!user) {
         return res.status(404).json({
           status: "error",
@@ -181,8 +196,19 @@ class AuthController {
     const { newPassword, confirmPassword } = req.body;
     const email = req.session.email;
     if (newPassword === confirmPassword) {
+      let hashedPassword = null;
+      if (newPassword) {
+        const salt = await bcrypt.genSalt(10);
+        hashedPassword = await bcrypt.hash(newPassword, salt);
+      }
+      await User.updateOne(
+        { email: req.session.email, authMethod: "local" },
+        {
+          password: hashedPassword,
+        }
+      );
       // nếu đúng, cập nhật lại mật khẩu và chuyển về trang login
-      return res.redirect("/auth/login");
+      return res.redirect("/auth/register");
     } else {
       return res.status(400).json({
         status: "error",
@@ -190,6 +216,49 @@ class AuthController {
       });
     }
   }
+  // Route bắt đầu Google Sign-In
+  googleLogin(req, res, next) {
+    console.log("Authenticating with Google...");
+    passport.authenticate("google", {
+      scope: ["profile", "email"], // yêu cầu quyền truy cập thông tin profile và email
+    })(req, res, next); // Xử lý xác thực Google
+  }
+
+  // Route callback sau khi đăng nhập Google thành công
+  googleCallback(req, res, next) {
+    passport.authenticate(
+      "google",
+      { failureRedirect: "/auth/register" },
+      (err, user) => {
+        if (err) {
+          console.error("Google authentication error:", err); // Log lỗi nếu có
+          return res
+            .status(500)
+            .json({ message: "Failed to authenticate with Google" });
+        }
+
+        if (!user) {
+          console.error("No user found during Google authentication"); // Log khi không có user
+          return res
+            .status(400)
+            .json({ message: "Failed to authenticate with Google" });
+        }
+
+        // Sau khi xác thực thành công, đăng nhập người dùng
+        req.logIn(user, (err) => {
+          if (err) {
+            console.error("Login error:", err); // Log lỗi nếu có
+            return res.status(500).json({ message: "Login failed" });
+          }
+          req.session.userId = user._id;
+          req.session.role = user.role;
+          // Chuyển hướng người dùng đến trang sau khi đăng nhập thành công
+          res.redirect("/logined");
+        });
+      }
+    )(req, res, next); // Đảm bảo tiếp tục quá trình xác thực
+  }
+  
 }
 
 module.exports = new AuthController();

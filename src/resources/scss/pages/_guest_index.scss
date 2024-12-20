@@ -22,3 +22,8 @@
   overflow-x: auto;
   overflow-y: auto;
 }
+.card-img {
+  width: 50%;
+  height: calc(width/2);
+  padding: 10px;
+}

@@ -26,6 +26,11 @@
   font-size: 16px;
   font-weight: bold;
   margin-bottom: 20px;
+  padding: 15px;
+  h2 {
+    text-align: center;
+    font-size: 2rem;
+  }
 }
 
 .article-summary p {
@@ -40,8 +45,13 @@
 }
 
 .article-content {
+  padding: 15px;
   font-size: 16px;
   color: #444;
+  h2 {
+    font-size: 2rem;
+    text-align: center;
+  }
 }
 
 .article-content h2 {

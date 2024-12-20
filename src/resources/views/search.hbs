@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="row">
+        {{#each articles}}
+        <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+            <div class="card mb-4">
+              <div class="row no-gutters">
+                <div class="col-4 d-flex align-items-center justify-content-center">
+                  <img
+                    src="{{this.image_url}}"
+                    class="card-img"
+                    alt="Article Image"
+                  />
+                </div>
+                <div class="col-8">
+                  <div class="card-body">
+                    <h5 class="card-title">Title: {{this.title}}</h5>
+                    <p class="card-text"><strong>Categories:</strong>
+                       {{this.category_id.name}}</p>
+                    <p class="card-text"><strong>Date of Publication:</strong>
+                      {{this.created_at}}</p>
+                    <div class="d-flex align-items-center">
+                      <img
+                        src="{{this.author_id.image}}"
+                        class="rounded-circle mr-2"
+                        alt="Profile Picture"
+                      />
+                      <p class="mb-0">{{this.author_id.username}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {{/each}}
+    </div>
+</div>
