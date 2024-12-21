@@ -16,70 +16,20 @@
       <form id="subscription-form" method="POST" action="/vip_register">
         <div class="row">
           <!-- 30 Days Plan -->
+          {{#each plans}}
           <div class="col-md-4 mb-3">
             <div class="card h-100 border-primary plan-card" data-plan="30_days">
-              <input type="radio" name="plan" value="30" class="plan-input" hidden />
+              <input type="radio" name="plan" value="{{this.duration}}" class="plan-input" hidden />
               <div class="card-body text-center">
-                <span class="badge bg-primary mb-2">50.00% Off</span>
-                <h5 class="card-title">30 Days</h5>
-                <p class="card-text text-muted text-decoration-line-through">100,000đ</p>
-                <h4 class="text-primary">50,000đ</h4>
-                <p class="text-muted">Cost is only <strong>1,667đ/day</strong></p>
+                <span class="badge bg-primary mb-2">{{this.discountPercent}}% Off</span>
+                <h5 class="card-title">{{this.name}}</h5>
+                <p class="card-text text-muted text-decoration-line-through">{{this.originalPrice}}đ</p>
+                <h4 class="text-primary">{{this.discountedPrice}}đ</h4>
+                <p class="text-muted">Cost is only <strong>{{this.dailyCost}}đ/day</strong></p>
               </div>
             </div>
           </div>
-          <!-- 3 Months Plan -->
-          <div class="col-md-4 mb-3">
-            <div class="card h-100 border-primary plan-card" data-plan="3_months">
-              <input type="radio" name="plan" value="90" class="plan-input" hidden />
-              <div class="card-body text-center">
-                <span class="badge bg-primary mb-2">50.00% Off</span>
-                <h5 class="card-title">3 Months</h5>
-                <p class="card-text text-muted text-decoration-line-through">200,000đ</p>
-                <h4 class="text-primary">100,000đ</h4>
-                <p class="text-muted">Cost is only <strong>1,111đ/day</strong></p>
-              </div>
-            </div>
-          </div>
-          <!-- 6 Months Plan -->
-          <div class="col-md-4 mb-3">
-            <div class="card h-100 border-primary plan-card" data-plan="6_months">
-              <input type="radio" name="plan" value="120" class="plan-input" hidden />
-              <div class="card-body text-center">
-                <span class="badge bg-primary mb-2">33.33% Off</span>
-                <h5 class="card-title">6 Months</h5>
-                <p class="card-text text-muted text-decoration-line-through">300,000đ</p>
-                <h4 class="text-primary">200,000đ</h4>
-                <p class="text-muted">Cost is only <strong>1,111đ/day</strong></p>
-              </div>
-            </div>
-          </div>
-          <!-- 12 Months Plan -->
-          <div class="col-md-4 mb-3">
-            <div class="card h-100 border-primary plan-card" data-plan="12_months">
-              <input type="radio" name="plan" value="360" class="plan-input" hidden />
-              <div class="card-body text-center">
-                <span class="badge bg-primary mb-2">50.00% Off</span>
-                <h5 class="card-title">12 Months</h5>
-                <p class="card-text text-muted text-decoration-line-through">600,000đ</p>
-                <h4 class="text-primary">300,000đ</h4>
-                <p class="text-muted">Cost is only <strong>822đ/day</strong></p>
-              </div>
-            </div>
-          </div>
-          <!-- 24 Months Plan -->
-          <div class="col-md-4 mb-3">
-            <div class="card h-100 border-primary plan-card" data-plan="24_months">
-              <input type="radio" name="plan" value="720" class="plan-input" hidden />
-              <div class="card-body text-center">
-                <span class="badge bg-primary mb-2">50.00% Off</span>
-                <h5 class="card-title">24 Months</h5>
-                <p class="card-text text-muted text-decoration-line-through">1,000,000đ</p>
-                <h4 class="text-primary">500,000đ</h4>
-                <p class="text-muted">Cost is only <strong>685đ/day</strong></p>
-              </div>
-            </div>
-          </div>
+          {{/each}}
         </div>
         <button type="submit" class="btn btn-primary w-100 mt-3" id="submit-plan">Choose this plan</button>
       </form>
@@ -91,23 +41,42 @@
   document.addEventListener("DOMContentLoaded", () => {
     let selectedPlan = null; // Store the selected plan value
 
-    // Get all plan cards
+    // Get all plan cards and the clear button
     const cards = document.querySelectorAll(".plan-card");
+    const clearButton = document.getElementById("clear-choice");
 
     // Add click event to each card
     cards.forEach((card) => {
       card.addEventListener("click", () => {
-        // Remove highlight from other cards
-        cards.forEach((c) => c.classList.remove("selected"));
+        // If already selected, unselect it (double click to deselect)
+        if (card.classList.contains("selected")) {
+          card.classList.remove("selected");
+          const radioButton = card.querySelector(".plan-input");
+          radioButton.checked = false;
+          selectedPlan = null;
+        } else {
+          // Remove highlight from other cards
+          cards.forEach((c) => c.classList.remove("selected"));
 
-        // Add highlight to the selected card
-        card.classList.add("selected");
+          // Add highlight to the selected card
+          card.classList.add("selected");
 
-        // Set the corresponding radio button to checked
-        const radioButton = card.querySelector(".plan-input");
-        radioButton.checked = true;
-        selectedPlan = radioButton.value;
+          // Set the corresponding radio button to checked
+          const radioButton = card.querySelector(".plan-input");
+          radioButton.checked = true;
+          selectedPlan = radioButton.value;
+        }
       });
+    });
+
+    // Clear the selection if the "Clear My Choice" button is clicked
+    clearButton.addEventListener("click", () => {
+      cards.forEach((card) => {
+        card.classList.remove("selected");
+        const radioButton = card.querySelector(".plan-input");
+        radioButton.checked = false;
+      });
+      selectedPlan = null;
     });
   });
 </script>

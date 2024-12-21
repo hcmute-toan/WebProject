@@ -1,11 +1,12 @@
-<div class="container mt-3 mb-3">
+<div class="container">
   <div class="row">
     <div class="col-12">
       <div class="article-container">
         <h1 class="article-header">{{article.title}}</h1>
 
         <div class="article-metadata">
-          <span class="article-author">Author: Nguyễn Văn A</span>
+          <span class="article-author">Author:
+            {{article.author_id.username}}</span>
           |
           <span class="article-date">Published on:
             {{article.created_at}}</span>
@@ -22,5 +23,6 @@
         </div>
       </div>
     </div>
+
   </div>
 </div>

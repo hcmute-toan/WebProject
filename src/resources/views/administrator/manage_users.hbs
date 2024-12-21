@@ -32,25 +32,71 @@
       </div>
       <div class="col-9">
         <h1 class="admin__heading">Manage Users</h1>
-        <h1>Manage Users</h1>
+
         <table class="admin__table">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Username</th>
-              <th>Role</th>
+              <th>ID
+                <button
+                  class="sort-btn"
+                  data-sort="id"
+                  data-order="asc"
+                >▲</button>
+                <button
+                  class="sort-btn"
+                  data-sort="id"
+                  data-order="desc"
+                >▼</button>
+              </th>
+              <th>
+                Avatar
+              </th>
+              <th>Username
+                <button
+                  class="sort-btn"
+                  data-sort="username"
+                  data-order="asc"
+                >▲</button>
+                <button
+                  class="sort-btn"
+                  data-sort="username"
+                  data-order="desc"
+                >▼</button>
+              </th>
+              <th>Auth Method</th>
+              <th>Role
+                <button
+                  class="sort-btn"
+                  data-sort="role"
+                  data-order="asc"
+                >▲</button>
+                <button
+                  class="sort-btn"
+                  data-sort="role"
+                  data-order="desc"
+                >▼</button>
+              </th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>admin</td>
-              <td>Administrator</td>
-              <td>
-                <button>Change Role</button>
-              </td>
-            </tr>
+            {{#if user.length}}
+              {{#each user}}
+                <tr>
+                  <td>{{increment @index}}</td>
+                  <td><img src="{{this.image}}" class="avatar" alt="" /></td>
+                  <td>{{this.username}}</td>
+                  <td>{{this.authMethod}}</td>
+                  <td>{{this.role}}</td>
+                  <td>
+                    <a
+                      href="/admin/{{this._id}}/manage-show-users"
+                      class="btn btn-add"
+                    >Change Role</a>
+                  </td>
+                </tr>
+              {{/each}}
+            {{/if}}
           </tbody>
         </table>
       </div>

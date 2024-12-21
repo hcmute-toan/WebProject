@@ -5,6 +5,7 @@ const User = require("../models/userModel");
 const ArticleTag = require("../models/articleTagModel");
 const Tag = require("../models/tagModel");
 const Subscription = require("../models/subscriptionModel");
+const Plan = require("../models/subscriptionPlanModel");
 const { multipleMongooseToObject } = require("../../util/mongose");
 const { mongooseToObject } = require("../../util/mongose");
 const multer = require("multer");
@@ -24,6 +25,21 @@ class GuestController {
       isSubscriber: false,
       articles: multipleMongooseToObject(articles),
     });
+  }
+  async contact_us(req, res) {
+    const profile = await User.findById(req.session.userId);
+    if(profile === null)
+    {
+      res.render("about_us/contact", {
+        layout: "main",
+      });
+    }
+    else{
+      res.render("about_us/contact", {
+        layout: "logined",
+        profile: mongooseToObject(profile),
+      });
+    }
   }
   async logined(req, res) {
     const articles = await Article.find({
@@ -256,7 +272,7 @@ class GuestController {
       await profile.save();
 
       console.log("Subscription updated successfully");
-      res.redirect("/some-success-page"); // Hoặc alert từ phía client
+      res.redirect("vip_registration"); // Hoặc alert từ phía client
     } else {
       res
         .status(403)
@@ -265,7 +281,13 @@ class GuestController {
   }
 
   async vip_registration(req, res) {
-    return res.render("guest/register_premium");
+    const profile = await User.findById(req.session.userId);
+    const plans = await Plan.find({});
+    return res.render("guest/register_premium", {
+      layout: "logined",
+      profile: mongooseToObject(profile),
+      plans : multipleMongooseToObject(plans),
+    });
   }
 }
 

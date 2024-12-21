@@ -1,0 +1,114 @@
+<div class="article-container">
+  <h1 class="form-header">Update Article</h1>
+
+  <form
+    action="/admin/{{article._id}}/manage-updated-articles?_method=PUT"
+    method="POST"
+    class="article-form"
+    enctype="multipart/form-data"
+  >
+    <!-- Tiêu đề -->
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input
+        type="text"
+        id="title"
+        name="title"
+        class="form-control"
+        required
+        placeholder="Enter article title"
+        value="{{article.title}}"
+      />
+    </div>
+
+    <!-- Tóm tắt -->
+    <div class="form-group">
+      <label for="summary">Summary</label>
+      <textarea
+        id="summary"
+        name="summary"
+        class="form-control"
+        rows="3"
+        required
+        placeholder="Enter article summary"
+      >{{article.summary}}</textarea>
+    </div>
+
+    <!-- Thể loại -->
+    <div class="form-group">
+      <label for="category_id">Category</label>
+      <select id="category_id" name="category_id" class="form-control">
+        <option
+          value="{{article.category_id._id}}"
+        >{{article.category_id.name}}</option>
+        {{#each categories}}
+          <option value="{{this._id}}">{{this.name}}</option>
+        {{/each}}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="status">Status</label>
+      <select
+        id="status"
+        name="status"
+        class="form-control"
+        style="background-color: #ccc; color : #000; font-weight:700"
+      >
+        <option
+          value="{{article.status}}"
+          hidden
+          selected
+        >{{article.status}}</option>
+        <option value="draft">Draft</option>
+        <option value="published">Published</option>
+        <option value="rejected">Rejected</option>
+
+      </select>
+    </div>
+
+    <!-- Hình ảnh -->
+    <div class="form-group">
+      <label for="image">Image</label>
+      {{#if article.image_url}}
+        <img
+          id="current-image"
+          src="{{article.image_url}}"
+          alt="Current Image"
+          style="width: 150px; height: 150px; object-fit: cover; margin-bottom: 10px;"
+        />
+      {{else}}
+        <p style="font-size: 2rem; color : red">No Photo</p>
+      {{/if}}
+      <label for="image">Upload New Image</label>
+      <img
+        id="new-image-preview"
+        src=""
+        alt="New Image Preview"
+        style="width: 150px; height: 150px; object-fit: cover; display: none; margin-top: 10px;"
+      />
+
+      <input
+        type="file"
+        id="image"
+        name="image"
+        class="form-control-file"
+        accept="image/*"
+      />
+    </div>
+
+    <!-- Nội dung -->
+    <div class="form-group">
+      <label for="content">Content</label>
+      <textarea
+        readonly
+        id="content"
+        class="form-control content"
+        name="content"
+      >{{article.content}}</textarea>
+    </div>
+    <!-- Nút gửi -->
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Update Article</button>
+    </div>
+  </form>
+</div>

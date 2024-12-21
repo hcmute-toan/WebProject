@@ -1,0 +1,102 @@
+<!-- Main Content -->
+<main class="py-5">
+  <div class="container">
+    <div class="row">
+      <!-- Contact Form -->
+      <div class="col-md-6">
+        <h2>Send Us a Message</h2>
+        <br />
+        <br />
+        <form action="/submit-contact-form" method="POST">
+          <div class="mb-3">
+            <label for="name" class="form-label">Your Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              name="name"
+              placeholder="Enter your name"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Your Email</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              name="email"
+              placeholder="Enter your email"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="subject" class="form-label">Subject</label>
+            <input
+              type="text"
+              class="form-control"
+              id="subject"
+              name="subject"
+              placeholder="Enter the subject"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="message" class="form-label">Message</label>
+            <textarea
+              class="form-control"
+              id="message"
+              name="message"
+              rows="5"
+              placeholder="Write your message here"
+              required
+            ></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Send Message</button>
+        </form>
+      </div>
+
+      <!-- Contact Information -->
+      <div class="col-md-6">
+        <h2>Our Contact Information</h2>
+        <br />
+        <p>If you'd prefer to get in touch directly, here's how you can reach
+          us:</p>
+        <br />
+        <ul class="list-unstyled">
+          <li><strong>Address:</strong>
+            <a
+              href="https://www.google.com/maps/place/Tr%C6%B0%E1%BB%9Dng+%C4%90%E1%BA%A1i+h%E1%BB%8Dc+S%C6%B0+ph%E1%BA%A1m+K%E1%BB%B9+thu%E1%BA%ADt+Th%C3%A0nh+ph%E1%BB%91+H%E1%BB%93+Ch%C3%AD+Minh/@10.8506324,106.7693382,17z/data=!3m1!4b1!4m6!3m5!1s0x31752763f23816ab:0x282f711441b6916f!8m2!3d10.8506324!4d106.7719131!16s%2Fm%2F02pz17z?entry=ttu&g_ep=EgoyMDI0MTIxMS4wIKXMDSoASAFQAw%3D%3D"
+            >01 Vo Van Ngan Street, District Thu Duc, Ho Chi Minh City</a></li>
+          <br />
+          <li><strong>Email:</strong>
+            <a
+              href="mailto:support@newsportal.com"
+            >support@newsrises.com</a></li>
+          <br />
+          <li><strong>Phone:</strong>
+            <a href="tel:+84912345678">+84 853 485 318</a></li>
+          <br />
+          <li><strong>Working Hours:</strong>
+            Monday - Friday, 9:00 AM - 6:00 PM</li>
+          <br />
+        </ul>
+        <h3>Follow Us</h3>
+        <div class="d-flex g-2 mt-2">
+          <a
+            href="https://www.facebook.com/profile.php?id=100072837344634"
+            class="btn btn-outline-primary me-2"
+          ><i class="bi bi-facebook"></i> Facebook</a>
+          <a
+            href="https://www.facebook.com/profile.php?id=100072837344634"
+            class="btn btn-outline-info me-2"
+          ><i class="bi bi-twitter"></i> Twitter</a>
+          <a
+            href="https://www.facebook.com/profile.php?id=100072837344634"
+            class="btn btn-outline-danger"
+          ><i class="bi bi-instagram"></i> Instagram</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

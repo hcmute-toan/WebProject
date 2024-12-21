@@ -96,6 +96,7 @@ charts {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
+  margin-bottom: 40px;
 }
 
 .admin__table th,
@@ -106,7 +107,10 @@ charts {
 }
 
 .admin__table th {
-  background: #f1f1f1;
+  background-color: #000;
+  font-weight: 700;
+  font-size: 2rem;
+  color: #fff;
 }
 
 .admin__form {
@@ -205,6 +209,15 @@ charts {
   width: 90%;
   z-index: 1050;
 }
+.modal-delete__admin {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%);
+  max-width: 500px;
+  width: 90%;
+  z-index: 1050;
+}
 
 /* Modal Content */
 .modal-content {
@@ -279,4 +292,61 @@ charts {
 
 .close:hover {
   color: #dc3545;
+}
+.sort-btn {
+  &:hover {
+    filter: brightness(0) saturate(100%) invert(87%) sepia(6%) saturate(5845%)
+      hue-rotate(6deg) brightness(104%) contrast(110%);
+  }
+}
+.btn-cancel {
+  background-color: red;
+  margin-right: 10px;
+}
+.admin__form-show {
+  background-color: #007bff;
+  color: #fff;
+}
+/////////////////user manage
+.form-control1 {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  appearance: none; /* Hide default dropdown arrow for a cleaner look */
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 4 5"%3E%3Cpath fill="%23333" d="M2 0L0 2h4z" /%3E%3C/svg%3E'); /* Custom dropdown arrow */
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 10px;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.form-control1:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Option Styles */
+.form-control1 option {
+  padding: 10px;
+  background-color: #fff;
+  color: #333;
+  font-size: 14px;
+}
+
+.form-control1 option:hover {
+  background-color: #f1f1f1; /* Highlight effect when hovering */
+}
+.btn-danger {
+  background-color: red;
+}
+.form-control {
+  height: 40px;
+  padding: 10px;
 }

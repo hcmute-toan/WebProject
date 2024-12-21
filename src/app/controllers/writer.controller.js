@@ -72,8 +72,9 @@ class WriterController {
       categories: multipleMongooseToObject(categories),
     });
   }
-  viewArticle(req, res) {
-    res.render("writer/view_article", { layout: "dashboard" });
+  async viewArticle(req, res) {
+    const article = await Article.findById(req.params.id);
+        res.render("writer/view_article", {layout:"error", article: mongooseToObject(article) });
   }
 
   async updateArticle(req, res) {

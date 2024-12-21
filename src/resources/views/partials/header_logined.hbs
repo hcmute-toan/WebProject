@@ -62,11 +62,20 @@
                         </div>
                 </div>
                 <div class="col-xl-2 col-lg-12 col-sm-12 d-flex justify-content-center mt-2 align-items-center">
+                    {{#if (eq profile.role "guest")}}
                     <div class="vip-registration">
                         <a href="/vip_registration" class="action_vip-registration">
                             <p>Vip registration</p>
                         </a>
                     </div>
+                    {{/if}}
+                    {{#if (eq profile.role "subscriber")}}
+                    <div class="vip-registration">
+                        <a href="/vip_registration" class="action_vip-registration">
+                            <p>Vip registration</p>
+                        </a>
+                    </div>
+                    {{/if}}
                     <div  class="top-act__user">
     <a href="/profile"> <img src="{{profile.image}}" alt="" class="avatar" /></a>
     <div class="act-dropdown top-act__dropdown">
@@ -120,7 +129,7 @@
         </div>
         <nav class="nav-header">
                 <div class="nav-header__home">
-                    <a href="" class="">
+                    <a href="/logined" class="">
                     <img src="/assets/icons/home.svg" alt="" class="nav-header__home--img">
                     </a>
                 </div>
@@ -271,7 +280,7 @@
                     <button class="nav-control nav-next">></button>          
                 </div>
                 <div class="nav-header__contact-us">
-                    <a href="" class="">
+                    <a href="/contact_us" class="">
                         <img src="/assets/icons/contact.svg" alt="" class="nav-header__contact-us-img">
                     </a>
                 </div>

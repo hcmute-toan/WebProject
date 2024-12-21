@@ -9,6 +9,7 @@ router.get('/articleDetail/:id', guestController.detailArticle);
 router.get('/category', guestController.category);
 router.get('/tag', guestController.tag);
 router.get('/search', guestController.search);
+router.get('/contact_us', guestController.contact_us);
 router.post('/vip_register', guestController.vip_register);
 router.get('/search/tag/:id', guestController.tag);
 router.get('/search/category/:id', guestController.category);

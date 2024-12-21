@@ -18,6 +18,9 @@ const handlebars = require("handlebars");
 handlebars.registerHelper("eq", function (a, b) {
   return a === b;
 });
+handlebars.registerHelper('or', function (arg1, arg2) {
+  return arg1 || arg2;
+});
 handlebars.registerHelper("formatDate", function (date) {
   return moment(date).format("DD/MM/YYYY"); // Định dạng theo kiểu 'DD/MM/YYYY'
 });

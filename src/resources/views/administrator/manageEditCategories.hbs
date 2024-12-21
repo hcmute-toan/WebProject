@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="category-form-container">
+    <h2 class="category-form-header">Add New Category</h2>
+    <form
+      action="/admin/{{category._id}}/manageSaveUpdateCategories?_method=PUT"
+      method="POST"
+      class="category-form"
+    >
+      <label for="name" class="category-form-label">Category Name:</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        required
+        class="category-form-input"
+        value="{{category.name}}"
+      />
+
+      <label for="parent" class="category-form-label">Parent Category:</label>
+      <select id="parent" name="parent_id" class="category-form-select">
+        <option
+          value="{{category.parent_id._id}}"
+        >{{category.parent_id.name}}</option>
+        {{#each categoriesParent}}
+          <option value="{{this._id}}">{{this.name}}</option>
+        {{/each}}
+        <option value="">[Change To Parent]</option>
+      </select>
+
+      <button type="submit" class="category-form-button">Update Category</button>
+    </form>
+  </div>
+</div>

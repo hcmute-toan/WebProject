@@ -45,15 +45,49 @@
         <table class="admin__table">
           <thead>
             <tr>
-              <th>Parent Category</th>
-              <th>Name</th>
+              <th>ID
+                <button
+                  class="sort-btn"
+                  data-sort="id"
+                  data-order="asc"
+                >▲</button>
+                <button
+                  class="sort-btn"
+                  data-sort="id"
+                  data-order="desc"
+                >▼</button>
+              </th>
+              <th>Parent Category
+                <button
+                  class="sort-btn"
+                  data-sort="parent"
+                  data-order="asc"
+                >▲</button>
+                <button
+                  class="sort-btn"
+                  data-sort="parent"
+                  data-order="desc"
+                >▼</button>
+              </th>
+              <th>Name
+                <button
+                  class="sort-btn"
+                  data-sort="name"
+                  data-order="asc"
+                >▲</button>
+                <button
+                  class="sort-btn"
+                  data-sort="name"
+                  data-order="desc"
+                >▼</button>
+              </th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-
             {{#each category}}
               <tr>
+                <td>{{increment @index}}</td>
                 <td>
                   {{#if this.parent_id}}
                     {{this.parent_id.name}}
@@ -62,7 +96,6 @@
                   {{/if}}
                 </td>
                 <td>{{this.name}}</td>
-
                 <td>
                   <a
                     href="/admin/{{this._id}}/manageEditCategories"
@@ -74,9 +107,7 @@
                     data-toggle="modal"
                     data-target="#deleteModal"
                     data-id="{{this._id}}"
-                  >
-                    Delete
-                  </a>
+                  >Delete</a>
                 </td>
               </tr>
             {{/each}}
@@ -98,7 +129,7 @@
   aria-labelledby="deleteModalLabel"
   aria-hidden="true"
 >
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-delete__admin" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
