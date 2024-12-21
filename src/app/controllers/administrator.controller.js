@@ -598,8 +598,24 @@ class AdministratorController {
   }
   async manageSavePlans(req, res) {
     try {
-      const {name ,duration,originalPrice,discountedPrice,dailyCost,discountPercent,description} = req.body;
-      if (!name ||!duration ||!originalPrice ||!discountedPrice ||!dailyCost ||!discountPercent ||!description) {
+      const {
+        name,
+        duration,
+        originalPrice,
+        discountedPrice,
+        dailyCost,
+        discountPercent,
+        description,
+      } = req.body;
+      if (
+        !name ||
+        !duration ||
+        !originalPrice ||
+        !discountedPrice ||
+        !dailyCost ||
+        !discountPercent ||
+        !description
+      ) {
         return res.status(400).json({ message: "Plan is required" });
       }
 
@@ -650,8 +666,27 @@ class AdministratorController {
   }
   async manageUpdatePlans(req, res) {
     try {
-      const { name } = req.body;
-      await Plan.updateOne({ _id: req.params.id }, { name ,duration,originalPrice,discountedPrice,dailyCost,discountPercent,description });
+      const {
+        name,
+        duration,
+        originalPrice,
+        discountedPrice,
+        dailyCost,
+        discountPercent,
+        description,
+      } = req.body;
+      await Plan.updateOne(
+        { _id: req.params.id },
+        {
+          name,
+          duration,
+          originalPrice,
+          discountedPrice,
+          dailyCost,
+          discountPercent,
+          description,
+        }
+      );
       res.redirect("/admin/extend-subscription");
     } catch (error) {
       res.status(500).send("An error occurred while updating the plan.");

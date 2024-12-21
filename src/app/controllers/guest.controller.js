@@ -5,6 +5,7 @@ const User = require("../models/userModel");
 const ArticleTag = require("../models/articleTagModel");
 const Tag = require("../models/tagModel");
 const Subscription = require("../models/subscriptionModel");
+const Comment = require("../models/commentModel");
 const Plan = require("../models/subscriptionPlanModel");
 const { multipleMongooseToObject } = require("../../util/mongose");
 const { mongooseToObject } = require("../../util/mongose");
@@ -13,40 +14,31 @@ const path = require("path");
 class GuestController {
   // Trang chủ dành cho guest
   async index(req, res) {
-    const articles = await Article.find({
+    req.session.destroy();
+    const articles_4_most_view = await Article.find({
       status: "published",
       Release_at: { $lte: new Date() }, // Kiểm tra ngày xuất bản đã qua hoặc bằng ngày hiện tại
     })
+      .sort({ count_view: -1 }) // Sắp xếp theo count_view giảm dần (cao nhất trước)
+      .limit(4) // Giới hạn chỉ lấy 4 bài viết
       .populate("category_id")
       .populate("author_id");
+    
 
     res.render("guest/index", {
       layout: "main",
       isSubscriber: false,
-      articles: multipleMongooseToObject(articles),
+      articles: multipleMongooseToObject(articles_4_most_view),
     });
   }
-  async contact_us(req, res) {
-    const profile = await User.findById(req.session.userId);
-    if(profile === null)
-    {
-      res.render("about_us/contact", {
-        layout: "main",
-      });
-    }
-    else{
-      res.render("about_us/contact", {
-        layout: "logined",
-        profile: mongooseToObject(profile),
-      });
-    }
-  }
   async logined(req, res) {
-    const articles = await Article.find({
+    const articles_4_most_view = await Article.find({
       status: "published",
-      Release_at: { $lte: new Date() },
+      Release_at: { $lte: new Date() }, // Kiểm tra ngày xuất bản đã qua hoặc bằng ngày hiện tại
     })
-      .populate("category_id", "name")
+      .sort({ count_view: -1 }) // Sắp xếp theo count_view giảm dần (cao nhất trước)
+      .limit(4) // Giới hạn chỉ lấy 4 bài viết
+      .populate("category_id")
       .populate("author_id");
     if (!req.session.userId) {
       return res.redirect("/auth/register");
@@ -55,7 +47,7 @@ class GuestController {
     res.render("guest/index", {
       layout: "logined",
       isSubscriber: false,
-      articles: multipleMongooseToObject(articles),
+      articles: multipleMongooseToObject(articles_4_most_view),
       profile: mongooseToObject(profile),
     });
   }
@@ -75,36 +67,110 @@ class GuestController {
       .populate("category_id", "name")
       .populate("author_id");
     const profile = await User.findById(req.session.userId);
+    const comments = await Comment.find({ article_id: req.params.id }).populate(
+      "user_id",
+      "username image _id"
+    );
+
+    const filteredCommentAuthor = comments.filter((item) =>
+      item.user_id._id.equals(req.session.userId)
+    );
+    const filteredCommentDiffAuthor = comments.filter(
+      (item) => !item.user_id._id.equals(req.session.userId)
+    );
     if (article.type === "none") {
       if (profile === null) {
+        await Article.findByIdAndUpdate(req.params.id, {
+          $inc: { count_view: 1 }, // Tăng count_view thêm 1
+        });
         return res.render("guest/article", {
           layout: "main",
           article: mongooseToObject(article),
           articles: multipleMongooseToObject(articles),
           articleTags: multipleMongooseToObject(articleTags),
+          comments: multipleMongooseToObject(comments),
         });
       }
+      await Article.findByIdAndUpdate(req.params.id, {
+        $inc: { count_view: 1 }, // Tăng count_view thêm 1
+      });
       res.render("guest/article", {
         layout: "logined",
         article: mongooseToObject(article),
         articles: multipleMongooseToObject(articles),
         profile: mongooseToObject(profile),
         articleTags: multipleMongooseToObject(articleTags),
+        commentAuthor: multipleMongooseToObject(filteredCommentAuthor),
+        commentAll: multipleMongooseToObject(filteredCommentDiffAuthor),
       });
     } else {
       if (profile === null) {
         return res.render("errors/not_authorized", { layout: "error" });
-      } else if (profile.role !== "guest") {
+      }
+      if (profile.role !== "guest") {
+        await Article.findByIdAndUpdate(req.params.id, {
+          $inc: { count_view: 1 }, // Tăng count_view thêm 1
+        });
         res.render("guest/article", {
           layout: "logined",
           article: mongooseToObject(article),
           articles: multipleMongooseToObject(articles),
           profile: mongooseToObject(profile),
           articleTags: multipleMongooseToObject(articleTags),
+          commentAuthor: multipleMongooseToObject(filteredCommentAuthor),
+          commentAll: multipleMongooseToObject(filteredCommentDiffAuthor),
         });
       } else {
-        return res.render("errors/not_authorized", { layout: "error" });
+        return res.render("errors/not_authorized", {
+          layout: "error",
+        });
       }
+    }
+  }
+  async commentArticle(req, res) {
+    if (!req.session.userId) {
+      return res
+        .status(401)
+        .json({ message: "You need to log in to comment." });
+    }
+    const profile = await User.findById(req.session.userId);
+    try {
+      // Nhận dữ liệu từ payload
+      const { content } = req.body;
+
+      const newComment = new Comment({
+        article_id: req.params.id,
+        user_id: profile._id,
+        content,
+      });
+
+      // Lưu vào cơ sở dữ liệu
+      await newComment.save();
+      res.redirect(`/articleDetail/${req.params.id}`);
+    } catch (error) {
+      console.error("Error creating category:", error.message);
+
+      // Kiểm tra lỗi nếu tên danh mục đã tồn tại
+      if (error.code === 11000) {
+        return res
+          .status(400)
+          .json({ message: "Category name already exists" });
+      }
+
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
+
+  async updateCommentArticle(req, res) {
+    try {
+      const { content, comment_id } = req.body;
+
+      const comment = await Comment.findById(req.params.id);
+
+      await Comment.updateOne({ _id: req.params.id }, { content: content });
+      res.redirect(`/articleDetail/${comment.article_id}`);
+    } catch (error) {
+      res.status(500).send("An error occurred while updating the category.");
     }
   }
   // Trang danh mục
@@ -286,7 +352,7 @@ class GuestController {
     return res.render("guest/register_premium", {
       layout: "logined",
       profile: mongooseToObject(profile),
-      plans : multipleMongooseToObject(plans),
+      plans: multipleMongooseToObject(plans),
     });
   }
 }

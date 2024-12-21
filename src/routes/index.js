@@ -6,6 +6,7 @@ const editorRoutes = require('./editor.routes');
 const subscriberRoutes = require('./subscriber.routes');
 const writerRoutes = require('./writer.routes');
 const profileRoutes = require('./profile.routes');
+const contactRoutes = require('./contact.routes');
 const errorsController = require('../app/controllers/errors.controller');
 
 function route(app) {
@@ -19,7 +20,9 @@ function route(app) {
     app.use('/subscriber', subscriberRoutes);
     // Writer routes
     app.use('/writer', writerRoutes);
-
+    //contact routes
+    app.use('/contact_us', contactRoutes);
+    //profile routes
     app.use('/profile', profileRoutes);
     // Guest routes
     app.use('/', guestRoutes);

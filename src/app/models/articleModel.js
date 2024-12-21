@@ -1,5 +1,6 @@
 
 const mongoose = require("mongoose");
+const { tag } = require("../controllers/guest.controller");
 const Schema = mongoose.Schema;
 
 // Article Schema
@@ -25,8 +26,9 @@ const ArticleSchema = new Schema({
   // updated_at: { type: Date, default: Date.now },
   Release_at: {type:Date,default:null},
 },{ timestamps: true });
+
 ArticleSchema.index(
-  { title: "text", summary: "text", content: "text" },
+  { title: "text", summary: "text", content: "text"},
 );
 
 module.exports = mongoose.model("Article", ArticleSchema);

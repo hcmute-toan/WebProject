@@ -73,7 +73,7 @@ class WriterController {
     });
   }
   async viewArticle(req, res) {
-    const article = await Article.findById(req.params.id);
+    const article = await Article.findById(req.params.id).populate("author_id");
         res.render("writer/view_article", {layout:"error", article: mongooseToObject(article) });
   }
 
