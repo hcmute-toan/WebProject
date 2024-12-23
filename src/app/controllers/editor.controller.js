@@ -78,7 +78,7 @@ class EditorController {
   async approveArticle(req, res) {
     try {
       const articleId = req.params.id;
-      const { category, tags, publishDate } = req.body;
+      const { category, tags, publishDate,type } = req.body;
 
       // 1. Cập nhật bài viết: thay đổi trạng thái và ngày phát hành
       const article = await Article.findById(articleId);
@@ -89,6 +89,7 @@ class EditorController {
       article.status = "published";
       article.Release_at = new Date(publishDate);
       article.category_id = category; // Giả sử bạn đã có category trong database
+      article.type = type;
       await article.save();
 
       // 2. Xử lý tags:

@@ -1,9 +1,26 @@
 <div class="container">
-    <div class="overview_article">
-        <textarea
-                id="content"
-                class="form-control content"
-                name="content"
-        ></textarea>
+  <div class="row">
+    <div class="col-12">
+      <div class="article-container">
+        <h1 class="article-header">{{article.title}}</h1>
+
+        <div class="article-metadata">
+          <span class="article-author">Author: Nguyễn Văn A</span>
+          |
+          <span class="article-date">Published on:
+            {{article.created_at}}</span>
+        </div>
+
+        <div class="article-summary">
+          <h2>Summary</h2>
+          <p>{{article.summary}}</p>
+        </div>
+
+        <div class="article-content">
+          <h2>Content</h2>
+          <p>{{{article.content}}}</p>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
+</div>  
