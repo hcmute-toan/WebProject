@@ -23,7 +23,6 @@ class GuestController {
       .limit(4) // Giới hạn chỉ lấy 4 bài viết
       .populate("category_id")
       .populate("author_id");
-    
 
     res.render("guest/index", {
       layout: "main",
@@ -327,6 +326,7 @@ class GuestController {
             existingSubscription.end_date.getTime() +
               planDays * 24 * 60 * 60 * 1000
           ),
+          status: "pending",
         });
       }
 
@@ -334,8 +334,8 @@ class GuestController {
       await newSubscription.save();
 
       // Cập nhật vai trò thành subscriber
-      profile.role = "subscriber";
-      await profile.save();
+      // profile.role = "subscriber";
+      // await profile.save();
 
       console.log("Subscription updated successfully");
       res.redirect("vip_registration"); // Hoặc alert từ phía client

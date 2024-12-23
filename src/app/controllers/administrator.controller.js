@@ -4,6 +4,7 @@ const Article = require("../models/articleModel");
 const User = require("../models/userModel");
 const Tag = require("../models/tagModel");
 const Plan = require("../models/subscriptionPlanModel");
+const UserSubscriber = require("../models/subscriptionModel");
 const { multipleMongooseToObject } = require("../../util/mongose");
 const { mongooseToObject } = require("../../util/mongose");
 const { category } = require("./guest.controller");
@@ -557,11 +558,15 @@ class AdministratorController {
       res.status(500).send("An error occurred while deleting the Tag.");
     }
   }
-  // Gia hạn subscription
+  // Gia hạn subscription///////////////////////////////////////////////
   async extendSubscription(req, res) {
     if (!req.session.userId) {
       return res.redirect("/auth/register");
     }
+    const userSubscriber = await UserSubscriber.find({
+      status: "pending",
+    }).populate("user_id", "username image authMethod image email _id");
+
     const profile = await User.findById(req.session.userId);
     const plans = await Plan.find({});
     if (profile.role !== "administrator") {
@@ -573,8 +578,31 @@ class AdministratorController {
       layout: "admin",
       profile: mongooseToObject(profile),
       plans: multipleMongooseToObject(plans),
+      userSubscriber: multipleMongooseToObject(userSubscriber),
     });
   }
+  async acceptToSubscriber(req, res) {
+    try {
+      const { subscriberId } = req.body;
+      await User.updateOne(
+        { _id: req.params.id },
+        {
+          role: "subscriber",
+        }
+      );
+      await UserSubscriber.updateOne(
+        { _id: subscriberId },
+        {
+          status: "subscriber",
+        }
+      );
+
+      res.redirect("/admin/extend-subscription");
+    } catch (error) {
+      res.status(500).send("An error occurred while updating the plan.");
+    }
+  }
+
   async manageShowAddPlans(req, res) {
     try {
       if (!req.session.userId) {

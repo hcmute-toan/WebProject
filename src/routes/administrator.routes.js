@@ -33,14 +33,28 @@ router.put("/:id/manage-UpdateSave-tags", adminController.manageUpdateTags);
 router.post("/:id/manageDeleteTags", adminController.manageDeleteTags);
 ///////////////////////////
 router.get("/extend-subscription", adminController.extendSubscription);
-router.get("/manage-add-extend-subscription", adminController.manageShowAddPlans);
-router.post("/manage-save-extend-subscription", adminController.manageSavePlans);
-router.get("/:id/manage-Update-extend-subscription", adminController.manageShowUpdatePlans);
-router.put("/:id/manage-UpdateSave-extend-subscription", adminController.manageUpdatePlans);
-router.post("/:id/manage-Delete-extend-subscription", adminController.manageDeletePlans);
-
+router.get(
+  "/manage-add-extend-subscription",
+  adminController.manageShowAddPlans
+);
+router.post(
+  "/manage-save-extend-subscription",
+  adminController.manageSavePlans
+);
+router.get(
+  "/:id/manage-Update-extend-subscription",
+  adminController.manageShowUpdatePlans
+);
+router.put(
+  "/:id/manage-UpdateSave-extend-subscription",
+  adminController.manageUpdatePlans
+);
+router.post(
+  "/:id/manage-Delete-extend-subscription",
+  adminController.manageDeletePlans
+);
+router.put("/:id/acceptToSubscriber", adminController.acceptToSubscriber);
 //////////////////////////////
-
 
 ///////////////////////////
 router.get("/manageAddCategories", adminController.manageAddCategories);
