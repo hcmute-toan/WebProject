@@ -12,6 +12,7 @@ router.get('/search', guestController.search);
 router.post('/vip_register', guestController.vip_register);
 router.get('/search/tag/:id', guestController.tag);
 router.get('/search/category/:id', guestController.category);
+router.get('/search/author/:id', guestController.author);
 router.get('/vip_registration', guestController.vip_registration);
 router.post("/articles/:id/comments", guestController.commentArticle);
 router.put("/article/:id/updateComment", guestController.updateCommentArticle);

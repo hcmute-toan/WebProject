@@ -68,146 +68,18 @@
                 <div class="nav-header__category">
                     <button class="nav-control nav-previous"><</button>
                     <ul class="nav-header__category-list">                    
+                        {{#each categoriesWithChildren}}
                         <li class="nav-header__category-item">
-                            <h1 class="nav-header__category-item-name">Business</h1>
+                            <h1 class="nav-header__category-item-name">{{this.parentCategory.name}}</h1>
                             <ul class="nav-item">
+                                {{#each this.childCategories}}
                                 <li>
-                                    <a href="" class="nav-header__link">Agricultural Products</a>
+                                    <a href="/search/category/{{this._id}}" class="nav-header__link">{{this.name}}</a>
                                 </li>
-                                <li>
-                                    <a href="" class="nav-header__link">Seafood</a>
-                                </li>
-                                <li>
-                                    <a href="" class="nav-header__link">Food and Beverages</a>
-                                </li>
+                                {{/each}}
                             </ul>
                         </li>
-                        <li class="nav-header__category-item">
-                            <h1 class="nav-header__category-item-name">Politics</h1>
-                            <ul class="nav-item" >
-                                <li>
-                                    <a href="" class="nav-header__link">Domestic Politics</a>
-                                </li>
-                                <li>
-                                    <a href="" class="nav-header__link">International Politics</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-header__category-item">
-                            <h1 class="nav-header__category-item-name">Entertainment</h1>
-                            <ul class="nav-item">
-                                <li>
-                                    <a href="" class="nav-header__link">Music</a>
-                                </li>
-                                <li>
-                                    <a href="" class="nav-header__link">Movies</a>
-                                </li>
-                                <li>
-                                    <a href="" class="nav-header__link">Entertainment Events</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-header__category-item">
-                            <h1 class="nav-header__category-item-name">Sports</h1>
-                            <ul class="nav-item">
-                                <li>
-                                    <a href="" class="nav-header__link">Football</a>
-                                </li>
-                                <li>
-                                    <a href="" class="nav-header__link">Basketball</a>
-                                </li>
-                                <li>
-                                    <a href="" class="nav-header__link">Badmintoon</a>
-                                </li>
-                                <li>
-                                    <a href="" class="nav-header__link">Other</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-header__category-item">
-                            <h1 class="nav-header__category-item-name">Technology</h1>
-                            <ul class="nav-item">
-                                <li>
-                                    <a href="" class="nav-header__link">Phones and Accessories</a>
-                                </li>
-                                <li>
-                                    <a href="" class="nav-header__link">Software and Apps</a>
-                                </li>
-                                <li>
-                                    <a href="" class="nav-header__link">New Technology</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-header__category-item">
-                            <h1 class="nav-header__category-item-name">Health</h1>
-                            <ul class="nav-item">
-                                <li>
-                                    <a href="" class="nav-header__link">Nutrition</a>
-                                </li>
-                                <li>
-                                    <a href="" class="nav-header__link">Diseases and Treatments</a>
-                                </li>
-                                <li>
-                                    <a href="" class="nav-header__link">Other</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-header__category-item">
-                            <h1 class="nav-header__category-item-name">Society</h1>
-                            <ul class="nav-item">
-                                <li>
-                                    <a href="" class="nav-header__link">Education</a>
-                                </li>
-                                <li>
-                                    <a href="" class="nav-header__link">Culture</a>
-                                </li>
-                                <li>
-                                    <a href="" class="nav-header__link">Charity and Humanity</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-header__category-item">
-                            <h1 class="nav-header__category-item-name">Travel</h1>
-                            <ul class="nav-item">
-                                <li>
-                                    <a href="" class="nav-header__link">Domestic Travel</a>
-                                </li>
-                                <li>
-                                    <a href="" class="nav-header__link">International Travel</a>
-                                </li>
-                                <li>
-                                    <a href="" class="nav-header__link">Travel Tips and Guides calendar</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-header__category-item">
-                            <h1 class="nav-header__category-item-name">Environment</h1>
-                            <ul class="nav-item">
-                                <li>
-                                    <a href="" class="nav-header__link">Climate change</a>
-                                </li>
-                                <li>
-                                    <a href="" class="nav-header__link">Going Green</a>
-                                </li>
-                                <li>
-                                    <a href="" class="nav-header__link">Animal Protection</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-header__category-item">
-                            <h1 class="nav-header__category-item-name">Law</h1>
-                            <ul class="nav-item">
-                                <li>
-                                    <a href="" class="nav-header__link">Criminal Law</a>
-                                </li>
-                                <li>
-                                    <a href="" class="nav-header__link">Civil Law</a>
-                                </li>
-                                <li>
-                                    <a href="" class="nav-header__link">Notable Cases</a>
-                                </li>
-                            </ul>
-                        </li>
+                        {{/each}}
                     </ul>    
                     <button class="nav-control nav-next">></button>          
                 </div>

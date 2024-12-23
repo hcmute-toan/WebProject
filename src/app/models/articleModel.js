@@ -25,6 +25,7 @@ const ArticleSchema = new Schema({
   // created_at: { type: Date, default: Date.now },
   // updated_at: { type: Date, default: Date.now },
   Release_at: {type:Date,default:null},
+  Reason_for_rejection :{type :String, default:null},
 },{ timestamps: true });
 
 ArticleSchema.index(

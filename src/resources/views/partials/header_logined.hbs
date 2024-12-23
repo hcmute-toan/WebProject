@@ -135,22 +135,20 @@
                 </div>
                 <div class="nav-header__category">
                     <button class="nav-control nav-previous"><</button>
-                    <ul class="nav-header__category-list">                    
+                    <ul class="nav-header__category-list"> 
+                        {{#each categoriesWithChildren}}
                         <li class="nav-header__category-item">
-                            <h1 class="nav-header__category-item-name">Business</h1>
+                            <h1 class="nav-header__category-item-name">{{this.parentCategory.name}}</h1>
                             <ul class="nav-item">
+                                {{#each this.childCategories}}
                                 <li>
-                                    <a href="" class="nav-header__link">Agricultural Products</a>
+                                    <a href="/search/category/{{this._id}}" class="nav-header__link">{{this.name}}</a>
                                 </li>
-                                <li>
-                                    <a href="" class="nav-header__link">Seafood</a>
-                                </li>
-                                <li>
-                                    <a href="" class="nav-header__link">Food and Beverages</a>
-                                </li>
+                                {{/each}}
                             </ul>
                         </li>
-                        <li class="nav-header__category-item">
+                        {{/each}}
+                        {{!-- <li class="nav-header__category-item">
                             <h1 class="nav-header__category-item-name">Politics</h1>
                             <ul class="nav-item" >
                                 <li>
@@ -275,7 +273,7 @@
                                     <a href="" class="nav-header__link">Notable Cases</a>
                                 </li>
                             </ul>
-                        </li>
+                        </li>  --}}
                     </ul>    
                     <button class="nav-control nav-next">></button>          
                 </div>

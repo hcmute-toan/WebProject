@@ -15,31 +15,210 @@ class GuestController {
   // Trang chủ dành cho guest
   async index(req, res) {
     req.session.destroy();
-    const articles_4_most_view = await Article.find({
+    const parentCategories = await Category.find({ parent_id: null });
+    const categoriesWithChildren = [];
+
+    // Use the utility function to convert Mongoose objects to plain objects
+    const parentCategoriesObjects = multipleMongooseToObject(parentCategories);
+
+    for (let parentCategory of parentCategoriesObjects) {
+      const childCategories = await Category.find({
+        parent_id: parentCategory._id,
+      });
+
+      // Convert the child categories to plain objects as well
+      const childCategoriesObjects = multipleMongooseToObject(childCategories);
+
+      categoriesWithChildren.push({
+        parentCategory,
+        childCategories: childCategoriesObjects,
+      });
+    }
+    const startOfWeek = new Date();
+    //3-4 bài viết nổi bật trong tuần
+    startOfWeek.setDate(startOfWeek.getDate() - 7); // Lấy ngày đầu tuần (7 ngày trước)
+    const featured_articles = await Article.find({
+      status: "published",
+      Release_at: { $gte: startOfWeek, $lte: new Date() }, // Lấy các bài viết trong tuần qua
+    })
+      .sort({ count_view: -1 }) // Sắp xếp theo lượt xem giảm dần
+      .limit(4) // Giới hạn 3-4 bài viết
+      .populate("category_id")
+      .populate("author_id");
+    // 10 bài viết được xem nhiều nhất
+    const articles_10_most_view = await Article.find({
       status: "published",
       Release_at: { $lte: new Date() }, // Kiểm tra ngày xuất bản đã qua hoặc bằng ngày hiện tại
     })
       .sort({ count_view: -1 }) // Sắp xếp theo count_view giảm dần (cao nhất trước)
-      .limit(4) // Giới hạn chỉ lấy 4 bài viết
+      .limit(10)
       .populate("category_id")
       .populate("author_id");
-    
-
+    // 10 bài viết mới nhất
+    const articles_10_newest = await Article.find({
+      status: "published",
+      Release_at: { $lte: new Date() }, // Kiểm tra ngày xuất bản đã qua hoặc bằng ngày hiện tại
+    })
+      .sort({ Release_at: -1 }) // Sắp xếp theo count_view giảm dần (cao nhất trước)
+      .limit(10)
+      .populate("category_id")
+      .populate("author_id");
+    // top 10 chuyên mục, mỗi chuyên mục 1 bài mới nhất
+    const top_10_categories_with_latest_articles = await Article.aggregate([
+      {
+        $match: {
+          status: "published",
+          category_id: { $ne: null }, // Đảm bảo bài viết có category_id
+          Release_at: { $lte: new Date() }, // Lọc bài đã phát hành
+        },
+      },
+      {
+        $sort: {
+          category_id: 1, // Sắp xếp theo chuyên mục
+          Release_at: -1, // Bài viết mới nhất trước
+        },
+      },
+      {
+        $group: {
+          _id: "$category_id", // Nhóm theo category_id
+          latestArticle: { $first: "$$ROOT" }, // Lấy bài viết mới nhất trong mỗi nhóm
+        },
+      },
+      { $limit: 10 }, // Lấy top 10 chuyên mục
+      {
+        $lookup: {
+          from: "categories", // Tên collection của Category
+          localField: "_id", // Trường liên kết (category_id)
+          foreignField: "_id", // Trường _id của Category
+          as: "category", // Tên trường sau khi join
+        },
+      },
+      {
+        $lookup: {
+          from: "users", // Tên collection của User
+          localField: "latestArticle.author_id", // Trường liên kết (author_id)
+          foreignField: "_id", // Trường _id của User
+          as: "author", // Tên trường sau khi join
+        },
+      },
+      {
+        $project: {
+          _id: 1,
+          latestArticle: 1,
+          category: { $arrayElemAt: ["$category", 0] }, // Lấy category đầu tiên
+          author: { $arrayElemAt: ["$author", 0] }, // Lấy author đầu tiên
+        },
+      },
+    ]);
     res.render("guest/index", {
       layout: "main",
       isSubscriber: false,
-      articles: multipleMongooseToObject(articles_4_most_view),
+      articles: multipleMongooseToObject(articles_10_most_view),
+      featured_articles: multipleMongooseToObject(featured_articles),
+      articles_10_most_view: multipleMongooseToObject(articles_10_most_view),
+      articles_10_newest: multipleMongooseToObject(articles_10_newest),
+      top_10_categories_with_latest_articles:
+        top_10_categories_with_latest_articles, // Dữ liệu lấy từ MongoDB
+      categoriesWithChildren: categoriesWithChildren,
     });
   }
   async logined(req, res) {
-    const articles_4_most_view = await Article.find({
+    const parentCategories = await Category.find({ parent_id: null });
+    const categoriesWithChildren = [];
+
+    // Use the utility function to convert Mongoose objects to plain objects
+    const parentCategoriesObjects = multipleMongooseToObject(parentCategories);
+
+    for (let parentCategory of parentCategoriesObjects) {
+      const childCategories = await Category.find({
+        parent_id: parentCategory._id,
+      });
+
+      // Convert the child categories to plain objects as well
+      const childCategoriesObjects = multipleMongooseToObject(childCategories);
+
+      categoriesWithChildren.push({
+        parentCategory,
+        childCategories: childCategoriesObjects,
+      });
+    }
+    const startOfWeek = new Date();
+    //3-4 bài viết nổi bật trong tuần
+    startOfWeek.setDate(startOfWeek.getDate() - 7); // Lấy ngày đầu tuần (7 ngày trước)
+    const featured_articles = await Article.find({
+      status: "published",
+      Release_at: { $gte: startOfWeek, $lte: new Date() }, // Lấy các bài viết trong tuần qua
+    })
+      .sort({ count_view: -1 }) // Sắp xếp theo lượt xem giảm dần
+      .limit(4) // Giới hạn 3-4 bài viết
+      .populate("category_id")
+      .populate("author_id");
+    // 10 bài viết được xem nhiều nhất
+    const articles_10_most_view = await Article.find({
       status: "published",
       Release_at: { $lte: new Date() }, // Kiểm tra ngày xuất bản đã qua hoặc bằng ngày hiện tại
     })
       .sort({ count_view: -1 }) // Sắp xếp theo count_view giảm dần (cao nhất trước)
-      .limit(4) // Giới hạn chỉ lấy 4 bài viết
+      .limit(10)
       .populate("category_id")
       .populate("author_id");
+    // 10 bài viết mới nhất
+    const articles_10_newest = await Article.find({
+      status: "published",
+      Release_at: { $lte: new Date() }, // Kiểm tra ngày xuất bản đã qua hoặc bằng ngày hiện tại
+    })
+      .sort({ Release_at: -1 }) // Sắp xếp theo count_view giảm dần (cao nhất trước)
+      .limit(10)
+      .populate("category_id")
+      .populate("author_id");
+    // top 10 chuyên mục, mỗi chuyên mục 1 bài mới nhất
+    const top_10_categories_with_latest_articles = await Article.aggregate([
+      {
+        $match: {
+          status: "published",
+          category_id: { $ne: null }, // Đảm bảo bài viết có category_id
+          Release_at: { $lte: new Date() }, // Lọc bài đã phát hành
+        },
+      },
+      {
+        $sort: {
+          category_id: 1, // Sắp xếp theo chuyên mục
+          Release_at: -1, // Bài viết mới nhất trước
+        },
+      },
+      {
+        $group: {
+          _id: "$category_id", // Nhóm theo category_id
+          latestArticle: { $first: "$$ROOT" }, // Lấy bài viết mới nhất trong mỗi nhóm
+        },
+      },
+      { $limit: 10 }, // Lấy top 10 chuyên mục
+      {
+        $lookup: {
+          from: "categories", // Tên collection của Category
+          localField: "_id", // Trường liên kết (category_id)
+          foreignField: "_id", // Trường _id của Category
+          as: "category", // Tên trường sau khi join
+        },
+      },
+      {
+        $lookup: {
+          from: "users", // Tên collection của User
+          localField: "latestArticle.author_id", // Trường liên kết (author_id)
+          foreignField: "_id", // Trường _id của User
+          as: "author", // Tên trường sau khi join
+        },
+      },
+      {
+        $project: {
+          _id: 1,
+          latestArticle: 1,
+          category: { $arrayElemAt: ["$category", 0] }, // Lấy category đầu tiên
+          author: { $arrayElemAt: ["$author", 0] }, // Lấy author đầu tiên
+        },
+      },
+    ]);
+    console.log(categoriesWithChildren);
     if (!req.session.userId) {
       return res.redirect("/auth/register");
     }
@@ -47,11 +226,36 @@ class GuestController {
     res.render("guest/index", {
       layout: "logined",
       isSubscriber: false,
-      articles: multipleMongooseToObject(articles_4_most_view),
+      articles: multipleMongooseToObject(articles_10_most_view),
+      featured_articles: multipleMongooseToObject(featured_articles),
+      articles_10_most_view: multipleMongooseToObject(articles_10_most_view),
+      articles_10_newest: multipleMongooseToObject(articles_10_newest),
+      top_10_categories_with_latest_articles:
+        top_10_categories_with_latest_articles, // Dữ liệu lấy từ MongoDB
       profile: mongooseToObject(profile),
+      categoriesWithChildren: categoriesWithChildren,
     });
   }
   async detailArticle(req, res, next) {
+    const parentCategories = await Category.find({ parent_id: null });
+    const categoriesWithChildren = [];
+
+    // Use the utility function to convert Mongoose objects to plain objects
+    const parentCategoriesObjects = multipleMongooseToObject(parentCategories);
+
+    for (let parentCategory of parentCategoriesObjects) {
+      const childCategories = await Category.find({
+        parent_id: parentCategory._id,
+      });
+
+      // Convert the child categories to plain objects as well
+      const childCategoriesObjects = multipleMongooseToObject(childCategories);
+
+      categoriesWithChildren.push({
+        parentCategory,
+        childCategories: childCategoriesObjects,
+      });
+    }
     // Article.findById({_id : req.params.id})
     //     .then(( article ) =>
     //         res.render('guest/article'),{article : mongooseToObject(article)}
@@ -63,7 +267,12 @@ class GuestController {
     const article = await Article.findById(req.params.id)
       .populate("category_id", "name")
       .populate("author_id");
-    const articles = await Article.find({})
+    const articles = await Article.find({
+      status: "published",
+      _id: { $ne: new mongoose.Types.ObjectId(req.params.id) },
+      Release_at: { $lte: new Date() },
+    })
+      .limit(4)
       .populate("category_id", "name")
       .populate("author_id");
     const profile = await User.findById(req.session.userId);
@@ -89,6 +298,7 @@ class GuestController {
           articles: multipleMongooseToObject(articles),
           articleTags: multipleMongooseToObject(articleTags),
           comments: multipleMongooseToObject(comments),
+          categoriesWithChildren: categoriesWithChildren,
         });
       }
       await Article.findByIdAndUpdate(req.params.id, {
@@ -102,6 +312,7 @@ class GuestController {
         articleTags: multipleMongooseToObject(articleTags),
         commentAuthor: multipleMongooseToObject(filteredCommentAuthor),
         commentAll: multipleMongooseToObject(filteredCommentDiffAuthor),
+        categoriesWithChildren: categoriesWithChildren,
       });
     } else {
       if (profile === null) {
@@ -119,6 +330,7 @@ class GuestController {
           articleTags: multipleMongooseToObject(articleTags),
           commentAuthor: multipleMongooseToObject(filteredCommentAuthor),
           commentAll: multipleMongooseToObject(filteredCommentDiffAuthor),
+          categoriesWithChildren: categoriesWithChildren,
         });
       } else {
         return res.render("errors/not_authorized", {
@@ -175,6 +387,25 @@ class GuestController {
   }
   // Trang danh mục
   async category(req, res) {
+    const parentCategories = await Category.find({ parent_id: null });
+    const categoriesWithChildren = [];
+
+    // Use the utility function to convert Mongoose objects to plain objects
+    const parentCategoriesObjects = multipleMongooseToObject(parentCategories);
+
+    for (let parentCategory of parentCategoriesObjects) {
+      const childCategories = await Category.find({
+        parent_id: parentCategory._id,
+      });
+
+      // Convert the child categories to plain objects as well
+      const childCategoriesObjects = multipleMongooseToObject(childCategories);
+
+      categoriesWithChildren.push({
+        parentCategory,
+        childCategories: childCategoriesObjects,
+      });
+    }
     const profile = await User.findById(req.session.userId);
     if (profile === null) {
       const articles = await Article.find({ category_id: req.params.id })
@@ -192,12 +423,73 @@ class GuestController {
         layout: "logined",
         articles: multipleMongooseToObject(articles),
         profile: mongooseToObject(profile),
+        categoriesWithChildren: categoriesWithChildren,
       });
     }
   }
+  async author(req, res) {
+    const parentCategories = await Category.find({ parent_id: null });
+    const categoriesWithChildren = [];
 
+    // Use the utility function to convert Mongoose objects to plain objects
+    const parentCategoriesObjects = multipleMongooseToObject(parentCategories);
+
+    for (let parentCategory of parentCategoriesObjects) {
+      const childCategories = await Category.find({
+        parent_id: parentCategory._id,
+      });
+
+      // Convert the child categories to plain objects as well
+      const childCategoriesObjects = multipleMongooseToObject(childCategories);
+
+      categoriesWithChildren.push({
+        parentCategory,
+        childCategories: childCategoriesObjects,
+      });
+    }
+    const profile = await User.findById(req.session.userId);
+    if (profile === null) {
+      const articles = await Article.find({ author_id: req.params.id })
+        .populate("category_id")
+        .populate("author_id");
+      res.render("search", {
+        layout: "main",
+        articles: multipleMongooseToObject(articles),
+        categoriesWithChildren: categoriesWithChildren,
+      });
+    } else {
+      const articles = await Article.find({ author_id: req.params.id })
+        .populate("category_id")
+        .populate("author_id");
+      res.render("search", {
+        layout: "logined",
+        articles: multipleMongooseToObject(articles),
+        profile: mongooseToObject(profile),
+        categoriesWithChildren: categoriesWithChildren,
+      });
+    }
+  }
   // Trang tag
   async tag(req, res) {
+    const parentCategories = await Category.find({ parent_id: null });
+    const categoriesWithChildren = [];
+
+    // Use the utility function to convert Mongoose objects to plain objects
+    const parentCategoriesObjects = multipleMongooseToObject(parentCategories);
+
+    for (let parentCategory of parentCategoriesObjects) {
+      const childCategories = await Category.find({
+        parent_id: parentCategory._id,
+      });
+
+      // Convert the child categories to plain objects as well
+      const childCategoriesObjects = multipleMongooseToObject(childCategories);
+
+      categoriesWithChildren.push({
+        parentCategory,
+        childCategories: childCategoriesObjects,
+      });
+    }
     const profile = await User.findById(req.session.userId);
     if (profile === null) {
       const articleTags = await ArticleTag.find({ tag_id: req.params.id })
@@ -209,6 +501,7 @@ class GuestController {
       res.render("search", {
         layout: "main",
         articleTags: multipleMongooseToObject(articleTags),
+        categoriesWithChildren: categoriesWithChildren,
       });
     } else {
       const articleTags = await ArticleTag.find({ tag_id: req.params.id })
@@ -222,12 +515,32 @@ class GuestController {
         layout: "logined",
         articleTags: multipleMongooseToObject(articleTags),
         profile: mongooseToObject(profile),
+        categoriesWithChildren: categoriesWithChildren,
       });
     }
   }
 
   // Trang tìm kiếm
   async search(req, res) {
+    const parentCategories = await Category.find({ parent_id: null });
+    const categoriesWithChildren = [];
+
+    // Use the utility function to convert Mongoose objects to plain objects
+    const parentCategoriesObjects = multipleMongooseToObject(parentCategories);
+
+    for (let parentCategory of parentCategoriesObjects) {
+      const childCategories = await Category.find({
+        parent_id: parentCategory._id,
+      });
+
+      // Convert the child categories to plain objects as well
+      const childCategoriesObjects = multipleMongooseToObject(childCategories);
+
+      categoriesWithChildren.push({
+        parentCategory,
+        childCategories: childCategoriesObjects,
+      });
+    }
     const keyword = req.query.q || ""; // Lấy từ khóa tìm kiếm từ query string
     try {
       // Lấy thông tin người dùng (kiểm tra đã đăng nhập)
@@ -263,12 +576,14 @@ class GuestController {
         res.render("search", {
           layout: "main",
           articles: multipleMongooseToObject(articles),
+          categoriesWithChildren: categoriesWithChildren,
         });
       }
       res.render("search", {
         layout: "logined",
         articles: multipleMongooseToObject(articles),
         profile: mongooseToObject(profile),
+        categoriesWithChildren: categoriesWithChildren,
       });
     } catch (error) {
       console.error("Error searching articles:", error); // Log chi tiết lỗi
@@ -356,6 +671,7 @@ class GuestController {
     });
   }
 }
+
 
 // Xuất một thể hiện của GuestController
 module.exports = new GuestController();

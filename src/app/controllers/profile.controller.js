@@ -10,6 +10,25 @@ const bcrypt = require("bcrypt");
 class ProfileController {
   // Trang chủ dành cho guest
   async index(req, res) {
+    const parentCategories = await Category.find({ parent_id: null });
+    const categoriesWithChildren = [];
+
+    // Use the utility function to convert Mongoose objects to plain objects
+    const parentCategoriesObjects = multipleMongooseToObject(parentCategories);
+
+    for (let parentCategory of parentCategoriesObjects) {
+      const childCategories = await Category.find({
+        parent_id: parentCategory._id,
+      });
+
+      // Convert the child categories to plain objects as well
+      const childCategoriesObjects = multipleMongooseToObject(childCategories);
+
+      categoriesWithChildren.push({
+        parentCategory,
+        childCategories: childCategoriesObjects,
+      });
+    }
     if (!req.session.userId) {
       return res.redirect("/auth/register");
     }
@@ -19,6 +38,7 @@ class ProfileController {
       layout: "logined",
       profile: mongooseToObject(profile),
       isSubscriber: false,
+      categoriesWithChildren: categoriesWithChildren,
     });
   }
   async headerLogined(req, res) {

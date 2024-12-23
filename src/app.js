@@ -27,6 +27,12 @@ handlebars.registerHelper("formatDate", function (date) {
 handlebars.registerHelper("increment", function (index) {
   return index + 1; // Tăng chỉ số lên 1
 });
+handlebars.registerHelper('allowProtoProperties', function(value) {
+  return value;
+});
+handlebars.runtimeOptions = {
+  allowProtoPropertiesByDefault: true
+};
 app.use("/uploads", express.static("uploads"));
 // Connect to db
 db.connect();
