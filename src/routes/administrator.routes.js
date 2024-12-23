@@ -32,6 +32,7 @@ router.get("/:id/manage-Update-tags", adminController.manageShowUpdateTags);
 router.put("/:id/manage-UpdateSave-tags", adminController.manageUpdateTags);
 router.post("/:id/manageDeleteTags", adminController.manageDeleteTags);
 ///////////////////////////
+router.put("/:id/acceptToSubscriber", adminController.acceptToSubscriber);
 router.get("/extend-subscription", adminController.extendSubscription);
 router.get("/manage-add-extend-subscription", adminController.manageShowAddPlans);
 router.post("/manage-save-extend-subscription", adminController.manageSavePlans);
@@ -50,6 +51,9 @@ router.put(
   adminController.manageSaveUpdateCategories
 );
 router.post("/:id/manageDeleteCategories", adminController.deleteCategory);
+
 router.get("/:id/manageEditCategories", adminController.manageEditCategories);
+//////////////////////
+router.post("/:id/deleteContactForm", adminController.contact_us_delete);
 
 module.exports = router;

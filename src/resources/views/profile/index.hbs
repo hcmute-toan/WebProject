@@ -11,7 +11,7 @@
         />
         <button class="search-bar__submit">
           <img
-            src="/assets/icon/search.svg"
+            src="/assets/icons/search.svg"
             alt=""
             class="search-bar__icon icon"
           />
@@ -37,11 +37,11 @@
             <!-- profile menu 1 -->
             <div class="profile-menu">
               <h3 class="profile-menu__title">Manage Account</h3>
-              <a href="/profile/admin" class="profile-menu__item">
-                <a href="/profile/admin" class="profile-menu__link">
+              <a href="/admin/dashboard" class="profile-menu__item">
+                <a href="/admin/dashboard" class="profile-menu__link">
                   <span class="profile-menu__icon">
                     <img
-                      src="/assets/icon/admin.svg"
+                      src="/assets/icons/admin.svg"
                       alt=""
                       class="icon profile-menu__icon"
                     />
@@ -55,7 +55,11 @@
                 <li class="profile-menu__item">
                   <a href="/profile/edit" class="profile-menu__link">
                     <span class="profile-menu__icon">
-                      <img src="/assets/icon/profile.svg" alt="" class="icon" />
+                      <img
+                        src="/assets/icons/profile.svg"
+                        alt=""
+                        class="icon"
+                      />
                     </span>
                     Update Personal info
                   </a>
@@ -63,7 +67,7 @@
                 <li class="profile-menu__item">
                   <a href="#! " class="profile-menu__link">
                     <span class="profile-menu__icon">
-                      <img src="/assets/icon/mess.svg" alt="" class="icon" />
+                      <img src="/assets/icons/mess.svg" alt="" class="icon" />
                     </span>
                     Communications & privacy
                   </a>
@@ -79,7 +83,7 @@
                 <li class="profile-menu__item">
                   <a href="#! " class="profile-menu__link">
                     <span class="profile-menu__icon">
-                      <img src="/assets/icon/help.svg" alt="" class="icon" />
+                      <img src="/assets/icons/help.svg" alt="" class="icon" />
                     </span>
                     Help
                   </a>
@@ -87,7 +91,7 @@
                 <li class="profile-menu__item">
                   <a href="#! " class="profile-menu__link">
                     <span class="profile-menu__icon">
-                      <img src="/assets/icon/term.svg" alt="" class="icon" />
+                      <img src="/assets/icons/term.svg" alt="" class="icon" />
                     </span>
                     Terms of Use
                   </a>
@@ -126,33 +130,33 @@
                     </a>
                   </div>
                   <div class="col">
-                      <article class="account-info">
-                        <div class="account-info__icon">
-                          <img
-                            src="/assets/icons/role.svg"
-                            alt=""
-                            class="icon"
-                            style="width:40px ; height:40px"
-                          />
+                    <article class="account-info">
+                      <div class="account-info__icon">
+                        <img
+                          src="/assets/icons/role.svg"
+                          alt=""
+                          class="icon"
+                          style="width:40px ; height:40px"
+                        />
+                      </div>
+                      <div class="account-info_task">
+                        <div class="account_info_icon_title">
+                          <h3 class="account-info__title">ROLE</h3>
+                          {{profile.role}}
                         </div>
-                        <div class="account-info_task">
-                          <div class="account_info_icon_title">
-                              <h3 class="account-info__title">ROLE</h3>
-                              {{profile.role}}   
-                          </div>
-                          <ul class="list_task">
-                            <a href="/editor/dashboard">
-                                <li>Editor</li>
-                            </a>
-                            <a href="/writer/dashboard">
-                                <li>Writer</li>
-                            </a>
-                            <a href="/admin/dashboard">
-                                <li>Admin</li>
-                            </a>
-                          </ul>                     
-                        </div>
-                      </article>
+                        <ul class="list_task">
+                          <a href="/editor/dashboard">
+                            <li>Editor</li>
+                          </a>
+                          <a href="/writer/dashboard">
+                            <li>Writer</li>
+                          </a>
+                          <a href="/admin/dashboard">
+                            <li>Admin</li>
+                          </a>
+                        </ul>
+                      </div>
+                    </article>
                   </div>
                 </div>
               </div>

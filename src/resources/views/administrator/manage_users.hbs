@@ -32,7 +32,22 @@
       </div>
       <div class="col-9">
         <h1 class="admin__heading">Manage Users</h1>
-
+        <div
+          style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;"
+        >
+          <input
+            type="text"
+            id="userSearch"
+            placeholder="Search users by username, role, or auth method..."
+            style="flex: 1; padding: 10px; font-size: 16px;"
+          />
+          <button id="userSearchButton" class="btn btn-primary">Search</button>
+        </div>
+        <div class="action_btn">
+          <div class="back-btn-container">
+            <a href="/admin/dashboard" class="btn btn-back">Back</a>
+          </div>
+        </div>
         <table class="admin__table">
           <thead>
             <tr>

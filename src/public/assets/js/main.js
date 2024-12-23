@@ -178,8 +178,6 @@ function initJsToggle() {
   });
 }
 
-
-
 function submitSearchForm() {
   const searchInput = document.querySelector(".search__input");
 
@@ -326,7 +324,7 @@ headings.forEach(function (heading) {
     const rect = heading.getBoundingClientRect();
     const top = rect.top + window.scrollY; // Vị trí top trong tran
     const left = rect.left + window.scrollX; // Vị trí left trong trang
-    list.style.top = top - 20;
+    list.style.top = top - 40;
     list.style.left = left - 154;
     // In ra vị trí
 

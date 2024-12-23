@@ -4,6 +4,8 @@ const Article = require("../models/articleModel");
 const User = require("../models/userModel");
 const Tag = require("../models/tagModel");
 const Plan = require("../models/subscriptionPlanModel");
+const UserSubscriber = require("../models/subscriptionModel");
+const ContactForm = require("../models/contactFormModel");
 const { multipleMongooseToObject } = require("../../util/mongose");
 const { mongooseToObject } = require("../../util/mongose");
 const { category } = require("./guest.controller");
@@ -22,9 +24,11 @@ class AdministratorController {
         layout: "error",
       });
     }
+    const contacts = await ContactForm.find({});
     res.render("administrator/admin_dashboard", {
       layout: "admin",
       profile: mongooseToObject(profile),
+      contacts : multipleMongooseToObject(contacts),
     });
   }
 
@@ -557,11 +561,36 @@ class AdministratorController {
       res.status(500).send("An error occurred while deleting the Tag.");
     }
   }
+  async acceptToSubscriber(req, res) {
+    try {
+      const { subscriberId } = req.body;
+      await User.updateOne(
+        { _id: req.params.id },
+        {
+          role: "subscriber",
+        }
+      );
+      await UserSubscriber.updateOne(
+        { _id: subscriberId },
+        {
+          status: "subscriber",
+        }
+      );
+
+      res.redirect("/admin/extend-subscription");
+    } catch (error) {
+      res.status(500).send("An error occurred while updating the plan.");
+    }
+  }
   // Gia hạn subscription
   async extendSubscription(req, res) {
     if (!req.session.userId) {
       return res.redirect("/auth/register");
     }
+    const userSubscriber = await UserSubscriber.find({
+      status: "pending",
+    }).populate("user_id", "username image authMethod image email _id");
+
     const profile = await User.findById(req.session.userId);
     const plans = await Plan.find({});
     if (profile.role !== "administrator") {
@@ -573,8 +602,32 @@ class AdministratorController {
       layout: "admin",
       profile: mongooseToObject(profile),
       plans: multipleMongooseToObject(plans),
+      userSubscriber: multipleMongooseToObject(userSubscriber),
     });
   }
+  async acceptToSubscriber(req, res) {
+    try {
+      const { subscriberId } = req.body;
+      await User.updateOne(
+        { _id: req.params.id },
+        {
+          role: "subscriber",
+        }
+      );
+      await UserSubscriber.updateOne(
+        { _id: subscriberId },
+        {
+          status: "subscriber",
+        }
+      );
+
+      res.redirect("/admin/extend-subscription");
+    } catch (error) {
+      res.status(500).send("An error occurred while updating the plan.");
+    }
+  }
+  
+
   async manageShowAddPlans(req, res) {
     try {
       if (!req.session.userId) {
@@ -711,6 +764,27 @@ class AdministratorController {
       console.error("Error deleting Plan:", error);
       res.status(500).send("An error occurred while deleting the Plan.");
     }
+  }
+  async contact_us_delete(req, res) {
+    try {
+      const { id } = req.params;
+
+      if (!id) {
+        return res.status(400).send("Contact ID is required.");
+      }
+      const deletedContactForm = await ContactForm.findByIdAndDelete(id);
+      // Kiểm tra xem có danh mục nào bị xóa không
+      if (!deletedContactForm) {
+        return res.status(404).send("ContactForm not found.");
+      }
+
+      // Trả về thành công
+      res.send({ success: true });
+    } catch (error) {
+      console.error("Error deleting ContactForm:", error);
+      res.status(500).send("An error occurred while deleting the ContactForm.");
+    }
+    res.redirect("/admin/dashboard"); // Hoặc alert từ phía client
   }
   async manageEditCategories(req, res) {
     try {

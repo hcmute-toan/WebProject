@@ -32,9 +32,23 @@
       </div>
       <div class="col-9">
         <h1 class="admin__heading"> Manage Categories</h1>
+        <div
+          style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;"
+        >
+          <input
+            type="text"
+            id="categorySearch"
+            placeholder="Search categories by name or parent category..."
+            style="flex: 1; padding: 10px; font-size: 16px;"
+          />
+          <button
+            id="categorySearchButton"
+            class="btn btn-primary"
+          >Search</button>
+        </div>
         <div class="action_btn">
           <div class="back-btn-container">
-            <a href="/" class="btn btn-back">Back</a>
+            <a href="/admin/dashboard" class="btn btn-back">Back</a>
           </div>
           <div class="add-btn-container">
             <a href="/admin/manageAddCategories" class="btn btn-add">Add

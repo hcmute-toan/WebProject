@@ -649,8 +649,8 @@ class GuestController {
       await newSubscription.save();
 
       // Cập nhật vai trò thành subscriber
-      profile.role = "subscriber";
-      await profile.save();
+      // profile.role = "subscriber";
+      // await profile.save();
 
       console.log("Subscription updated successfully");
       res.redirect("vip_registration"); // Hoặc alert từ phía client

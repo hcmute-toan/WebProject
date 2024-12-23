@@ -32,14 +32,26 @@
       </div>
       <div class="col-9">
         <h1 class="admin__heading"> Manage Articles</h1>
-        <h1>Manage Articles</h1>
-        <input type="text" placeholder="Search articles..." id="search" />
         <div
-          class="add-btn-container"
-          style="display: flex; justify-content : flex-end"
+          style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;"
         >
-          <a href="/admin/manage-add-article" class="btn btn-add">Add Article</a>
+          <input
+            type="text"
+            placeholder="Search articles..."
+            id="search"
+            style="flex: 1;"
+          />
+          <button id="searchButton" class="btn btn-primary">Search</button>
         </div>
+        <div class="action_btn">
+          <div class="back-btn-container">
+            <a href="/admin/dashboard" class="btn btn-back">Back</a>
+          </div>
+          <div class="add-btn-container">
+            <a href="/admin/manage-add-article" class="btn btn-add">Add Article</a>
+          </div>
+        </div>
+
         <table class="admin__table">
           <thead>
             <tr>

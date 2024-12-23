@@ -32,9 +32,25 @@
       </div>
       <div class="col-9">
         <h1 class="admin__heading"> Manage Tag</h1>
+        <div
+          class="action_btn"
+          style="display: flex; justify-content: space-between; align-items: center;"
+        >
+          <div>
+            <input
+              type="text"
+              id="tagSearch"
+              placeholder="Search tags..."
+              class="form-control"
+              style="width: 300px; display: inline-block;"
+            />
+            <button id="tagSearchButton" class="btn btn-primary">Search</button>
+          </div>
+          <a href="/admin/manage-add-tags" class="btn btn-add">Add Tag</a>
+        </div>
         <div class="action_btn">
           <div class="back-btn-container">
-            <a href="/admin/manage-tags" class="btn btn-back">Back</a>
+            <a href="/admin/dashboard" class="btn btn-back">Back</a>
           </div>
           <div class="add-btn-container">
             <a href="/admin/manage-add-tags" class="btn btn-add">Add Tags</a>

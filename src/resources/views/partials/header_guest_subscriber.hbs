@@ -2,6 +2,44 @@
     <div class="container">
         <div class="header__top">
             <div class="row">
+                      <nav id="new-navbar" class="new-nav-header d-none d-md-flex col-xl-1 col-lg-1" style="margin-right : 30px">
+        <button id="toggle-nav" class="new-nav-header__toggle-btn">
+            <img src="/assets/icons/navbar.svg" style="width: 40px; height: 40px" alt="Toggle Menu" />
+        </button>
+
+        <div id="new-navbar-overlay" class="new-nav-header__overlay">
+            <button id="close-overlay" class="new-nav-header__close-btn" style="font-size: 6rem;">&times;</button>
+       
+                <div style="display: flex; align-items :center ; gap : 10px ; justify-content :space-between; margin-top :10px">
+                      <div class="nav-header__home">
+                        <a href="/logined" class="">
+                        <img src="/assets/icons/home.svg" alt="" class="nav-header__home--img">
+                        </a>
+                    </div>
+                     <div class="nav-header__contact-us">
+                        <a href="/contact_us" class="">
+                            <img src="/assets/icons/contact.svg" alt="" class="nav-header__contact-us-img">
+                        </a>
+                    </div>
+                </div>
+            <div class="new-nav-header__category">
+                <ul class="new-nav-header__category-list">
+                    {{#each categoriesWithChildren}}
+                        <li class="new-nav-header__category-item">
+                            <h1 class="new-nav-header__category-item-name">{{this.parentCategory.name}}</h1>
+                            <ul class="new-nav-item">
+                                {{#each this.childCategories}}
+                                    <li>
+                                        <a href="/search/category/{{this._id}}" class="new-nav-header__link">{{this.name}}</a>
+                                    </li>
+                                {{/each}}
+                            </ul>
+                        </li>
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+                 </nav>
                 <div class="col-xl-2 col-lg-4 col-sm-6 d-flex justify-content-center mt-3">
                         <div class="des-current-day">
                             <div class="weather">
@@ -91,3 +129,4 @@
         </nav>
     </div>
 </div>
+
