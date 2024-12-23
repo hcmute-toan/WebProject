@@ -1,0 +1,20 @@
+<div class="container reset_password">
+  <form action="/auth/change_password" method="POST">
+    <div class="row w-100">
+      <h1 class="rsp_title">Forgot Password</h1>
+     
+      <div class="enter_otp">
+        <h2 for="rsp_otp" class="rsp_title_label">OTP</h2>
+        <input
+          type="text"
+          name="otp"
+          id="rsp_otp"
+          placeholder="Enter OTP"
+          class="input_otp"
+        />
+      </div>
+       <h2 class="notice_otp">OTP code has been sent to your gmail</h2>
+      <button type="submit" class="retrieve_password">Retrieve Password</button>
+    </div>
+  </form>
+</div>

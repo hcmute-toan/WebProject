@@ -1,0 +1,175 @@
+<main class="profile">
+  <div class="container">
+    <div class="checkout-container">
+      <div class="search-bar d-none d-md-flex">
+        <input
+          type="text"
+          name=""
+          id=""
+          placeholder="Search for item"
+          class="search-bar__input"
+        />
+        <button class="search-bar__submit">
+          <img
+            src="/assets/icon/search.svg"
+            alt=""
+            class="search-bar__icon icon"
+          />
+        </button>
+      </div>
+    </div>
+    <!-- checkout content -->
+    <div class="profile-content">
+      <div class="row gy-xl-3">
+        <div class="col-3 col-xl-4 col-lg-5 col-md-12">
+          <aside class="profile__sidebar">
+            <div class="profile-user">
+
+              <img
+                src="{{profile.image}}"
+                alt=""
+                class="profile-user__avatar"
+              />
+              <h1 class="profile-user__name">{{profile.username}}</h1>
+              <p class="profile-user__desc">Registered:
+                {{profile.created_at}}</p>
+            </div>
+            <!-- profile menu 1 -->
+            <div class="profile-menu">
+              <h3 class="profile-menu__title">Manage Account</h3>
+              <a href="/admin/dashboard" class="profile-menu__item">
+                <a href="/admin/dashboard" class="profile-menu__link">
+                  <span class="profile-menu__icon">
+                    <img
+                      src="/assets/icons/admin.svg"
+                      alt=""
+                      class="icon profile-menu__icon"
+                    />
+                    <span class="profile-menu__span">
+                      Admin(Only use by admin)
+                    </span>
+                  </span>
+                </a>
+              </a>
+              <ul class="profile-menu__list">
+                <li class="profile-menu__item">
+                  <a href="/profile/edit" class="profile-menu__link">
+                    <span class="profile-menu__icon">
+                      <img
+                        src="/assets/icons/profile.svg"
+                        alt=""
+                        class="icon"
+                        style="width: 25px; height : 25px ; object-fit: cover"
+                      />
+                    </span>
+                    Update Personal info
+                  </a>
+                </li>
+                <li class="profile-menu__item">
+                  <a href="/contact_us " class="profile-menu__link">
+                    <span class="profile-menu__icon">
+                      <img
+                        src="/assets/icons/private.svg"
+                        alt=""
+                        class="icon"
+                        style="width: 25px; height : 25px ; object-fit: cover"
+                      />
+                    </span>
+                    Communications & privacy
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <!-- profile menu 2 -->
+
+            <!-- profile menu 4 -->
+            <div class="profile-menu">
+              <h3 class="profile-menu__title">Customer Service</h3>
+              <ul class="profile-menu__list">
+                <li class="profile-menu__item">
+                  <a href="#! " class="profile-menu__link">
+                    <span class="profile-menu__icon">
+                      <img src="/assets/icon/help.svg" alt="" class="icon" />
+                    </span>
+                    Help
+                  </a>
+                </li>
+                <li class="profile-menu__item">
+                  <a href="#! " class="profile-menu__link">
+                    <span class="profile-menu__icon">
+                      <img src="/assets/icon/term.svg" alt="" class="icon" />
+                    </span>
+                    Terms of Use
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+        <div class="col-9 col-xl-8 col-lg-7 col-md-12">
+          <div class="cart-info">
+            <div class="row gy-3">
+              <div class="col-12">
+                <h2 class="cart-info__heading">Account info</h2>
+                <p class="cart-info__desc profile__desc">
+                  Contact information and password
+                </p>
+                <div class="row gy-md-2 row-cols-2 row-cols-lg-1">
+                  <div class="col">
+                    <a href="/profile/edit">
+                      <article class="account-info">
+                        <div class="account-info__icon">
+                          <img
+                            src="/assets/icons/mess.svg"
+                            alt=""
+                            class="icon"
+                            style="width:40px ; height:40px"
+                          />
+                        </div>
+                        <div>
+                          <h3 class="account-info__title">Email Address</h3>
+                          <p class="account-info__desc">
+                            {{profile.email}}
+                          </p>
+                        </div>
+                      </article>
+                    </a>
+                  </div>
+                  <div class="col">
+                    <article class="account-info">
+                      <div class="account-info__icon">
+                        <img
+                          src="/assets/icons/role.svg"
+                          alt=""
+                          class="icon"
+                          style="width:40px ; height:40px"
+                        />
+                      </div>
+                      <div class="account-info_task">
+                        <div class="account_info_icon_title">
+                          <h3 class="account-info__title">ROLE</h3>
+                          {{profile.role}}
+                        </div>
+                        <ul class="list_task">
+                          <a href="/editor/dashboard">
+                            <li>Editor</li>
+                          </a>
+                          <a href="/writer/dashboard">
+                            <li>Writer</li>
+                          </a>
+                          <a href="/admin/dashboard">
+                            <li>Admin</li>
+                          </a>
+                        </ul>
+                      </div>
+                    </article>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

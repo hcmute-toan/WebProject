@@ -1,0 +1,225 @@
+<div class="container">
+  <div class="row">
+    <div class="col-9">
+      <div class="article-container">
+        {{#if (eq article.type "pre")}}
+        <button id="download-btn" class="btn btn-primary mt-3">Download PDF</button>
+        {{/if}}
+        <h1 class="article-header">{{article.title}}</h1>
+
+        <div class="article-metadata">
+          <span class="article-author">{{article.author_id.username}}</span>
+          |
+          <span class="article-date">Published on:
+            {{article.Release_at}}</span>
+        </div>
+        <div class="article-metadata">
+          <span class="article-author">Category:
+            <a
+              href="/search/category/{{article.category_id._id}}"
+            >{{article.category_id.name}}</a></span>
+          |
+          <span class="article-date">Tag:
+            {{#each articleTags}}
+              <a href="/search/tag/{{this.tag_id._id}}">
+                {{this.tag_id.name}}
+              </a>
+            {{/each}}
+          </span>
+        </div>
+
+        <div class="article-summary">
+          <h2>Summary</h2>
+          <p>{{article.summary}}</p>
+        </div>
+
+        <div class="article-content">
+          <h2>Content</h2>
+          <p>{{{article.content}}}</p>
+        </div>
+      </div>
+
+      <div class="comment-section">
+        <h2>Comments <span id="comment-count">({{comments.length}})</span></h2>
+
+        <!-- Sorting Options -->
+        <div id="comment-sort-options">
+          <button id="sort-newest" class="sort-button">Newest</button>
+          <button id="sort-oldest" class="sort-button">Oldest</button>
+        </div>
+        <div class="comment-list">
+          {{#each commentAuthor}}
+            <form
+              action="/article/{{this._id}}/updateComment?_method=PUT"
+              method="POST"
+            >
+              <div class="comment">
+                <img
+                  src="{{this.user_id.image}}"
+                  class="avatar"
+                  alt="User Avatar"
+                />
+                <div class="comment-content">
+                  <div class="comment-header">
+                    <span class="username">{{this.user_id.username}}</span>
+                    <span
+                      class="comment-time"
+                      data-time="{{this.created_at}}"
+                    ></span>
+                    <button type="button" class="edit-comment-btn">Edit</button>
+                  </div>
+
+                  <p class="comment-text">{{this.content}}</p>
+                  <textarea
+                    class="edit-textarea"
+                    style="display:none;"
+                    name="content"
+                  >{{this.content}}</textarea>
+                  <input type="hidden" name="comment_id" value="{{this._id}}" />
+                  <button
+                    type="submit"
+                    style="display:none;"
+                    class="save-edit-btn"
+                    data-id="{{this._id}}"
+                  >Save</button>
+                </div>
+              </div>
+            </form>
+          {{/each}}
+          {{#each commentAll}}
+            <div class="comment">
+              <img
+                src="{{this.user_id.image}}"
+                class="avatar"
+                alt="User Avatar"
+              />
+              <div class="comment-content">
+                <div class="comment-header">
+                  <span class="username">{{this.user_id.username}}</span>
+                  <span
+                    class="comment-time"
+                    data-time="{{this.created_at}}"
+                  >{{this.created_at}}</span>
+                  <!-- Lưu thời gian bình luận -->
+
+                  <!-- Kiểm tra xem người dùng có quyền chỉnh sửa không -->
+                  {{#if (eq this.user_id._id profile._id)}}
+                    <button class="edit-comment-btn">Edit</button>
+                  {{/if}}
+
+                  <!-- Nút chỉnh sửa -->
+                </div>
+                <p class="comment-text">{{this.content}}</p>
+                <textarea
+                  class="edit-textarea"
+                  style="display:none;"
+                ></textarea>
+                <!-- Textarea ẩn cho việc chỉnh sửa -->
+              </div>
+            </div>
+          {{/each}}
+
+          {{#each comments}}
+            <div class="comment">
+              <img
+                src="{{this.user_id.image}}"
+                class="avatar"
+                alt="User Avatar"
+              />
+              <div class="comment-content">
+                <div class="comment-header">
+                  <span class="username">{{this.user_id.username}}</span>
+                  <span
+                    class="comment-time"
+                    data-time="{{this.created_at}}"
+                  >{{this.created_at}}</span>
+                  <!-- Lưu thời gian bình luận -->
+
+                  <!-- Kiểm tra xem người dùng có quyền chỉnh sửa không -->
+                  {{#if (eq this.user_id._id profile._id)}}
+                    <button class="edit-comment-btn">Edit</button>
+                  {{/if}}
+
+                  <!-- Nút chỉnh sửa -->
+                </div>
+                <p class="comment-text">{{this.content}}</p>
+                <textarea
+                  class="edit-textarea"
+                  style="display:none;"
+                ></textarea>
+                <!-- Textarea ẩn cho việc chỉnh sửa -->
+              </div>
+            </div>
+          {{/each}}
+
+        </div>
+        <!-- Add Comment Form -->
+        <form
+          id="comment-form"
+          method="POST"
+          action="/articles/{{article._id}}/comments"
+        >
+          <div class="form-group">
+            <label for="comment-content">Add a Comment:</label>
+            <textarea
+              id="comment-content"
+              name="content"
+              class="form-control"
+              rows="3"
+              required
+            ></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Send Comment </button>
+        </form>
+      </div>
+      {{!  }}
+    </div>
+    <div class="col-3">
+      {{#each articles}}
+        <div class="col">
+          <div class="card">
+            <a href="/articleDetail/{{this._id}}">
+              <img
+                src="{{this.image_url}}"
+                class="card-img-top"
+                alt="Article Image"
+              />
+            </a>
+            <div class="card-body">
+              <a href="/articleDetail/{{this._id}}"><h5
+                  class="card-title"
+                >{{this.title}}</h5></a>
+              <p class="card-text"><strong>Categories:</strong>
+                {{this.category_id.name}}</p>
+              <p class="card-text"><strong>Date of Publication:</strong>
+                {{this.created_at}}</p>
+              <div class="d-flex align-items-center">
+                <img
+                  src="{{this.author_id.image}}"
+                  class="rounded-circle mr-2"
+                  alt="Profile Picture"
+                />
+                <p class="mb-0">{{this.author_id.username}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</div>
+{{!  }}
+<div id="login-modal" class="custom-login-modal" style="display: none;">
+  <div class="custom-login-modal-content">
+    <button id="close-modal" class="custom-login-modal-close">&times;</button>
+    <h2>You must log in to comment</h2>
+    <p>Please log in or register to post a comment.</p>
+    <div class="custom-login-modal-actions">
+      <a
+        href="/auth/register"
+        class="custom-login-modal-btn custom-login-modal-btn-primary"
+      >Log In</a>
+    </div>
+  </div>
+</div>
+

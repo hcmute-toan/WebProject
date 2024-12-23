@@ -1,0 +1,67 @@
+.social {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  &__icon {
+    padding: 10px;
+    border: 1px solid #000;
+    border-radius: 10px;
+    width: 40px;
+    height: 40px;
+    &:hover {
+      filter: brightness(1.2) saturate(1.5);
+    }
+  }
+  &__twitter {
+    transition:
+      transform 0.3s,
+      filter 0.3s;
+    &:hover {
+      transform: scale(1.1);
+      filter: brightness(0) saturate(100%) invert(34%) sepia(100%)
+        saturate(1000%) hue-rotate(200deg);
+    }
+  }
+  &__facebook {
+    transition:
+      transform 0.3s,
+      filter 0.3s;
+    &:hover {
+      transform: scale(1.1);
+      filter: brightness(0) saturate(100%) invert(20%) sepia(100%)
+        saturate(1000%) hue-rotate(200deg);
+    }
+  }
+  &__linkedin {
+    transition:
+      transform 0.3s,
+      filter 0.3s;
+    &:hover {
+      transform: scale(1.1);
+      filter: brightness(0) saturate(100%) invert(30%) sepia(100%)
+        saturate(1000%) hue-rotate(200deg);
+    }
+  }
+  &__instagram {
+    transition:
+      transform 0.3s,
+      filter 0.3s;
+    &:hover {
+      transform: scale(1.1);
+      filter: brightness(0) saturate(100%) invert(50%) sepia(100%)
+        saturate(1000%) hue-rotate(200deg);
+    }
+  }
+  &__youtube {
+    transition:
+      transform 0.3s,
+      filter 0.3s;
+    &:hover {
+      transform: scale(1.1);
+      filter: brightness(0) saturate(100%) invert(50%) sepia(100%)
+        saturate(1000%) hue-rotate(310deg);
+    }
+  }
+}

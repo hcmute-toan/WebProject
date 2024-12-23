@@ -1,0 +1,107 @@
+.header {
+  height: auto; // Thay đổi chiều cao để tự động điều chỉnh
+  background-color: #fff;
+  padding-bottom: 15px;
+
+  .container {
+    padding: 10px; // Thêm padding cho container
+
+    .header__top {
+      .row {
+        display: flex;
+        flex-wrap: wrap; // Cho phép các phần tử quấn lại
+
+        // Laptop (lg, xl, xxl)
+        @media (min-width: 992px) {
+          .col-weather {
+            flex: 0 0 16.66%; // 2 cột cho thời tiết và ngày
+          }
+          .col-logo {
+            flex: 0 0 8.33%; // 1 cột cho logo
+          }
+          .col-search {
+            flex: 0 0 33.33%; // 4 cột cho tìm kiếm
+          }
+          .col-social {
+            flex: 0 0 25%; // 3 cột cho mạng xã hội
+          }
+          .col-action {
+            flex: 0 0 16.66%; // 2 cột cho đăng nhập và đăng ký
+          }
+        }
+
+        // Tablet (md)
+        @media (max-width: 991px) {
+          .col-weather {
+            flex: 0 0 33.33%; // 4 cột cho thời tiết và ngày
+          }
+          .col-logo {
+            flex: 0 0 16.66%; // 2 cột cho logo
+          }
+          .col-search {
+            flex: 0 0 50%; // 6 cột cho tìm kiếm
+          }
+          .col-social {
+            flex: 0 0 100%; // 12 cột cho mạng xã hội
+          }
+          .col-action {
+            flex: 0 0 50%; // 6 cột cho mỗi nút đăng nhập và đăng ký
+          }
+        }
+
+        // Mobile (sm)
+        @media (max-width: 575px) {
+          .col-weather,
+          .col-logo {
+            flex: 0 0 50%; // 6 cột cho thời tiết, ngày và logo
+          }
+          .col-search {
+            flex: 0 0 100%; // 12 cột cho tìm kiếm
+          }
+          .col-social {
+            flex: 0 0 100%; // 12 cột cho mạng xã hội
+          }
+          .col-action {
+            flex: 0 0 50%; // 6 cột cho mỗi nút đăng nhập và đăng ký
+          }
+        }
+
+        // Ẩn navbar trên mobile
+        @media (max-width: 575px) {
+          .nav-header {
+            display: none; // Ẩn navbar
+          }
+          .icon-more {
+            display: block; // Hiện icon more
+          }
+        }
+      }
+    }
+
+    .weather {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+
+      &__img {
+        width: 27px;
+        height: 22px;
+      }
+
+      &__des {
+        font-size: 1.6rem;
+      }
+    }
+
+    .des-current-day {
+      align-items: center;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+  }
+}

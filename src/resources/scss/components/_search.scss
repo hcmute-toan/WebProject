@@ -1,0 +1,30 @@
+.search {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+
+  &__input {
+    font-size: 1.6rem;
+    padding: 10px;
+    height: 40px;
+    width: 100%;
+    border: 1px solid #000;
+    border-radius: 10px 0 0 10px;
+  }
+  &__icon {
+    width: 40px;
+    height: 40px;
+    background-color: #ccc !important;
+    padding: 10px;
+    border-radius: 0 10px 10px 0;
+    filter: invert(99%) sepia(4%) saturate(258%) hue-rotate(161deg)
+      brightness(114%) contrast(100%);
+  }
+}
+.form {
+  &__header {
+    width: 100%;
+  }
+}

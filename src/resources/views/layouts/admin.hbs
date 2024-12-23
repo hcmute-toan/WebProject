@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title> Rises | Admin Pages </title>
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      type="image/png"
+      href="/assets/favicon/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="/assets/favicon/favicon.ico" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/assets/favicon/apple-touch-icon.png"
+    />
+    <link rel="manifest" href="/assets/favicon/site.webmanifest" />
+    <!-- Font -->
+    <link rel="stylesheet" href="/assets/font/PlayfairDisplay/stylesheet.css" />
+    <link rel="stylesheet" href="/assets/font/SourceSansPro/stylesheet.css" />
+    <!--Icons-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Css -->
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    <!-- Script -->
+  </head>
+  <body>
+    <header>
+        {{> header_admin}}
+    </header>
+    {{{body}}}
+    {{!-- <script src="/assets/js/main.js"></script> --}}
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+<!-- Thêm Bootstrap JS (Bootstrap 4 yêu cầu jQuery) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/admin.js"></script>
+    <script src="/assets/js/writer.js"></script>
+    <script src="/assets/js/deleteModal.js"></script>
+    <script src="/assets/js/deleteTag.js"></script>
+    <script src="/assets/js/deletePlan.js"></script>
+    <script src="/assets/js/search.js"></script>
+
+    {{!-- ========================== --}}
+    {{!-- WYSIWYG(tinymce) --}}
+    <script src="https://cdn.tiny.cloud/1/n1fsscj8lbcxxcgx78k3ocrevlqr1a0t0mnrwhe5tc7x4tzu/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+    tinymce.init({
+    readonly: true,
+    selector: '.content',
+    plugins: [
+      // Core editing features
+      'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
+      // Your account includes a free trial of TinyMCE premium features
+      // Try the most popular premium features until Dec 29, 2024:
+      'checklist', 'mediaembed', 'casechange', 'export', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'editimage', 'advtemplate', 'ai', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown','importword', 'exportword', 'exportpdf'
+    ],
+    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+    tinycomments_mode: 'embedded',
+    tinycomments_author: 'Author name',
+    ai_request: (request, respondWith) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
+  });
+</script>
+{{!--  --}}
+  </body>
+</html>

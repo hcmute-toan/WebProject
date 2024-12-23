@@ -1,0 +1,29 @@
+.card-img-top,
+.rounded-circle {
+  object-fit: cover;
+}
+.card-img-top {
+  height: 200px;
+  width: 100%;
+  padding: 5px;
+}
+.rounded-circle {
+  width: 30px;
+  height: 30px;
+  margin-right: 5px;
+}
+.article_title--name {
+  font-weight: 800;
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+.scroll_article {
+  max-height: 400px;
+  overflow-x: auto;
+  overflow-y: auto;
+}
+.card-img {
+  width: 150px;
+  height: 150px;
+  padding: 10px;
+}

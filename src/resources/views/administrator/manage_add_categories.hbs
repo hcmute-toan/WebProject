@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="category-form-container">
+    <h2 class="category-form-header">Add New Category</h2>
+    <form
+      action="/admin/manageSaveCategories"
+      method="POST"
+      class="category-form"
+    >
+      <label for="name" class="category-form-label">Category Name:</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        required
+        class="category-form-input"
+      />
+
+      <label for="parent" class="category-form-label">Parent Category:</label>
+      <select id="parent" name="parent_id" class="category-form-select">
+        <option value="">Parent</option>
+        {{#each category}}
+          <option value="{{this._id}}">{{this.name}}</option>
+        {{/each}}
+      </select>
+
+      <button type="submit" class="category-form-button">Add Category</button>
+    </form>
+  </div>
+</div>

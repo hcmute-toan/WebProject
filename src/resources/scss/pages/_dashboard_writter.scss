@@ -1,0 +1,138 @@
+/* Bảng */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-family: Arial, sans-serif;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+  font-size: 1.8rem;
+}
+td {
+  vertical-align: middle !important; 
+  word-wrap: break-word;
+}
+
+th {
+  background-color: rgb(53, 53, 53);
+  color: white;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Ảnh bài viết */
+.article-img {
+  width: 80px;
+  height: auto;
+  border-radius: 5px;
+}
+
+/* Trạng thái */
+.status {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: white;
+}
+
+.status.draft {
+  background-color: gray;
+}
+
+.status.pending {
+  background-color: orange;
+}
+
+.status.published {
+  background-color: green;
+}
+
+.status.rejected {
+  background-color: red;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 5px 10px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 3px;
+  text-decoration: none;
+}
+
+.btn-edit {
+  background-color: #007bff;
+}
+
+.btn-delete {
+  background-color: #dc3545;
+}
+
+/* Style cho nút "Thêm bài viết" */
+.btn-add {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  background-color: rgb(89, 66, 50); /* Màu xanh lá */
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    transform 0.3s;
+}
+.btn-back {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  background-color:rgb(219, 142, 84); /* Màu xanh lá */
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    transform 0.3s;
+}
+
+.btn-add:hover {
+  background-color: #45a049; /* Màu khi hover */
+  transform: scale(1.05); /* Hiệu ứng phóng to nhẹ khi hover */
+}
+
+.btn-add:active {
+  background-color: #388e3c; /* Màu khi nhấn */
+}
+
+.btn-add:focus {
+  outline: none;
+}
+.action_btn {
+  display: flex;
+  justify-content: space-between;
+}
+.add-btn-container {
+  margin-top: 32px;
+  justify-content: flex-end; /* Đẩy nội dung sang phải */
+  margin-bottom: 15px; /* Thêm khoảng cách giữa nút và bảng */
+}
+.back-btn-container {
+  margin-top: 32px;
+  justify-content: flex-start; /* Đẩy nội dung sang phải */
+  margin-bottom: 15px; /* Thêm khoảng cách giữa nút và bảng */
+}
+

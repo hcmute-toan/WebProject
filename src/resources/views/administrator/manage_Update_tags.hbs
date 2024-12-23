@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="category-form-container">
+    <h2 class="category-form-header">Add New Category</h2>
+    <form
+      action="/admin/{{tag._id}}/manage-UpdateSave-tags?_method=PUT"
+      method="POST"
+      class="category-form"
+    >
+      <label for="name" class="category-form-label">Tag Name:</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        required
+        placeholder="Tag Name"
+        class="category-form-input"
+        value="{{tag.name}}"
+      />
+      <button type="submit" class="category-form-button">Update Tag</button>
+    </form>
+  </div>
+</div>

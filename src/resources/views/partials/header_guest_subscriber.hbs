@@ -1,0 +1,131 @@
+<div class="header">   
+    <div class="container">
+        <div class="header__top">
+            <div class="row">
+                      <nav id="new-navbar" class="new-nav-header d-none d-md-flex col-xl-1 col-lg-1" style="margin-right : 30px">
+        <button id="toggle-nav" class="new-nav-header__toggle-btn">
+            <img src="/assets/icons/navbar.svg" style="width: 40px; height: 40px" alt="Toggle Menu" />
+        </button>
+
+        <div id="new-navbar-overlay" class="new-nav-header__overlay">
+            <button id="close-overlay" class="new-nav-header__close-btn" style="font-size: 6rem;">&times;</button>
+       
+                <div style="display: flex; align-items :center ; gap : 10px ; justify-content :space-between; margin-top :10px">
+                      <div class="nav-header__home">
+                        <a href="/logined" class="">
+                        <img src="/assets/icons/home.svg" alt="" class="nav-header__home--img">
+                        </a>
+                    </div>
+                     <div class="nav-header__contact-us">
+                        <a href="/contact_us" class="">
+                            <img src="/assets/icons/contact.svg" alt="" class="nav-header__contact-us-img">
+                        </a>
+                    </div>
+                </div>
+            <div class="new-nav-header__category">
+                <ul class="new-nav-header__category-list">
+                    {{#each categoriesWithChildren}}
+                        <li class="new-nav-header__category-item">
+                            <h1 class="new-nav-header__category-item-name">{{this.parentCategory.name}}</h1>
+                            <ul class="new-nav-item">
+                                {{#each this.childCategories}}
+                                    <li>
+                                        <a href="/search/category/{{this._id}}" class="new-nav-header__link">{{this.name}}</a>
+                                    </li>
+                                {{/each}}
+                            </ul>
+                        </li>
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+                 </nav>
+                <div class="col-xl-2 col-lg-4 col-sm-6 d-flex justify-content-center mt-3">
+                        <div class="des-current-day">
+                            <div class="weather">
+                                <img src="https://static.mediacdn.vn/images/icon_weather/nhieu-may.png
+                " alt="cloud" class="weather__img"></img>
+                                <span class="weather__des">28°C Hồ Chí Minh</span>
+                            </div>
+                            <div class="day-month-year">
+                                <span class="day">Wednesday</span>
+                                <span class="date">20</span>
+                                <span>/</span>
+                                <span class="month">11</span>
+                                <span>/</span>
+                                <span class="year">2024</span>
+                            </div>
+                    </div>
+                </div>
+                <div class="col-xl-1 col-lg-2 col-sm-6 d-flex justify-content-center mt-3">
+                            <div class="logo">
+                                <img src="/assets/img/logo/rises.png" alt="" class="logo__img">
+                            </div>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-sm-12">
+                        <div class="search" >
+                        <form class="form__header" action="/search" method="get" id="searchForm">
+                                <input class="search__input" type="text" name="q" id="" placeholder="Search">
+                        </form>        
+                        <img src="/assets/icons/search.svg" class="search__icon"></img>
+                        </div>
+                </div>
+                <div class="col-xl-3 col-lg-12 col-sm-12 d-flex justify-content-center mt-3">
+                        <div class="social">
+                            <a href="">
+                                <img src="/assets/icons/twitter.svg" alt="twitter" title="Twitter" class="social__icon social__twitter">
+                            </a>
+                            <a href="">
+                                <img src="/assets/icons/facebook.svg" alt="facebook" title="Facebook" class="social__icon social__facebook">
+                            </a>
+                            <a href="">
+                                <img src="/assets/icons/linkedin.svg" alt="linkedin" title="Linkedin" class="social__icon social__linkedin">
+                            </a>
+                            <a href="">
+                                <img src="/assets/icons/instagram.svg" alt="instagram" title="Instagram" class="social__icon social__instagram">
+                            </a>
+                            <a href="">
+                                <img src="/assets/icons/youtube.svg" alt="youtube" title="Youtube" class="social__icon social__youtube">
+                            </a>
+                        </div>
+                </div>
+                <div class="col-xl-2 col-lg-12 col-sm-12 d-flex justify-content-center mt-3">
+                        <div class="action">
+                            {{!-- <a href="/auth/register" class="action__auth action__signup">Sign Up</a> --}}
+                            <a href="/auth/register" class="action__auth action__signin">Login</a>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <nav class="nav-header">
+                <div class="nav-header__home">
+                    <a href="/" class="">
+                    <img src="/assets/icons/home.svg" alt="" class="nav-header__home--img">
+                    </a>
+                </div>
+                <div class="nav-header__category">
+                    <button class="nav-control nav-previous"><</button>
+                    <ul class="nav-header__category-list">                    
+                        {{#each categoriesWithChildren}}
+                        <li class="nav-header__category-item">
+                            <h1 class="nav-header__category-item-name">{{this.parentCategory.name}}</h1>
+                            <ul class="nav-item">
+                                {{#each this.childCategories}}
+                                <li>
+                                    <a href="/search/category/{{this._id}}" class="nav-header__link">{{this.name}}</a>
+                                </li>
+                                {{/each}}
+                            </ul>
+                        </li>
+                        {{/each}}
+                    </ul>    
+                    <button class="nav-control nav-next">></button>          
+                </div>
+                <div class="nav-header__contact-us">
+                    <a href="/contact_us" class="">
+                        <img src="/assets/icons/contact.svg" alt="" class="nav-header__contact-us-img">
+                    </a>
+                </div>
+        </nav>
+    </div>
+</div>

@@ -1,0 +1,342 @@
+@use "../abstracts";
+.top-act {
+  white-space: nowrap;
+  margin-left: 60px;
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+
+  @include abstracts.screen(xxl) {
+    margin-left: 15px;
+  }
+  @include abstracts.screen(md) {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
+  &__user {
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 3;
+    &:hover .act-dropdown {
+      display: block;
+    }
+    margin-left: 40px;
+    @include abstracts.screen(lg) {
+      margin-left: 50px;
+    }
+    @include abstracts.screen(md) {
+      margin-left: 40px;
+    }
+  }
+  &__dropdown {
+    margin-top: 10px;
+    right: 0px !important;
+    &-arrow {
+      right: 15px !important;
+    }
+    &-inner {
+      width: min(285px, 100vw) !important;
+    }
+  }
+}
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.act-dropdown {
+  padding-top: 28px;
+  display: none;
+  position: absolute;
+  top: 34px;
+  right: -58px;
+  &__arrow {
+    filter: var(--act-dropdown-arrow-filter) !important;
+    position: absolute;
+    top: 8px;
+    right: 100px;
+    z-index: 99;
+    &-img {
+      background: transparent;
+      width: 30px;
+      height: 24px;
+    }
+  }
+  &__inner {
+    position: relative;
+    width: min(500px, 100vw);
+    border-radius: 20px;
+    padding: 30px;
+    z-index: 999;
+    background: var(--act-dropdown-bg);
+    box-shadow: 0px 40px 90px 20px var(--act-dropdown-shadow);
+  }
+  &-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  &__title {
+    color: var(--act-dropdown-title-color);
+    font-size: 2.2rem;
+    font-weight: 500;
+    line-height: 1.45;
+  }
+  &__view-all {
+    color: #0071dc;
+    font-size: 1.8rem;
+    font-weight: 400;
+    line-height: 1.45;
+  }
+  &__bottom {
+    margin-top: 20px;
+    border-width: 1px 0;
+    border-color: var(--act-dropdown-bottom-border);
+    border-style: solid;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  &__row {
+    display: flex;
+    justify-content: space-between;
+  }
+  &__label,
+  &__value {
+    color: var(--act-dropdown-title-color);
+    font-size: 1.8rem;
+    font-weight: 400;
+    line-height: 1.45;
+    &--bold {
+      color: var(--act-dropdown-bold);
+      font-weight: 500;
+    }
+  }
+  &__value {
+    text-align: left;
+  }
+
+  &__checkout {
+    margin-top: 20px;
+    display: flex;
+    justify-content: end;
+    &-btn {
+      width: 278px !important;
+    }
+  }
+  &__list {
+    padding-bottom: 10px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+  &__separate {
+    margin-top: 20px;
+    height: 1px;
+    background-color: var(--act-dropdown-bottom-border);
+  }
+}
+.user-menu {
+  z-index: 99;
+  &__icon {
+    width: 20px;
+    height: 20px;
+  }
+  &__top {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  &__avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+  }
+  &__name {
+    font-weight: 600;
+    font-size: 1.8rem;
+  }
+  &__username {
+    margin-top: 5px;
+  }
+  &__list {
+    margin-top: 10px;
+  }
+  &__link {
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    &--themes {
+      width: 200px !important;
+      height: 75px;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+  }
+
+  &__separate {
+    border-top: 1px solid var(--separate-color);
+  }
+}
+//////////////
+.new-nav-header {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .new-nav-header__toggle-btn {
+    display: block;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+  }
+
+  .new-nav-header__overlay {
+    position: fixed;
+    top: 0;
+    left: -80%; // Initially off-screen to the left
+    width: 80%; // Takes up 80% of the screen width
+    height: 100%;
+    // background: rgba(0, 0, 0, 0.8);
+    background: #ccc;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    transition: left 0.3s ease-in-out; // Smooth transition for sliding effect
+  }
+
+  .new-nav-header__overlay.show {
+    left: 0; // When shown, slide to the left of the screen
+  }
+
+  .new-nav-header__category-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 40px; // Adjust top margin if necessary
+  }
+
+  .new-nav-header__category-item {
+    margin-bottom: 10px;
+  }
+
+  .new-nav-header__link {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+    margin: 5px 0;
+    background-color: #ccc;
+    padding: 5px;
+    border-radius: 10px;
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  .new-nav-header__close-btn {
+    background: none;
+    color: white;
+    font-size: 30px;
+    border: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+  }
+
+  // Hide the navbar on larger screens
+  @media (min-width: 1200px) {
+    .new-nav-header__overlay {
+      display: none; // Navbar should not be shown on large screens
+    }
+    .new-nav-header__toggle-btn {
+      display: none; // Hide the toggle button on large screens
+    }
+  }
+}
+/* Style for the main navigation container */
+.new-nav-header__category-list {
+  list-style: none; // Remove default list styling
+  padding: 0; // Remove padding for alignment
+  margin: 0; // Remove margin to prevent extra space
+}
+
+.new-nav-header__category-item {
+  position: relative; // Required for positioning child dropdowns
+  margin-bottom: 10px; // Space between items
+  padding: 10px;
+  border-radius: 5px; // Rounded corners for the items
+  background-color: #333; // Dark background color for each item
+  color: #fff; // White text color for contrast
+  transition: background-color 0.3s ease; // Smooth background transition on hover
+}
+
+.new-nav-header__category-item:hover {
+  background-color: #444; // Slightly lighter background on hover
+}
+
+/* Style for parent item name */
+.new-nav-header__category-item-name {
+  font-size: 18px; // Increase font size for better visibility
+  font-weight: bold; // Make the category name bold
+  margin: 0;
+  padding: 5px 0;
+}
+
+/* Style for the child categories (initially hidden) */
+.new-nav-item {
+  list-style: none; // Remove default list styling
+  padding-left: 20px; // Indentation for child items
+  display: none; // Initially hide the child items
+  margin: 0; // Remove margin for consistency
+}
+
+.new-nav-header__category-item.open .new-nav-item {
+  display: block; // Display child items when parent is open
+}
+
+/* Style for links inside the child category */
+.new-nav-header__link {
+  color: #ddd; // Light gray color for the links
+  text-decoration: none; // Remove underline for cleaner look
+  font-size: 16px; // Set the font size for links
+  padding: 8px 0; // Padding for better spacing between links
+  display: block; // Make each link a block element for easier clicking
+  transition: color 0.3s ease; // Smooth transition for color change
+}
+
+.new-nav-header__link:hover {
+  color: #ff6347; // Change color on hover for better interaction
+  text-decoration: underline; // Optional: Add underline on hover for clarity
+}
+
+/* Toggle button to open/close the menu */
+.new-nav-header__toggle-btn {
+  background: none; // No background for the toggle button
+  border: none; // Remove border
+  padding: 10px; // Add padding for clickability
+  cursor: pointer; // Change cursor to pointer on hover
+}
+
+/* Dropdown arrow for indicating expandable parent items */
+.new-nav-header__category-item-name::after {
+  content: " ▼"; // Add dropdown arrow to indicate expandability
+  margin-left: 10px; // Space between text and arrow
+  font-size: 12px; // Smaller arrow size
+  transition: transform 0.3s ease; // Smooth transition for rotation
+}
+
+.new-nav-header__category-item.open .new-nav-header__category-item-name::after {
+  transform: rotate(180deg); // Rotate arrow when the item is open
+}

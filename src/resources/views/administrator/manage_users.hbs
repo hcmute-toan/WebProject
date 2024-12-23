@@ -1,0 +1,115 @@
+<div class="container mt-5">
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-3">
+        <ul class="admin__list">
+          <li class="admin__item">
+            <a href="/admin/dashboard"><span>
+                Dashboard</span></a>
+          </li>
+          <li class="admin__item">
+            <a href="/admin/manage-articles"><span>
+                Manage Articles</span></a>
+          </li>
+          <li class="admin__item active">
+            <a href="/admin/manage-users"><span>
+                Manage Users</span></a>
+          </li>
+          <li class="admin__item">
+            <a href="/admin/manage-categories"><span>
+                Manage Categories</span></a>
+          </li>
+          <li class="admin__item">
+            <a href="/admin/manage-tags"><span>
+                Manage Tags</span></a>
+          </li>
+          <li class="admin__item">
+            <a href="/admin/extend-subscription"><span>
+                Extend Subscription</span></a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-9">
+        <h1 class="admin__heading">Manage Users</h1>
+        <div
+          style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;"
+        >
+          <input
+            type="text"
+            id="userSearch"
+            placeholder="Search users by username, role, or auth method..."
+            style="flex: 1; padding: 10px; font-size: 16px;"
+          />
+          <button id="userSearchButton" class="btn btn-primary">Search</button>
+        </div>
+        <table class="admin__table">
+          <thead>
+            <tr>
+              <th>ID
+                <button
+                  class="sort-btn"
+                  data-sort="id"
+                  data-order="asc"
+                >▲</button>
+                <button
+                  class="sort-btn"
+                  data-sort="id"
+                  data-order="desc"
+                >▼</button>
+              </th>
+              <th>
+                Avatar
+              </th>
+              <th>Username
+                <button
+                  class="sort-btn"
+                  data-sort="username"
+                  data-order="asc"
+                >▲</button>
+                <button
+                  class="sort-btn"
+                  data-sort="username"
+                  data-order="desc"
+                >▼</button>
+              </th>
+              <th>Auth Method</th>
+              <th>Role
+                <button
+                  class="sort-btn"
+                  data-sort="role"
+                  data-order="asc"
+                >▲</button>
+                <button
+                  class="sort-btn"
+                  data-sort="role"
+                  data-order="desc"
+                >▼</button>
+              </th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#if user.length}}
+              {{#each user}}
+                <tr>
+                  <td>{{increment @index}}</td>
+                  <td><img src="{{this.image}}" class="avatar" alt="" /></td>
+                  <td>{{this.username}}</td>
+                  <td>{{this.authMethod}}</td>
+                  <td>{{this.role}}</td>
+                  <td>
+                    <a
+                      href="/admin/{{this._id}}/manage-show-users"
+                      class="btn btn-add"
+                    >Change Role</a>
+                  </td>
+                </tr>
+              {{/each}}
+            {{/if}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

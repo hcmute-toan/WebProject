@@ -1,0 +1,131 @@
+<div class="container">
+  <div class="cart-info">
+    <div class="row gy-3">
+      <div class="col-12">
+        <form
+          action="/admin/{{user._id}}/manage-update-users?_method=PUT"
+          method="POST"
+        >
+          <div class="form__row">
+
+            <div
+              class="form__group"
+              style="margin: 0 auto; display:block ; text-align : center"
+            >
+              <img
+                src="{{user.image}}"
+                style="width: 80px; height:80px"
+                class="avatar"
+                alt=""
+              />
+              <div class="form__error" style="display: none;">Email address is
+                required</div>
+            </div>
+          </div>
+          <div class="form__row">
+            <div class="form__group">
+              <label
+                for="Auth Method"
+                class="form__label form__label--small"
+              >Full name</label>
+              <div class="form__text-input admin__form-show">
+                <input
+                  type="text"
+                  id="name"
+                  placeholder="Name"
+                  class="form__input"
+                  value="{{user.username}}"
+                  required
+                  readonly
+                />
+                <img
+                  src="/assets/icon/font-error.svg"
+                  alt=""
+                  class="form__input-icon--error"
+                />
+              </div>
+            </div>
+            <div class="form__group">
+              <label
+                for="Email address"
+                class="form__label form__label--small"
+              >Email address</label>
+              <div class="form__text-input admin__form-show">
+                <input
+                  type="email"
+                  id="email"
+                  placeholder="Email address"
+                  class="form__input"
+                  required
+                  value="{{user.email}}"
+                  readonly
+                />
+
+                <img
+                  src="/assets/icon/font-error.svg"
+                  alt=""
+                  class="form__input-icon--error"
+                />
+              </div>
+              <div class="form__error" style="display: none;">Email address is
+                required</div>
+            </div>
+          </div>
+          <div class="form__row">
+            <div class="form__group">
+              <label
+                for="Auth Method"
+                class="form__label form__label--small"
+              >Auth Method</label>
+              <div class="form__text-input admin__form-show">
+                <input
+                  type="text"
+                  id="Auth Method"
+                  placeholder="Auth Method"
+                  class="form__input"
+                  value="{{user.authMethod}}"
+                  required
+                  readonly
+                />
+                <img
+                  src="/assets/icon/font-error.svg"
+                  alt=""
+                  class="form__input-icon--error"
+                />
+              </div>
+            </div>
+            <div class="form__group">
+              <label for="role" class="form__label form__label--small">Change
+                Role</label>
+
+              <select id="role" name="role" class="form-control1">
+                <option
+                  value="{{user.role}}"
+                  selected
+                  hidden
+                >{{user.role}}</option>
+                <option value="guest">Guest</option>
+                <option value="subscriber">Subscriber</option>
+                <option value="writer">Writer</option>
+                <option value="editor">Editor</option>
+                <option value="administrator">Administrator</option>
+              </select>
+            </div>
+          </div>
+          <!-- form row 2 -->
+          <div class="form__group">
+            <div class="form-card__bottom">
+              <a
+                href="/admin/manage-users"
+                class="btn btn-add btn-cancel"
+              >Cancel</a>
+              <button type="submit" class="btn btn-add btn--text">
+                Save
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
