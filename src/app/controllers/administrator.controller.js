@@ -13,7 +13,7 @@ class AdministratorController {
     }
     const profile = await User.findById(req.session.userId);
     if (profile.role !== "administrator") {
-      return res.render("errors/not_authorized",{ layout: "error" });
+      return res.render("errors/not_authorized", { layout: "error" });
     }
     res.render("administrator/admin_dashboard", { layout: "admin" });
   }

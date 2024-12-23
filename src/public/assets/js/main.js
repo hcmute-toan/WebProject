@@ -178,19 +178,16 @@ function initJsToggle() {
   });
 }
 
-
-
 function submitSearchForm() {
   const searchInput = document.querySelector(".search__input");
 
   // Kiểm tra nếu ô input không rỗng
   if (searchInput.value.trim() !== "") {
-    document.getElementById('searchForm').submit();  // Gửi form
+    document.getElementById("searchForm").submit(); // Gửi form
   } else {
-    alert("Please enter a search term.");  // Hiển thị thông báo nếu ô input trống
+    alert("Please enter a search term."); // Hiển thị thông báo nếu ô input trống
   }
 }
-
 
 // window.addEventListener("template-loaded", () => {
 //   const links = $$(".js-dropdown-list > li > a");

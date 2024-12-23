@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Category = require("../models/CategoryModel");
 const Article = require("../models/articleModel");
+const Comment = require("../models/commentModel");
 const User = require("../models/userModel");
 const ArticleTag = require("../models/articleTagModel");
 const Tag = require("../models/tagModel");
@@ -59,6 +60,17 @@ class GuestController {
       .populate("category_id", "name")
       .populate("author_id");
     const profile = await User.findById(req.session.userId);
+    const comments = await Comment.find({ article_id: req.params.id }).populate(
+      "user_id",
+      "username image _id"
+    );
+
+    const filteredCommentAuthor = comments.filter((item) =>
+      item.user_id._id.equals(req.session.userId)
+    );
+    const filteredCommentDiffAuthor = comments.filter(
+      (item) => !item.user_id._id.equals(req.session.userId)
+    );
     if (article.type === "none") {
       if (profile === null) {
         return res.render("guest/article", {
@@ -66,6 +78,7 @@ class GuestController {
           article: mongooseToObject(article),
           articles: multipleMongooseToObject(articles),
           articleTags: multipleMongooseToObject(articleTags),
+          comments: multipleMongooseToObject(comments),
         });
       }
       res.render("guest/article", {
@@ -74,6 +87,8 @@ class GuestController {
         articles: multipleMongooseToObject(articles),
         profile: mongooseToObject(profile),
         articleTags: multipleMongooseToObject(articleTags),
+        commentAuthor: multipleMongooseToObject(filteredCommentAuthor),
+        commentAll: multipleMongooseToObject(filteredCommentDiffAuthor),
       });
     } else {
       if (profile === null) {
@@ -85,9 +100,13 @@ class GuestController {
           articles: multipleMongooseToObject(articles),
           profile: mongooseToObject(profile),
           articleTags: multipleMongooseToObject(articleTags),
+          commentAuthor: multipleMongooseToObject(filteredCommentAuthor),
+          commentAll: multipleMongooseToObject(filteredCommentDiffAuthor),
         });
       } else {
-        return res.render("errors/not_authorized", { layout: "error" });
+        return res.render("errors/not_authorized", {
+          layout: "error",
+        });
       }
     }
   }
@@ -266,6 +285,53 @@ class GuestController {
 
   async vip_registration(req, res) {
     return res.render("guest/register_premium");
+  }
+
+  async commentArticle(req, res) {
+    if (!req.session.userId) {
+      return res
+        .status(401)
+        .json({ message: "You need to log in to comment." });
+    }
+    const profile = await User.findById(req.session.userId);
+    try {
+      // Nhận dữ liệu từ payload
+      const { content } = req.body;
+
+      const newComment = new Comment({
+        article_id: req.params.id,
+        user_id: profile._id,
+        content,
+      });
+
+      // Lưu vào cơ sở dữ liệu
+      await newComment.save();
+      res.redirect(`/articleDetail/${req.params.id}`);
+    } catch (error) {
+      console.error("Error creating category:", error.message);
+
+      // Kiểm tra lỗi nếu tên danh mục đã tồn tại
+      if (error.code === 11000) {
+        return res
+          .status(400)
+          .json({ message: "Category name already exists" });
+      }
+
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
+
+  async updateCommentArticle(req, res) {
+    try {
+      const { content, comment_id } = req.body;
+
+      const comment = await Comment.findById(req.params.id);
+
+      await Comment.updateOne({ _id: req.params.id }, { content: content });
+      res.redirect(`/articleDetail/${comment.article_id}`);
+    } catch (error) {
+      res.status(500).send("An error occurred while updating the category.");
+    }
   }
 }
 
